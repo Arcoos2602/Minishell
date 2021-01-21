@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/21 10:23:58 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/01/21 14:31:51 by tcordonn         ###   ########.fr       */
+/*   Created: 2021/01/21 14:11:46 by tcordonn          #+#    #+#             */
+/*   Updated: 2021/01/21 14:17:06 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
+#include "../libft/include/libft.h"
+#include "../includes/minishell.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <sys/wait.h>
-# include <sys/stat.h>
-# include <dirent.h>
-# include <signal.h>
-# include <unistd.h>
-# define BUFFER_SIZE 1096
-
-typedef struct	s_command
+void	get_stdin_line(t_command	*vars)
 {
-	char	*line;
-	char	**commands_tab;
-	int		command_nbr;
-}				t_command;
 
+}
 
-int		parser(t_command *vars);
-
-#endif
+int		parser(t_command *vars)
+{
+	get_stdin_line(vars);
+}

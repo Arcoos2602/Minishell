@@ -6,16 +6,17 @@
 #    By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/21 10:33:28 by tcordonn          #+#    #+#              #
-#    Updated: 2021/01/21 13:22:20 by tcordonn         ###   ########.fr        #
+#    Updated: 2021/01/21 14:13:54 by tcordonn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 HEAD = -I./includes/ -I./libft/include
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = #-Wall -Wextra -Werror
 
-SRCS = srcs/test.c \
+SRCS = srcs/main.c \
+		srcs/parser.c \
 		srcs/get_next_line.c
 
 OBJS = $(SRCS:.c=.o)
