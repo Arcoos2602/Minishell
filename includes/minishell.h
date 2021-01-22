@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:23:58 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/01/21 14:31:51 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/01/22 11:11:45 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,7 @@ typedef struct	s_command
 
 
 int		parser(t_command *vars);
+int		init_all(t_command	*vars);
+int		get_next_line(int fd, char **line);
 
 #endif

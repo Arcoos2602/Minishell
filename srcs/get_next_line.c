@@ -6,12 +6,12 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 14:49:55 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/01/07 10:53:33 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/01/22 10:47:22 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/Cub3D.h"
-#include "../Libft/includes/libft.h"
+#include "../includes/minishell.h"
+#include "../libft/include/libft.h"
 
 int		ft_struct(char **str, char **line)
 {
