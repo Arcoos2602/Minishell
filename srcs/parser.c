@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 14:11:46 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/01/22 12:23:05 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/01/22 15:30:30 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,22 @@ int		parse_command(char *line, char **commands_table, int command_nbr)
 	count_command(line, command_nbr);
 	if (command_nbr == 0)
 	{
-		printf("bash : %s: command not found\n", line);
+		printf("bash: %s: command not found\n", line);
 		return (1);
 	}
-	return (1);	
+	return (1);
 }
 
 int		parser(t_command *vars)
 {
 	get_next_line(1, &vars->line);
-	if (vars->line != NULL)
+	if (vars->line[0] != '\0')
 	{
-		parse_command(vars->line, vars->commands_tab, 
+		parse_command(vars->line, vars->commands_tab,
 				vars->command_nbr);
 		//parse_special_characters();
 	}
+	ft_putstr_fd("$ ", 1);
 	//exec();
-	ft_putchar_fd('$', 1);
 	return (1);
 }
