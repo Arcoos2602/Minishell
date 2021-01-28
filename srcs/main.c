@@ -6,14 +6,14 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/01/22 13:12:11 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/01/28 15:25:11 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/include/libft.h"
 #include "../includes/minishell.h"
 
-int		main(int	argc, char **argv)
+int		main(int	argc, char **argv, char **path)
 {
 	t_command	vars;
 	char		*line;

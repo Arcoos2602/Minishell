@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 14:11:46 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/01/22 15:30:30 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/01/26 15:37:16 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		parser(t_command *vars)
 	get_next_line(1, &vars->line);
 	if (vars->line[0] != '\0')
 	{
-		parse_command(vars->line, vars->commands_tab,
+		parse_command(vars->line, vars->commands_tab, // no check just parsing
 				vars->command_nbr);
 		//parse_special_characters();
 	}
