@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:23:58 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/01/22 11:11:45 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/01/29 14:17:28 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <dirent.h>
 # include <signal.h>
 # include <unistd.h>
+# include <sys/types.h>
+# include <fcntl.h>
 # define BUFFER_SIZE 1096
 
 typedef struct	s_command

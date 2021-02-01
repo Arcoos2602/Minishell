@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/28 14:59:22 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/01/29 14:53:09 by tcordonn         ###   ########.fr       */
+/*   Created: 2021/02/01 13:13:44 by tcordonn          #+#    #+#             */
+/*   Updated: 2021/02/01 13:58:34 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
+#include "../libft/include/libft.h"
 #include "../includes/minishell.h"
 
-int		main(int	argc, char **argv, char **envv)
+int		lexer(t_command *vars) // faire liste chainée
 {
-	int fd;
-	char *a;
-	DIR *d;
-	struct dirent *dir;
-	char *const tab[] = {"/bin/grep", "", "", NULL};
-//	fd = open("/bin", O_DIRECTORY, O_APPEND);
-	d = opendir("/bin");
-	while((dir = readdir(d)) != NULL)
-		printf("%s\n", dir->d_name);
-	execve(tab[0], tab, NULL);
-	//printf("%s\n", envv[11]);
+
 }
+
+
+
+
+/// 10+5=15
+/// 10 + 5 = 15
