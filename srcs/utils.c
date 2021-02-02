@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 11:23:32 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/02 11:30:27 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/02 13:34:09 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int		init(char **end, char const *str, char charset)
 	return (1);
 }
 
-char			**ft_split_command(char const *str, char charset)
+char			**ft_split_command(char const *str, char *charset)
 {
 	char	**end;
 	int		i;
@@ -79,9 +79,9 @@ char			**ft_split_command(char const *str, char charset)
 	while (str[i] != '\0')
 	{
 		b = 0;
-		while (str[i] != charset /*&& str[i] != '|'*/ && str[i] != '\0')
+		while (str[i] != charset && str[i] != '\0')
 			end[a][b++] = str[i++];
-		while (str[i] == charset /*&& str[i] != '|'*/ && str[i] != '\0')
+		while (str[i] == charset && str[i] != '\0')
 			i++;
 		end[a++][b] = '\0';
 	}
