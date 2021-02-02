@@ -48,7 +48,7 @@ int		lexer(t_main *vars)
 	else
 	{
 		count_commands(vars);
-		vars->lexer = ft_split_command(vars->line, ' ');
+		vars->lexer = ft_split_comm`and(vars->line, ' ');
 		print_tab(vars->lexer);
 	}
 	ft_putstr_fd("\n $", 1);
