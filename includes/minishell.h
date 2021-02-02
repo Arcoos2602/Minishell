@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:23:58 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/02 11:25:57 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/02 13:44:26 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,15 @@ typedef struct	s_main
 	int		command_nbr;
 }				t_main;
 
+typedef struct	s_bi_parser
+{
+	char		*value;
+	s_bi_parser	*left;
+	s_bi_parser	*rigth;
+}			t_bi_parser;
 
 int		lexer(t_main *vars);
-int		parser(t_main *vars);
+t_bi_parser	*parser(char *vars);
 int		init_all(t_main	*vars);
 char	**ft_split_command(char const *str, char charset);
 int		get_next_line(int fd, char **line);
