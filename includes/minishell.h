@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:23:58 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/01/29 14:17:28 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/02 11:25:57 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,18 @@
 # include <fcntl.h>
 # define BUFFER_SIZE 1096
 
-typedef struct	s_command
+typedef struct	s_main
 {
 	char	*line;
-	char	**commands_tab;
+	char	**lexer;
 	int		command_nbr;
-}				t_command;
+}				t_main;
 
 
-int		parser(t_command *vars);
-int		init_all(t_command	*vars);
+int		lexer(t_main *vars);
+int		parser(t_main *vars);
+int		init_all(t_main	*vars);
+char	**ft_split_command(char const *str, char charset);
 int		get_next_line(int fd, char **line);
 
 #endif

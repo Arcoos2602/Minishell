@@ -6,7 +6,7 @@
 #    By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/21 10:33:28 by tcordonn          #+#    #+#              #
-#    Updated: 2021/01/29 14:30:15 by tcordonn         ###   ########.fr        #
+#    Updated: 2021/02/02 11:29:49 by tcordonn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,10 +15,12 @@ HEAD = -I./includes/ -I./libft/include
 
 CFLAGS = #-Wall -Wextra -Werror
 
-SRCS =  srcs/test.c \
+SRCS =  srcs/main.c \
 		srcs/init.c \
 		srcs/get_next_line.c \
+		srcs/lexer.c \
 		srcs/parser.c \
+		srcs/utils.c \
 		srcs/exec.c 
 
 OBJS = $(SRCS:.c=.o)

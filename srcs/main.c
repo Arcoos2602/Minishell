@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/01 13:17:06 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/02 10:41:42 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int		main(int	argc, char **argv, char **path)
 {
-	t_command	vars;
+	t_main	vars;
 	char		*line;
 	(void)argc;
 	(void)argv;
@@ -26,7 +26,7 @@ int		main(int	argc, char **argv, char **path)
 	while (1) // boucle principale
 	{
 		lexer(&vars);
-		parser(&vars);
+		//parser(&vars);
 		free(vars.line);
 	}
 	return (1);
