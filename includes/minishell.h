@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:55:17 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/02 14:10:21 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/03 09:41:46 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct	s_bi_parser
 int				lexer(t_main *vars);
 t_bi_parser		*parser(char *vars);
 int				init_all(t_main	*vars);
-char			**ft_split_command(char const *str, char *charset);
+//char			**ft_split_command(char const *str, char *charset);
 int				get_next_line(int fd, char **line);
 
 #endif

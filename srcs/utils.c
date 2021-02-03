@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 11:23:32 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/02 14:47:39 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/03 10:09:55 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ static int		cpt(char const *str, char *charset)
 	while (str[i] != '\0')
 	{
 		while (ft_strncmp(&str[i], &charset[i], 1) && str[i] != '\0')
-		{}
+		{
+			i++;
+		}
 		/*while (str[i] == charset && str[i] != '\0')
 			i++;
 		if (str[i] != charset && str[i] != '\0')
@@ -32,14 +34,13 @@ static int		cpt(char const *str, char *charset)
 			while (str[i] != charset && str[i] != '\0')
 				i++;
 		}*/
-		i++;
 	}
 	return (cpt);
 }
 
 static int		init(char **end, char const *str, char *charset)
 {
-	int	b;
+	/*int	b;
 	int	a;
 	int	i;
 
@@ -57,7 +58,7 @@ static int		init(char **end, char const *str, char *charset)
 			return (0);
 		b++;
 	}
-	end[b] = 0;
+	end[b] = 0;*/
 	return (1);
 }
 
@@ -74,7 +75,7 @@ char			**ft_split_command(char const *str, char *charset)
 	tab = NULL;
 	/*if (!(str) || !(end = malloc(sizeof(char*) * (cpt(str, charset) + 1))))
 		return (0);*/
-	print("%d", cpt(str, charset));
+	printf("%d", cpt(str, charset));
 	/*if (!init(end, str, charset))
 		return (0);
 	while (str[i] == charset && str[i] != '\0')
@@ -89,10 +90,13 @@ char			**ft_split_command(char const *str, char *charset)
 		end[a++][b] = '\0';
 	}
 	return (end);*/
+	return (tab);
 }
 
 int		main()
 {
 	ft_split_command("ls| cat", " |"); // doit retourner [ls][|][cat]
+	return (1);
 }
-		
+
+/// separateurs à gérer :          ; ' "" > < >> $
