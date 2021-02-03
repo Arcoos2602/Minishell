@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:55:17 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/03 09:41:46 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/03 14:31:07 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <unistd.h>
 # include <sys/types.h>
 # include <fcntl.h>
+# include "../libft/include/libft.h"
 # define BUFFER_SIZE 1096
 
 typedef struct	s_main

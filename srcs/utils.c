@@ -6,14 +6,21 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 11:23:32 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/03 10:09:55 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/03 15:53:54 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/include/libft.h"
 #include "../includes/minishell.h"
 
-static int		cpt(char const *str, char *charset)
+int		no_separators(const char *str, char c) // str to check >>
+{
+	if (c == '|' || c == '>' || c == '<')
+		return (0);
+	return (1);
+}
+
+static int		cpt(char const *str)
 {
 	int	i;
 	int	cpt;
@@ -22,47 +29,43 @@ static int		cpt(char const *str, char *charset)
 	cpt = 0;
 	while (str[i] != '\0')
 	{
-		while (ft_strncmp(&str[i], &charset[i], 1) && str[i] != '\0')
-		{
+		while (ft_iswhitespace(str[i++]))
+			;
+		while (ft_isalnum(str[i]) && no_separators(str, str[i])) // alnum temporaire
 			i++;
-		}
-		/*while (str[i] == charset && str[i] != '\0')
-			i++;
-		if (str[i] != charset && str[i] != '\0')
-		{
-			a++;
-			while (str[i] != charset && str[i] != '\0')
-				i++;
-		}*/
+		cpt++;
 	}
 	return (cpt);
 }
 
-static int		init(char **end, char const *str, char *charset)
+static int		init_tab(char **tab, char const *str)
 {
-	/*int	b;
+	int	b;
 	int	a;
 	int	i;
 
 	i = 0;
 	a = 0;
 	b = 0;
-	while (b < cpt(str, charset))
+	while (b < cpt(str))
 	{
 		a = 0;
-		while (str[i] == charset && str[i] != '\0')
-			i++;
-		while (str[i] != '\0' && str[i++] != charset)
+		while (ft_iswhitespace(str[i++]) && str[i] != '\0')
+			;
+		while (str[i] != '\0' && ft_isalnum(str[i]) && no_separators(str, str[i]))
+		{
 			a++;
-		if (!(end[b] = (char*)malloc(sizeof(char) * (a + 1))))
+			i++;
+		}
+		if (!(tab[b] = (char*)malloc(sizeof(char) * (a + 1))))
 			return (0);
 		b++;
 	}
-	end[b] = 0;*/
+	tab[b] = NULL;
 	return (1);
 }
 
-char			**ft_split_command(char const *str, char *charset)
+char			**token(char const *str)
 {
 	char	**tab;
 	int		i;
@@ -73,30 +76,52 @@ char			**ft_split_command(char const *str, char *charset)
 	b = 0;
 	i = 0;
 	tab = NULL;
-	/*if (!(str) || !(end = malloc(sizeof(char*) * (cpt(str, charset) + 1))))
-		return (0);*/
-	printf("%d", cpt(str, charset));
-	/*if (!init(end, str, charset))
+	printf("%d\n", cpt(str) + 1);
+	if (!(str) || !(tab = malloc(sizeof(char*) * (cpt(str) + 1)))) // + 1 pour NULL
 		return (0);
-	while (str[i] == charset && str[i] != '\0')
+	init_tab(tab, str);
+	while (ft_iswhitespace(str[i++]) && str[i] != '\0')
 		i++;
 	while (str[i] != '\0')
 	{
 		b = 0;
-		while (str[i] != charset && str[i] != '\0')
-			end[a][b++] = str[i++];
-		while (str[i] == charset && str[i] != '\0')
-			i++;
-		end[a++][b] = '\0';
+		while (str[i] != '\0' && ft_isalnum(str[i]) && no_separators(str, str[i]))
+		{
+			tab[a][b] = str[i];
+			b++;
+			i++;	
+		}
+		tab[a++][b] = '\0';
 	}
-	return (end);*/
 	return (tab);
+}
+
+static void	print_tab(char **tab)
+{
+	int		x = 0;
+	int		y = 0;
+
+	while (tab[x] != NULL)
+	{
+		y = 0;
+		ft_putchar_fd('[', 1);
+		while (tab[x][y] != '\0')
+		{
+			ft_putchar_fd(tab[x][y], 1);
+			y++;
+		}
+		ft_putchar_fd(']', 1);
+		x++;
+	}
 }
 
 int		main()
 {
-	ft_split_command("ls| cat", " |"); // doit retourner [ls][|][cat]
+	char	**lexer;
+
+	lexer = token("ls | cat"); //doit retourner [ls][|][cat][|][NULL]
+	//print_tab(lexer);
 	return (1);
 }
 
-/// separateurs à gérer :          ; ' "" > < >> $
+/// separateurs à gérer :			; ' "" > < >> $

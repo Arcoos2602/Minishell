@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:13:44 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/02 13:41:16 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/03 15:34:57 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,6 @@ int		lexer(t_main *vars)
 
 	i = 0;
 	get_next_line(1, &vars->line);
-	if (vars->line[0] == '\0')
-		vars->lexer = NULL;
-	else
-	{
-		count_commands(vars);
-		vars->lexer = ft_split_command(vars->line, ' ');
-		print_tab(vars->lexer);
-	}
-	ft_putstr_fd("\n $", 1);
+	//if (vars->line[0]  == '\0')
 	return (1);
 }
