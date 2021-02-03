@@ -3,19 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbabeau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/21 14:11:46 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/02 10:41:42 by tcordonn         ###   ########.fr       */
+/*   Created: 2021/02/02 13:35:10 by gbabeau           #+#    #+#             */
+/*   Updated: 2021/02/03 10:22:18 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/include/libft.h"
 #include "../includes/minishell.h"
 
-int		parser(t_main *vars)
-{
 
-	//exec();
-	return (1);
+t_parser *parser(char **laxer)
+{
+	t_parser *parser;
+
+
+	return (parser);
 }
