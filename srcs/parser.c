@@ -6,7 +6,7 @@
 /*   By: gbabeau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:35:10 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/02/04 17:25:03 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/02/05 16:30:41 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int			nbr_words_exe(char **lexer, int *i)
 	}
 	return (nbr_words_exe);
 }
+
 void	*p_malloc(char ***tab, int size)
 {
 	if (0 == (tab = malloc(sizeof(char**) * size)))
@@ -36,10 +37,9 @@ int			words_command(char **lexer, int i)
 {
 	int	nbr_words;
 
-	nbr_words = 0;
+	nbr_words = 1;
 	while (lexer[i] != NULL && lexer[i++][0] != ';')
 	{
-		printf("%s\n",lexer[i]);
 		if (lexer[i - 1][0] == '|')
 			nbr_words++;
 	}
@@ -52,19 +52,21 @@ char		**malloc_tb_str(char **dst, char **in, int size)
 {
 	dst = malloc(sizeof(char*) * (size + 1));
 	dst[size] = NULL;
-	while (--size != 1)
+	printf("[%d]\n", size);
+	while (size-- > 0)
+	{
 		dst[size] = ft_strdup(in[size]);
+		printf("<<%s>>\n",dst[size]);
+	}
 	return (dst);
 }
 
 char		**init_command_pipe(char **command, char **lexer, int *i)
 {
 	int	size;
-	int	nbr_arg;
 
 	size = nbr_words_exe(lexer, i);
-	nbr_arg = size;
-	if (NULL == (command = malloc_tb_str(command, &lexer[*i], size)))
+	if (NULL == (command = malloc_tb_str(command, &lexer[*i - size], size)))
 	{
 		return (NULL);
 	}
@@ -82,47 +84,53 @@ int			init_inouput(char **lexer, char *inout)
 	size = ft_strlen(inout) + 1;
 	while (lexer[i] != NULL && lexer[i][0] != ';')
 	{
-		if (0 == ft_strncmp(inout, lexer[i], size))
+		if (0 == ft_strncmp(inout, lexer[i++], size))
 			nbr++;
 	}
 	return (nbr);
 }
 
-char		***init_input_2(char ***input, char **lexer, int nbr_input)
+char		**init_input_2(char **input, char **lexer, int nbr_input, int *i)
 {
-	int i;
-	int n;
 	int nbr_word;
 
-	i = 0;
-	n = 0;
-	while (i != nbr_input)
-	{
-		while (lexer[n][0] != '<')
-			n++;
-		nbr_word = nbr_words_exe(lexer, &n);
-		if (NULL == malloc_tb_str(input[i], &lexer[n], nbr_word))
+		while (lexer[*i][0] != '<')
+		*i += 1;
+		*i += 1;
+		nbr_word = nbr_words_exe(lexer, i);
+			*i -= nbr_word;
+			printf("{%d}\n", nbr_word);
+		if (NULL == (input = malloc_tb_str(input, &lexer[*i], nbr_word)))
 			return (NULL);
-	}
+		i++;
 	return (input);
 }
 
 char		***init_input(char ***input, char **lexer)
 {
 	int	nbr_input;
+	int i;
+	int n;
 
+	n = -1;
+	i = 0;
 	nbr_input = init_inouput(lexer, "<");
 	if (0 == (input = malloc(sizeof(char**) * (nbr_input + 1))))
 		return (NULL);
 	input[nbr_input] = NULL;
-	if (0 == init_input_2(input, lexer, nbr_input))
+	while (++n !=  nbr_input)
+	if (0 == (input[n] = init_input_2(input[n], &lexer[i], nbr_input, &i)))
 		return (NULL);
+	printf("%p \n", input[0]);
 	return (input);
 }
 
 char		**init_output_3(char **output_1, char **output_2, char **lexer)
 {
-	if (NULL == malloc_tb_str(output_1, lexer, nbr_words_exe(lexer, 0)))
+	int i;
+
+	i = 0;
+	if (NULL == (output_1 = malloc_tb_str(output_1, lexer, nbr_words_exe(lexer, &i))))
 		return (NULL);
 	output_2 = NULL;
 	return (output_1);
@@ -135,18 +143,28 @@ void		*init_output_2(char ***output_s, char ***output_d,
 	int n;
 
 	n = 0;
-	i = 0;
-	while (i != nbr)
+	i = -1;
+	printf("|%d|\n", nbr);
+	while (++i != nbr)
 	{
+	printf("|%d|\n", i);
 		while (lexer[n][0] != '>')
 			n++;
-		if (lexer[n][1] == '\0')
+		if (lexer[n++][1] == '\0')
 		{
-			if (0 == init_output_3(output_s[i], output_d[i], &lexer[n]))
+			if (0 ==  (output_s[i] = init_output_3(output_s[i], output_d[i], &lexer[n])))
 				return (NULL);
+			else
+				output_d[i] = NULL;
 		}
-		else if (0 == init_output_3(output_d[i], output_s[i], &lexer[n]))
+		else if (0 == (output_d[i] = init_output_3(output_d[i], output_s[i], &lexer[n])))
 			return (NULL);
+		else
+				output_s[i] = NULL;
+		if (output_s[i] == NULL)
+			printf("%s\n",output_d[i][0]);
+		else
+			printf("%s\n",output_s[i][0]);
 	}
 	return (output_s);
 }
@@ -155,22 +173,28 @@ t_parser	*init_output(t_parser *new, char **lexer)
 {
 	int	nbr;
 
-	nbr = init_inouput(lexer, ">>") + init_inouput(lexer, ">>");
+	nbr = init_inouput(lexer, ">>") + init_inouput(lexer, ">");
+	printf("%d\n", nbr);
 	new->output_s = malloc(sizeof(char**) * (nbr + 1));
 	new->output_d = malloc(sizeof(char**) * (nbr + 1));
 	new->output_s[nbr] = NULL;
 	new->output_d[nbr] = NULL;
 	if (NULL == init_output_2(new->output_s, new->output_d, lexer, nbr))
 		return (NULL);
+
 	return (new);
 }
 
 t_parser	*init_put(t_parser *new, char **lexer, int *i)
 {
-	if (NULL == init_input(new->input, &lexer[*i]))
+	int deb;
+
+	deb = *i -1;
+	if (NULL == ( new->input = init_input(new->input, &lexer[deb])))
 		return (NULL);
-	if (NULL == init_output(new, &lexer[*i]))
+	if (NULL == init_output(new, &lexer[deb]))
 		return (NULL);
+	printf("%p", new->output_s[0]);
 	return (new);
 }
 
@@ -181,13 +205,14 @@ t_parser	*init_new(t_parser *new, char **lexer, int *i)
 	
 	pipe = -1;
 	*i = 0;
-	new->command = p_malloc(new->command, words_command(lexer, *i) + 1);
-	while (++pipe == nbr_words)
-		if (NULL == init_command_pipe(new->command[pipe], lexer, i))
-			{
-			write(2, "TT", 2);
+	new->command = p_malloc(new->command, (nbr_words = words_command(lexer, *i)) + 1);
+	while (++pipe != nbr_words)
+	{
+		if (NULL == (new->command[pipe] = init_command_pipe(new->command[pipe], lexer, i)))
 			return (NULL);
-			}
+	 *i += 1;
+	}
+	printf("%s\n", new->command[0][0]);
 	if (0 == init_put(new, lexer, i))
 		return (NULL);
 	return (new);
@@ -245,17 +270,11 @@ t_parser	*init_parser(t_parser *parser, char **lexer)
 		if (parser == NULL)
 		{
 			if (0 == (parser = parser_new(lexer, i)))
-			{
-				write(2, "TT", 2);
 					return (NULL);
-			}
 		}
 		else
 			if (0 == add_parser(parser, parser_new(lexer, i)))
-			{
-				write(2, "FF", 2);
 				return (NULL);
-			}
 		nbr--;
 	}
 	return (parser);
@@ -278,20 +297,23 @@ void display_parser(t_parser *parser)
 	{
 	printf("command %d : ", i + 1);
 	while(parser->command[i][n] != NULL)
-		printf("<%s>",parser->command[i][n++]);
+		printf("<%s> ",parser->command[i][n++]);
 			n = 0;
 	printf("\n");
 	}
+	printf("%p\n",parser->command[i]);
 	i = -1;
 	n = 0;
 	while (parser->input[++i] != NULL)
 	{
 	printf("input %d : ", i + 1);
-	while(parser->input[i][n] != NULL)
-		printf("<%s>",parser->input[i][n++]);
+	while (parser->input[i][n] != NULL)
+		printf("<%s> ",parser->input[i][n++]);
 			n = 0;
 	printf("\n");
 	}
+	i = -1;
+	n = 0;
 	while (parser->output_s[++i] != NULL || parser->output_d[i] != NULL)
 	{
 	printf("output_s %d : ", i + 1);
@@ -303,6 +325,8 @@ void display_parser(t_parser *parser)
 			n = 0;
 	printf("\n");
 	}
+	i = -1;
+	n = 0;
 	while (parser->output_s[++i] != NULL || parser->output_d[i] != NULL)
 	{
 	printf("output_s %d : ", i + 1);
@@ -312,12 +336,11 @@ void display_parser(t_parser *parser)
 	else
 		printf("<%s>",parser->output_d[i][n]);
 			n = 0;
-	printf("\n");
+	printf("fin\n");
 	}
-
 }
 
-int main(int a, char **argc)
+int	main(int a, char **argc)
 {
 	argc[a - 1] = NULL;
 	t_parser	*parser;
