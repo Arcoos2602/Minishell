@@ -6,7 +6,7 @@
 #    By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/21 10:33:28 by tcordonn          #+#    #+#              #
-#    Updated: 2021/02/03 09:42:08 by tcordonn         ###   ########.fr        #
+#    Updated: 2021/02/05 10:00:21 by tcordonn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ HEAD = -I./includes/ -I./libft/include
 
 CFLAGS = #-Wall -Wextra -Werror
 
-SRCS =  srcs/utils.c \
+SRCS =  srcs/lexer2.c \
 		srcs/init.c \
 		srcs/get_next_line.c \
 		srcs/lexer.c \

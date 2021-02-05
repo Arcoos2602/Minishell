@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   lexer2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 11:23:32 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/04 14:45:41 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/05 13:33:29 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/include/libft.h"
 #include "../includes/minishell.h"
 
-/*int				check_char()
+int				check_char(char	c)
 {
-
-}*/
+	if (c >= 33 && c <= 126)
+		return (1);
+	return (0);
+}
 
 static char		*ft_free(char **tab, int index)
 {
@@ -32,11 +34,11 @@ static char		*ft_free(char **tab, int index)
 	return (NULL);
 }
 
-int		no_separators(char c, char c_next) // str to check >>
+int		separators(char c, char c_next) // str to check >>
 {
 	if (c == '|' || c == '>' || c == '<' || c == '"' || (c == '>' && c_next == '>'))
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }
 
 static int		cpt(char const *str)
@@ -50,12 +52,13 @@ static int		cpt(char const *str)
 	{
 		while (ft_iswhitespace(str[i++]))
 			;
-		while (ft_isalnum(str[i]) && no_separators(str[i], str[i + 1]))// alnum temporaire
+		while (check_char(str[i]))
 			i++;
+		if (separators(str[i], str[i + 1]))
+			
+			
 		cpt++;
 	}
-	if (ft_iswhitespace(str[i - 1]))
-		cpt -= 1;
 	return (cpt);
 }
 
@@ -68,12 +71,12 @@ static int		init_tab(char **tab, char const *str)
 	i = 0;
 	x = 0;
 	y = 0;
-	while (x < cpt(str))
+	/*while (x < cpt(str))
 	{
 		y = 0;
 		while (ft_iswhitespace(str[i++]) && str[i] != '\0')
 			;
-		while (str[i] != '\0' && ft_isalnum(str[i]) && no_separators(str[i], str[i + 1]))
+		while (str[i] != '\0' && check_char(str[i]) && no_separators(str[i], str[i + 1]))
 		{
 			y++;
 			i++;
@@ -81,12 +84,12 @@ static int		init_tab(char **tab, char const *str)
 		if (!(tab[x] = (char*)malloc(sizeof(char) * (y + 1))))
 			ft_free(tab, i);
 		x++;
-	}
+	}*/
 	tab[x] = 0;
 	return (1);
 }
 
-char			**token(char *str)
+char			**token(char *str) // needs ton handle "" >> ''
 {
 	char	**tab;
 	int		i;
@@ -98,13 +101,14 @@ char			**token(char *str)
 	y = 0;
 	i = 0;
 	tab = NULL;
-	printf("%d", cpt);
+	printf("%d", cpt(str) + 1);
+	//quote(str);
 	if (!(str) || !(tab = malloc(sizeof(char *) * (cpt(str) + 1))))
 		return (0);
 	init_tab(tab, str);
 	/*while (ft_iswhitespace(str[i]) && str[i] != '\0')
 		i++;
-	while (str[i] != '\0') 
+	while (str[i] != '\0')
 	{
 		y = 0;
 		check = 0;
@@ -116,7 +120,7 @@ char			**token(char *str)
 			y++;
 			i++;
 		}
-		while (str[i] != '\0' && ft_isalnum(str[i]) && no_separators(str[i], str[i + 1]))
+		while (str[i] != '\0' && check_char(str[i]) && no_separators(str[i], str[i + 1]))
 		{
 			tab[x][y++] = str[i++];
 		}
@@ -150,7 +154,7 @@ int main()
 {
 	char	**lexer;
 
-	lexer = token("ls | cat dadwa "); // espace à la fin bugged
+	lexer = token("ls | cat cdawdwa|dwadwa"); // espace à la fin bugged
 	print_tab(lexer);
 	return (1);
 }
