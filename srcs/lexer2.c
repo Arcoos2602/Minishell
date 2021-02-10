@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 11:23:32 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/10 14:39:55 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/10 15:52:34 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int				check_char(char c)
 
 int				separators(char	c)
 {
-	if (c == '|' || c == '>' || c == '<' || c == ' ')
+	if (c == '|' || c == '>' || c == '<' || c == ' ') // espace separateur
 		return (1);
 	return (0);
 }
@@ -58,15 +58,11 @@ int				cpt(char *str)
 	while (str[i])
 	{
 		while (separators(str[i]) == 0 && str[i] != '\0')
-		{
-			if (ft_iswhitespace(str[i]))
-			{
-				while (ft_iswhitespace(str[i]))
-					i++;
-			}
-			if (separators(str[i]) == 0)
-				i++;
-		}
+			i++;
+		while (ft_iswhitespace(str[i]))
+			i++;
+		while (check_char(str[i]) && separators(str[i]) == 0)
+			i++;
 		cpt++;
 		if (separators(str[i]))
 			cpt++;
@@ -87,38 +83,20 @@ int				init_tab(char **tab, char *str)
 
 	while (ft_iswhitespace(str[i]) && str[i] != '\0')
 			i++;
-	/*while (x < cpt(str))
-	{
-		size_line = 0;
-		while (separators(str[i]) == 0 && str[i] != '\0')
-		{
-			while (ft_iswhitespace(str[i]))
-				i++;
-			if (separators(str[i]) == 0)
-			{
-				i++;
-				size_line++;
-			}
-		}
-		printf("%d\n", size_line);
-		if (!(tab[x] = (char *)malloc(sizeof(char) * (size_line + 1))))
-			return (0);
-		if (separators(str[i]))
-		{
-			printf("check");
-			if (!(tab[x] = (char*)malloc(sizeof(char) * 2)))
-				return (0);
-			x++;
-		}
-		x++;
-		i++;
-	}*/
 	while (x < cpt(str))
 	{
-		while (separators(str[i]) == 0 && str[i] != '\0')
+		size_line = 0;
+		while (separators(str[i]) && str[i] != '\0')
 			i++;
-		while (str[i] != '\0' && separators(str[i++]))
+		while (ft_iswhitespace(str[i]))
+			i++;
+		if (separators(str[i]))
 			size_line++;
+		while (check_char(str[i]) && separators(str[i]) == 0)
+		{
+			size_line++;
+			i++;
+		}
 		printf("%d\n", size_line);
 		if (!(tab[x] = (char *)malloc(sizeof(char) * (size_line + 1))))
 			return (0);
@@ -173,7 +151,7 @@ int main()
 	char	**lexer;
 
 	//printf("%d", quote);
-	lexer = token("ls|cat   ");
+	lexer = token("ls | cat"); // spaces at the end bugged
 	//print_tab(lexer);
 	return (1);
 }
