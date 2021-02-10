@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 11:23:32 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/10 15:52:34 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/10 16:21:57 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ int				cpt(char *str)
 			i++;
 		while (check_char(str[i]) && separators(str[i]) == 0)
 			i++;
+		while (ft_iswhitespace(str[i]))
+			i++;
 		cpt++;
 		if (separators(str[i]))
 			cpt++;
@@ -118,12 +120,12 @@ char			**token(char *str)
 		return (NULL);*/
 	if (cpt(str) == 0)
 		return (NULL);
-	//printf("%d", cpt(str));
+	printf("%d", cpt(str));
 	if (!(str) || !(tab = malloc(sizeof(char *) * (cpt(str) + 1))))
 		return (0);
-	init_tab(tab, str);
+	/*init_tab(tab, str);
 	while (ft_iswhitespace(str[i]) && str[i] != '\0')
-			i++;
+			i++;*/
 	return (tab);
 }
 
@@ -151,7 +153,7 @@ int main()
 	char	**lexer;
 
 	//printf("%d", quote);
-	lexer = token("ls | cat"); // spaces at the end bugged
+	lexer = token("ls | cat | daw"); // spaces at the end bugged
 	//print_tab(lexer);
 	return (1);
 }
