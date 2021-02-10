@@ -6,17 +6,12 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:13:44 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/03 15:34:57 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/10 14:01:27 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/include/libft.h"
 #include "../includes/minishell.h"
-
-void	count_commands(t_main *vars)
-{
-		
-}
 
 void	print_tab(char **tab)
 {

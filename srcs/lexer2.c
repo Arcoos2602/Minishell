@@ -6,26 +6,42 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 11:23:32 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/09 16:26:10 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/10 14:39:55 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/include/libft.h"
 #include "../includes/minishell.h"
 
-/*if (ft_iswhitespace(str[i]))
-			{
-				printf("check");
-				while (ft_iswhitespace(str[i]) && str[i] != '\0')
-				{
-					i++;
-				}
-				cpt++;
-}*/
+int				quote(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '"')
+		{
+			while (str[i] != '"' && str[i] != '\0')
+				i++;
+			if (str[i] == '\0')
+				return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
+int				check_char(char c)
+{
+	if (c >= 33 && c <= 126)
+		return (1);
+	return (0);
+}
 
 int				separators(char	c)
 {
-	if (c == '|' || c == '>' || c == '<')
+	if (c == '|' || c == '>' || c == '<' || c == ' ')
 		return (1);
 	return (0);
 }
@@ -37,26 +53,26 @@ int				cpt(char *str)
 
 	i = 0;
 	cpt = 0;
+	while (ft_iswhitespace(str[i]) && str[i] != '\0')
+		i++;
 	while (str[i])
 	{
-		while (ft_iswhitespace(str[i]) && str[i] != '\0')
-			i++;
 		while (separators(str[i]) == 0 && str[i] != '\0')
 		{
 			if (ft_iswhitespace(str[i]))
 			{
 				while (ft_iswhitespace(str[i]))
 					i++;
-				cpt++;
 			}
-			i++;
+			if (separators(str[i]) == 0)
+				i++;
 		}
 		cpt++;
 		if (separators(str[i]))
 			cpt++;
 		i++;
 	}
-	return (cpt);	
+	return (cpt);
 }
 
 int				init_tab(char **tab, char *str)
@@ -66,19 +82,47 @@ int				init_tab(char **tab, char *str)
 	int		size_line;
 
 	x = 0;
-	y = 0;
 	i = 0;
 	size_line = 0;
-	while (str[i++])
-	{
-		while (ft_iswhitespace(str[i]) && str[i] != '\0')
+
+	while (ft_iswhitespace(str[i]) && str[i] != '\0')
 			i++;
+	/*while (x < cpt(str))
+	{
+		size_line = 0;
 		while (separators(str[i]) == 0 && str[i] != '\0')
 		{
-			i++;
+			while (ft_iswhitespace(str[i]))
+				i++;
+			if (separators(str[i]) == 0)
+			{
+				i++;
+				size_line++;
+			}
 		}
-		if (!(tab[x] = (char*)malloc(sizeof(char) * (size_line + 1))))
+		printf("%d\n", size_line);
+		if (!(tab[x] = (char *)malloc(sizeof(char) * (size_line + 1))))
 			return (0);
+		if (separators(str[i]))
+		{
+			printf("check");
+			if (!(tab[x] = (char*)malloc(sizeof(char) * 2)))
+				return (0);
+			x++;
+		}
+		x++;
+		i++;
+	}*/
+	while (x < cpt(str))
+	{
+		while (separators(str[i]) == 0 && str[i] != '\0')
+			i++;
+		while (str[i] != '\0' && separators(str[i++]))
+			size_line++;
+		printf("%d\n", size_line);
+		if (!(tab[x] = (char *)malloc(sizeof(char) * (size_line + 1))))
+			return (0);
+		x++;
 	}
 	return (1);
 }
@@ -88,26 +132,24 @@ char			**token(char *str)
 	char	**tab;
 	int		i;
 	int		x;
-	int		y;
-	int		check;
 
 	x = 0;
-	y = 0;
 	i = 0;
 	tab = NULL;
 	/*if (!(quote(str)))
 		return (NULL);*/
 	if (cpt(str) == 0)
 		return (NULL);
-	printf("%d", cpt(str));
-	//mutli_pipe
+	//printf("%d", cpt(str));
 	if (!(str) || !(tab = malloc(sizeof(char *) * (cpt(str) + 1))))
 		return (0);
 	init_tab(tab, str);
+	while (ft_iswhitespace(str[i]) && str[i] != '\0')
+			i++;
 	return (tab);
 }
 
-static void	print_tab(char **tab)
+/*static void	print_tab(char **tab)
 {
 	int		x = 0;
 	int		y = 0;
@@ -124,16 +166,16 @@ static void	print_tab(char **tab)
 		ft_putchar_fd(']', 1);
 		x++;
 	}
-}
+}*/
 
 int main()
 {
 	char	**lexer;
 
-	lexer = token("ls | cat");
+	//printf("%d", quote);
+	lexer = token("ls|cat   ");
 	//print_tab(lexer);
 	return (1);
 }
 
 /// separateurs à gérer :			; ' "" > < >> '
-///// """"""

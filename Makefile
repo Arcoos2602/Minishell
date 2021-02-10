@@ -6,14 +6,14 @@
 #    By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/21 10:33:28 by tcordonn          #+#    #+#              #
-#    Updated: 2021/02/05 10:00:21 by tcordonn         ###   ########.fr        #
+#    Updated: 2021/02/10 13:59:00 by tcordonn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 HEAD = -I./includes/ -I./libft/include
 
-CFLAGS = #-Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 SRCS =  srcs/lexer2.c \
 		srcs/init.c \
@@ -29,7 +29,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	make -C ./libft
-	gcc -g $(HEAD) $(OBJS) -o $(NAME) -L./libft -lft
+	gcc -g3 -fsanitize=address $(HEAD) $(OBJS) -o $(NAME) -L./libft -lft
 
 clean:
 	rm -rf $(OBJS) objs
