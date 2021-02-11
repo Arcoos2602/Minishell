@@ -6,13 +6,13 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 13:29:43 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/11 13:31:55 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/11 13:47:27 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *src, int n)
+char	*ft_strndup(const char *src, int n)
 {
 	int		i;
 	char	*cp;

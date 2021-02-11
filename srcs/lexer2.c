@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 11:23:32 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/11 13:27:23 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/11 14:55:55 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int				check_char(char c)
 
 int				separators(char	c)
 {
-	if (c == '|' || c == '>' || c == '<' || c == ' ') // espace separateur
+	if (c == '|' || c == '>' || c == '<' || c == ' ')
 		return (1);
 	return (0);
 }
@@ -57,8 +57,6 @@ int				cpt(char *str)
 		i++;
 	while (str[i])
 	{
-		while (separators(str[i]) == 0 && str[i] != '\0')
-			i++;
 		while (ft_iswhitespace(str[i]))
 			i++;
 		while (check_char(str[i]) && separators(str[i]) == 0)
@@ -73,10 +71,11 @@ int				cpt(char *str)
 	return (cpt);
 }
 
-int				init_tab(char **tab, char *str) /// ls | cat
+int				fill_tab(char **tab, char *str) /// ls | cat
 {
 	int		x;
 	int		i;
+	int		tmp;
 	int		size_line;
 
 	x = 0;
@@ -93,24 +92,27 @@ int				init_tab(char **tab, char *str) /// ls | cat
 		if (separators(str[i])) // separateur de taille 1 seulement
 		{
 			//if (check_double_great(str[i]))
-			printf("line : %d  size : %d\n", x, size_line);
-			if (!(tab[x] = (char *)malloc(sizeof(char) * (2))))
-				return (0);
+			tab[x] = ft_strndup(&str[i], 1);
+			/*if (!(tab[x] = (char *)malloc(sizeof(char) * (2))))
+				return (0);*/
 			i++;
 		}
 		else
 		{
+			tmp = i;
 			while (check_char(str[i]) && separators(str[i]) == 0)
 			{
 				size_line++;
 				i++;
 			}
-			printf("line : %d  size : %d\n", x, size_line);
-			if (!(tab[x] = (char *)malloc(sizeof(char) * (size_line + 1))))
-				return (0);	
+			tab[x] = ft_strndup(&str[tmp], size_line);
+			//printf("line : %d  size : %d\n", x, size_line);
+			/*if (!(tab[x] = (char *)malloc(sizeof(char) * (size_line + 1))))
+				return (0);*/
 		}
 		x++;
 	}
+	tab[x] = NULL;
 	return (1);
 }
 
@@ -127,24 +129,14 @@ char			**token(char *str)
 	tab = NULL;
 	/*if (!(quote(str)))
 		return (NULL);*/
-	if (cpt(str) == 0)
-		return (NULL);
+	//printf("%d", cpt(str));
 	if (!(str) || !(tab = malloc(sizeof(char *) * (cpt(str) + 1))))
 		return (0);
-	init_tab(tab, str);
-	while (ft_iswhitespace(str[i]) && str[i] != '\0')
-			i++;
-	while (str[i])
-	{
-		y = 0;
-		while (ft_iswhitespace(str[i]) && str[i] != '\0')
-			i++;
-		i++;
-	}
+	fill_tab(tab, str);
 	return (tab);
 }
 
-/*static void	print_tab(char **tab)
+static void	print_tab(char **tab)
 {
 	int		x = 0;
 	int		y = 0;
@@ -161,16 +153,15 @@ char			**token(char *str)
 		ft_putchar_fd(']', 1);
 		x++;
 	}
-}*/
+}
 
 int main()
 {
 	char	**lexer;
 
 	//printf("%d", quote);
-	lexer = token("ls | cat");
-	//printf("%s", lexer[0]);
-	//print_tab(lexer);
+	lexer = token("");
+	print_tab(lexer);
 	return (1);
 }
 
