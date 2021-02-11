@@ -6,7 +6,7 @@
 #    By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/21 10:33:28 by tcordonn          #+#    #+#              #
-#    Updated: 2021/02/10 13:59:00 by tcordonn         ###   ########.fr        #
+#    Updated: 2021/02/11 13:14:32 by tcordonn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,10 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
+	make -C ./libft
+	gcc -g $(HEAD) $(OBJS) -o $(NAME) -L./libft -lft
+
+G: $(OBJS)
 	make -C ./libft
 	gcc -g3 -fsanitize=address $(HEAD) $(OBJS) -o $(NAME) -L./libft -lft
 

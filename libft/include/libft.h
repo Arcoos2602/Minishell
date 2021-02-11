@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 20:04:16 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/02/03 14:05:48 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/11 13:43:08 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,5 @@ int					ft_compare_c_to_s(char c, char *str);
 int					ft_compare_s_to_s(char *str_1, char *str_2);
 int					ft_xor(char a, char b);
 int					ft_iswhitespace(char c);
+char				*ft_strndup(const char *src, int n);
 #endif
