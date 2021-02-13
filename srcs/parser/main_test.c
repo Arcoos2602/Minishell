@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_test.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:57:58 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/02/09 14:44:56 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/02/13 15:57:17 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void		display_total(t_parser *parser)
 		display_total(parser->next);
 }
 
-int			main(int a, char **argc)
+/*int			main(int a, char **argc)
 {
 	int			i;
 	t_parser	*parser;
@@ -90,5 +90,4 @@ int			main(int a, char **argc)
 	display_total(parser);
 	free(parser);
 	return (0);
-}
-
+}*/

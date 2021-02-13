@@ -6,12 +6,12 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 11:23:32 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/13 15:00:37 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/13 15:55:12 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/include/libft.h"
-#include "../includes/minishell.h"
+#include "../../libft/include/libft.h"
+#include "../../includes/minishell.h"
 
 int				quote(char *str)
 {

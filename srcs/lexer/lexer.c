@@ -6,12 +6,12 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:13:44 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/13 15:47:19 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/13 15:55:17 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/include/libft.h"
-#include "../includes/minishell.h"
+#include "../../libft/include/libft.h"
+#include "../../includes/minishell.h"
 
 int				cpt(char *str)
 {
@@ -86,7 +86,7 @@ int				fill_tab(char **tab, char *str)
 	return (1);
 }
 
-void	print_tab(char **tab)
+/*void	print_tab(char **tab)
 {
 	int		x = 0;
 	int		y = 0;
@@ -103,7 +103,7 @@ void	print_tab(char **tab)
 		ft_putchar_fd(']', 1);
 		x++;
 	}
-}
+}*/
 
 char			**token(char *str)
 {
