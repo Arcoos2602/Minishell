@@ -6,7 +6,7 @@
 /*   By: gbabeau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:10:25 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/02/03 10:19:14 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/02/09 14:38:13 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <sys/types.h>
 # include <fcntl.h>
 # define BUFFER_SIZE 1096
+# include "../libft/include/libft.h"
+# include "parser.h"
 
 typedef struct	s_main
 {
@@ -30,14 +32,7 @@ typedef struct	s_main
 	int		command_nbr;
 }				t_main;
 
-typedef struct	s_parser
-{
-	char		***command;
-	char		**put[3];
-}				t_parser;
-
 int			lexer(t_main *vars);
-t_parser	*parser(char **vars);
 int			init_all(t_main	*vars);
 char		**ft_split_command(char const *str, char *charset);
 int			get_next_line(int fd, char **line);

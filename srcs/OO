@@ -1,0 +1,24 @@
+nombre command  = 2
+nombre pipe = 2
+longueur comand = 4
+DD
+longueur comand = 3
+nombre pipe = 1
+longueur comand = 3
+(null)
+
+
+ligne command:1
+command 1 : <4> <1010> <200> <100> 
+0x0
+input 1 : <DD> 
+output_s 1 : <EE>
+output_d 1 : <NULL>
+command 2 : <UUU> <FFF> <AA> 
+0x0
+
+
+ligne command:2
+command 3 : <A> <A> <A> 
+0x0
+input 1 : 
