@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/09 12:28:07 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/13 15:49:05 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		main(int	argc, char **argv, char **path)
 		return (-1);
 	while (1) // boucle principale
 	{
-		lexer(&vars);
+		token(line);
 		//parser(&vars);
 		free(vars.line);
 	}

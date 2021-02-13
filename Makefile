@@ -5,24 +5,21 @@
 #                                                     +:+ +:+         +:+      #
 #    By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/01/21 10:33:28 by tcordonn          #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2021/02/13 14:59:30 by tcordonn         ###   ########.fr        #
-=======
-#    Updated: 2021/02/02 14:00:11 by gbabeau          ###   ########.fr        #
->>>>>>> parser
+#    Created: 2021/02/13 15:18:55 by tcordonn          #+#    #+#              #
+#    Updated: 2021/02/13 15:47:44 by tcordonn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 HEAD = -I./includes/ -I./libft/include
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = #-Wall -Wextra -Werror
 
 SRCS =  srcs/main.c \
 		srcs/init.c \
 		srcs/get_next_line.c \
 		srcs/lexer.c \
+		srcs/lexer2.c \
 		#srcs/parser.c \
 		srcs/utils.c \
 		srcs/exec.c 
@@ -49,4 +46,3 @@ fclean:
 
 re:	fclean
 	make all
-
