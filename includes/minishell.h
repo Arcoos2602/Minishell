@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:55:17 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/13 15:01:43 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/15 15:58:50 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ t_bi_parser		*parser(char *vars);
 int				init_all(t_main	*vars);
 int				not_handled(char c, char c_next);
 char			**token(char *str);
+void			cpt2(char *str, int *i, int *cpt);
 int				check_char(char c);
 int				separators(char	c);
 int				quote(char *str);

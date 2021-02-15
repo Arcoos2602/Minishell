@@ -6,12 +6,12 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:13:44 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/13 15:00:29 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/15 15:58:39 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/include/libft.h"
-#include "../includes/minishell.h"
+#include "../../libft/include/libft.h"
+#include "../../includes/minishell.h"\
 
 int				cpt(char *str)
 {
@@ -20,21 +20,17 @@ int				cpt(char *str)
 
 	i = 0;
 	cpt = 0;
-	while (ft_iswhitespace(str[i]) && str[i] != '\0')
-		i++;
 	while (str[i])
 	{
-		while (ft_iswhitespace(str[i]))
+		while (ft_iswhitespace(str[i]) && str[i] != '\0')
 			i++;
-		while (check_char(str[i]) && separators(str[i]) == 0)
-			i++;
-		while (ft_iswhitespace(str[i]))
-			i++;
-		cpt++;
-		if (separators(str[i]))
+		if (check_char(str[i]) && separators(str[i]) == 0)
+		{
+			while (check_char(str[i]) && separators(str[i]) == 0)
+				i++;
 			cpt++;
-		if (str[i] == '>' && str[i + 1] == '>')
-			i++;
+		}
+		cpt2(str, &i, &cpt);
 		if (not_handled(str[i], str[i + 1]))
 			return (-1);
 		i++;
@@ -42,20 +38,43 @@ int				cpt(char *str)
 	return (cpt);
 }
 
+void			fill_tab2(char **tab, char *str, int *i, int *x)
+{
+	int		size_line;
+	int		tmp;
+
+	size_line = 0;
+	if (separators(str[*i]) && ft_iswhitespace(str[*i]) == 0)
+	{
+		tab[*x] = ft_strndup(&str[*i], 1);
+		++*i;
+		++*x;
+	}
+	if (ft_iswhitespace(str[*i]) == 0
+		&& separators(str[*i + 1]) == 0 && str[*i] != '\0')
+	{
+		tmp = *i;
+		while (check_char(str[*i]) && str[*i] != '\0')
+		{
+			size_line++;
+			++*i;
+		}
+		tab[*x] = ft_strndup(&str[tmp], size_line);
+		++*x;
+	}
+}
+
 int				fill_tab(char **tab, char *str)
 {
 	int		x;
 	int		i;
-	int		tmp;
 	int		size_line;
 
 	x = 0;
 	i = 0;
 	size_line = 0;
-
 	while (x < cpt(str))
 	{
-		size_line = 0;
 		while (ft_iswhitespace(str[i]) && str[i] != '\0')
 			i++;
 		if (str[i] == '>' && str[i + 1] == '>')
@@ -64,33 +83,19 @@ int				fill_tab(char **tab, char *str)
 			i += 2;
 			x++;
 		}
-		if (separators(str[i]) && ft_iswhitespace(str[i]) == 0)
-		{
-			tab[x] = ft_strndup(&str[i], 1);
-			i++;
-			x++;
-		}
-		if (ft_iswhitespace(str[i]) == 0)
-		{
-			tmp = i;
-			while (check_char(str[i]) && str[i] != '\0')
-			{
-				size_line++;
-				i++;
-			}
-			tab[x] = ft_strndup(&str[tmp], size_line);
-			x++;
-		}
+		fill_tab2(tab, str, &i, &x);
 	}
 	tab[x] = NULL;
 	return (1);
 }
 
-void	print_tab(char **tab)
+void			print_tab(char **tab)
 {
-	int		x = 0;
-	int		y = 0;
+	int		x;
+	int		y;
 
+	x = 0;
+	y = 0;
 	while (tab[x] != NULL)
 	{
 		y = 0;
@@ -116,7 +121,7 @@ char			**token(char *str)
 	y = 0;
 	i = 0;
 	tab = NULL;
-	/*if (!(quote(str))) // to do
+	/*if (!(quote(str)))
 		return (NULL);*/
 	if (cpt(str) < 1)
 	{
@@ -127,4 +132,14 @@ char			**token(char *str)
 		return (0);
 	fill_tab(tab, str);
 	return (tab);
+}
+
+int				main(void)
+{
+	char	**lexer;
+
+	lexer = token("lol | po");
+	if (lexer != NULL)
+		print_tab(lexer);
+	ft_putchar_fd('\n', 1);
 }
