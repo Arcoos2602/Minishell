@@ -6,7 +6,7 @@
 #    By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/21 10:33:28 by tcordonn          #+#    #+#              #
-#    Updated: 2021/02/15 10:14:20 by tcordonn         ###   ########.fr        #
+#    Updated: 2021/02/16 14:49:10 by tcordonn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 SRCS =  srcs/lexer/lexer.c \
 		srcs/lexer/lexer2.c \
+		srcs/lexer/quote.c \
 		srcs/init.c \
 		srcs/get_next_line.c \
 		#srcs/parser.c \
