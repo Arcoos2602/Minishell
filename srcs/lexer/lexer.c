@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:13:44 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/16 14:52:02 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/17 14:53:35 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int				cpt(char *str)
 	{
 		while (ft_iswhitespace(str[i]) && str[i] != '\0')
 			i++;
+		if (str[i] == '"' || str[i] == 39)
+			count_quote(str, &i, &cpt);
 		if (check_char(str[i]) && separators(str[i]) == 0)
 		{
 			while (check_char(str[i]) && separators(str[i]) == 0)
@@ -50,8 +52,7 @@ void			fill_tab2(char **tab, char *str, int *i, int *x)
 		++*i;
 		++*x;
 	}
-	if (ft_iswhitespace(str[*i]) == 0
-		&& separators(str[*i + 1]) == 0 && str[*i] != '\0')
+	if (check_char(str[*i]) && str[*i] != '\0')
 	{
 		tmp = *i;
 		while (check_char(str[*i]) && str[*i] != '\0')
@@ -77,6 +78,8 @@ int				fill_tab(char **tab, char *str)
 	{
 		while (ft_iswhitespace(str[i]) && str[i] != '\0')
 			i++;
+		if (str[i] == '"' || str[i] == 39)
+			fill_quote(tab, str, &i, &x);
 		if (str[i] == '>' && str[i + 1] == '>')
 		{
 			tab[x] = ft_strndup(&str[i], 2);
@@ -87,6 +90,33 @@ int				fill_tab(char **tab, char *str)
 	}
 	tab[x] = NULL;
 	return (1);
+}
+
+char			**token(char *str)
+{
+	char	**tab;
+	int		i;
+	int		x;
+	int		y;
+
+	x = 0;
+	y = 0;
+	tab = NULL;
+	i = 0;
+	if (check_multi(str) == -1)
+	{
+		ft_putstr_fd("Multilines not handled", 1);
+		return (tab);
+	}
+	if (cpt(str) < 1)
+	{
+		ft_putstr_fd("Tokens not handled", 1);
+		return (tab);
+	}
+	if (!(str) || !(tab = malloc(sizeof(char *) * (cpt(str) + 1))))
+		return (0);
+	fill_tab(tab, str);
+	return (tab);
 }
 
 void			print_tab(char **tab)
@@ -110,40 +140,14 @@ void			print_tab(char **tab)
 	}
 }
 
-char			**token(char *str)
-{
-	char	**tab;
-	int		i;
-	int		x;
-	int		y;
-
-	x = 0;
-	y = 0;
-	tab = NULL;
-	i = 0;
-	/*if (!(quote(str)))
-		return (NULL);*/
-	if (check_multi(str) == -1)
-	{
-		ft_putstr_fd("Multilines not handled", 1);
-		return (tab);
-	}
-	if (cpt(str) < 1)
-	{
-		ft_putstr_fd("Tokens not handled", 1);
-		return (tab);
-	}
-	if (!(str) || !(tab = malloc(sizeof(char *) * (cpt(str) + 1))))
-		return (0);
-	fill_tab(tab, str);
-	return (tab);
-}
-
 int				main(void)
 {
 	char	**lexer;
 
-	lexer = token("lol | po ");
+	(void)lexer;
+	//lexer = token("ls a| cat\0"); bugged
+	//lexer = token("ls | cat\0");
+	lexer = token("\" lol | daw \"\0");
 	if (lexer != NULL)
 		print_tab(lexer);
 	ft_putchar_fd('\n', 1);

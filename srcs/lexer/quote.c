@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 11:39:10 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/16 14:51:29 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/17 14:47:28 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,30 @@
 
 void			count_quote(char *str, int *i, int *cpt)
 {
-	while (str[*i] != '"' && str[*i] != 39)
-		++*i;
+	if (str[*i] == '"')
+		while (str[++*i] != '"')
+			;
+	else
+		while (str[++*i] != 39)
+			;
 	++*cpt;
+}
+
+void			fill_quote(char **tab, char *str, int *i, int *x)
+{
+	int		size_line;
+	int		tmp;
+	size_line = 0;
+
+	tmp = *i + 1;
+	if (str[*i] == '"')
+		while (str[++*i] != '"')
+			size_line++;
+	else
+		while (str[++*i] != 39)
+			size_line++;
+	tab[*x] = ft_strndup(&str[tmp], size_line);
+	++*x;
 }
 
 int				check_multi(char *str)
@@ -31,7 +52,24 @@ int				check_multi(char *str)
 	i = 0;
 	while (str[i])
 	{
-		printf("%c", str[i]);
+		if (str[i] == 39)
+		{
+			first++;
+			i++;
+			while (str[i] != 39 && str[i] != '\0')
+				i++;
+			if (str[i] != '\0')
+				second++;
+		}
+		if (str[i] == '"')
+		{
+			first++;
+			i++;
+			while (str[i] != '"' && str[i] != '\0')
+				i++;
+			if (str[i] != '\0')
+				second++;
+		}
 		i++;
 	}
 	if (first == second)
