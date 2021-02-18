@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 19:35:46 by gbabeau           #+#    #+#             */
-/*   Updated: 2019/10/18 11:28:22 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/02/15 10:07:32 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,3 +86,11 @@ char			**ft_split(char const *str, char charset)
 	}
 	return (end);
 }
+
+
+
+
+
+////////   master                lexer                  parser
+////////
+////////

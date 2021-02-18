@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/02/13 15:18:55 by tcordonn          #+#    #+#              #
-#    Updated: 2021/02/13 16:09:03 by tcordonn         ###   ########.fr        #
+#    Created: 2021/02/18 12:18:54 by tcordonn          #+#    #+#              #
+#    Updated: 2021/02/18 12:49:12 by tcordonn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,11 +15,12 @@ HEAD = -I./includes/ -I./libft/include
 
 CFLAGS = #-Wall -Wextra -Werror
 
-SRCS =  srcs/main.c \
+SRCS =  srcs/lexer/lexer.c \
+		srcs/main.c \
+		srcs/lexer/lexer2.c \
+		srcs/lexer/quote.c \
 		srcs/init.c \
 		srcs/get_next_line.c \
-		srcs/lexer/lexer.c \
-		srcs/lexer/lexer2.c \
 		srcs/parser/init_struct_parser.c \
 		srcs/parser/init_struct_pipe.c \
 		srcs/parser/other.c \
