@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:42:17 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/18 12:49:18 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/18 12:57:46 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ char			**token(char *str)
 	if (check_multi(str) == -1)
 	{
 		ft_putstr_fd("Multilines not handled", 1);
-		return (tab);
+		return (NULL);
 	}
 	if (cpt(str) < 1)
 	{
@@ -119,7 +119,7 @@ char			**token(char *str)
 	return (tab);
 }
 
-void			print_tab(char **tab)
+/*void			print_tab(char **tab)
 {
 	int		x;
 	int		y;
@@ -138,7 +138,7 @@ void			print_tab(char **tab)
 		ft_putchar_fd(']', 1);
 		x++;
 	}
-}
+}*/
 
 /*int				main(void)
 {
