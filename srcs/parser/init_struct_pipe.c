@@ -6,7 +6,7 @@
 /*   By: gbabeau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 10:30:09 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/02/09 14:44:53 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/02/15 11:02:34 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_pipe		*init_put(t_pipe *new, char **lexer, int *i)
 
 t_pipe		*add_pipe(t_pipe *pipe, t_pipe *next)
 {
+//	printf("{{%s}}\n",next->command[0]);
 	if (pipe == NULL)
 		pipe = next;
 	else if (pipe->next == NULL)
@@ -70,7 +71,7 @@ t_pipe		*init_pipe(char **lexer, int *i)
 			if (0 == (pipe = pipe_new(lexer, i)))
 				return (NULL);
 		}
-		else if (0 == (pipe->next = add_pipe(pipe, pipe_new(lexer, i))))
+		else if (0 == (add_pipe(pipe, pipe_new(lexer, i))))
 			return (NULL);
 		if (nbr != 0)
 		{

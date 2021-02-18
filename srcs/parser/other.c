@@ -6,7 +6,7 @@
 /*   By: gbabeau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 14:30:09 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/02/09 14:43:42 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/02/15 10:28:42 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int			init_inouput(char **lexer, char *inout)
 	nbr = 0;
 	i = 0;
 	size = ft_strlen(inout) + 1;
-	while (lexer[i] != NULL && lexer[i][0] != ';')
+	while (lexer[i] != NULL && lexer[i][0] != ';' && lexer[i][0] != '|')
 	{
 		if (0 == ft_strncmp(inout, lexer[i++], size))
 			nbr++;
