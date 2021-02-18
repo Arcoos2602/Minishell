@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 11:39:10 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/17 14:47:28 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/18 10:04:19 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ void			fill_quote(char **tab, char *str, int *i, int *x)
 	else
 		while (str[++*i] != 39)
 			size_line++;
+	++*i;
 	tab[*x] = ft_strndup(&str[tmp], size_line);
+	while (ft_iswhitespace(str[*i]))
+		++*i;
 	++*x;
 }
 

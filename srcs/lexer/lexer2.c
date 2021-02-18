@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 11:23:32 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/17 14:12:23 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/18 10:40:44 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int				separators(char c)
 {
-	if (c == '|' || c == '>' || c == '<' || c == ' ')
+	if (c == '|' || c == '>' || c == '<' || c == ' ' || c == ';')
 		return (1);
 	return (0);
 }
@@ -40,10 +40,16 @@ int				not_handled(char c, char c_next)
 
 void			cpt2(char *str, int *i, int *cpt)
 {
-	while (ft_iswhitespace(str[*i]))
-		++*i;
-	if (separators(str[*i]))
+	int		tmp;
+
+	tmp = *i;
+	while (ft_iswhitespace(str[tmp]))
+		tmp++;
+	if (separators(str[tmp]))
+	{
+		*i = tmp;
 		++*cpt;
+	}
 	if (str[*i] == '>' && str[*i + 1] == '>')
 		++*i;
 }
