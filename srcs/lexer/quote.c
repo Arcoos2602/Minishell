@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 11:39:10 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/18 10:04:19 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/18 10:53:45 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void			fill_quote(char **tab, char *str, int *i, int *x)
 {
 	int		size_line;
 	int		tmp;
-	size_line = 0;
 
+	size_line = 0;
 	tmp = *i + 1;
 	if (str[*i] == '"')
 		while (str[++*i] != '"')
@@ -42,6 +42,27 @@ void			fill_quote(char **tab, char *str, int *i, int *x)
 	while (ft_iswhitespace(str[*i]))
 		++*i;
 	++*x;
+}
+
+void			check_double(char *str, int *i, int *first, int *second)
+{
+	if (str[*i] == '"')
+	{
+		++*first;
+		++*i;
+		while (str[*i] != '"' && str[*i] != '\0')
+			++*i;
+		if (str[*i] != '\0')
+			++*second;
+	}
+}
+
+int				check_end(char *str)
+{
+	if (separators(str[ft_strlen(str) - 1])
+		&& ft_iswhitespace(str[ft_strlen(str) - 1]) == 0)
+		return (-1);
+	return (1);
 }
 
 int				check_multi(char *str)
@@ -64,18 +85,10 @@ int				check_multi(char *str)
 			if (str[i] != '\0')
 				second++;
 		}
-		if (str[i] == '"')
-		{
-			first++;
-			i++;
-			while (str[i] != '"' && str[i] != '\0')
-				i++;
-			if (str[i] != '\0')
-				second++;
-		}
+		check_double(str, &i, &first, &second);
 		i++;
 	}
-	if (first == second)
+	if (first == second && check_end(str) == 1)
 		return (1);
 	else
 		return (-1);
