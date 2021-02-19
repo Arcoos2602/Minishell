@@ -6,7 +6,7 @@
 /*   By: gbabeau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 14:30:09 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/02/15 10:28:42 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/02/19 14:47:36 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ int			nbr_words_exe(char **lexer, int *i)
 	int	nbr_words_exe;
 
 	nbr_words_exe = 0;
+
+	if (*i > 1 && lexer[*i - 1][0] == '|' && ft_compare_c_to_s(lexer[*i - 2][0], "><"))
+		return (0);
 	while (lexer[*i] != NULL && !ft_compare_c_to_s(lexer[*i][0], "|><;"))
 	{
 		nbr_words_exe++;
@@ -70,7 +73,18 @@ int			init_inouput(char **lexer, char *inout)
 	while (lexer[i] != NULL && lexer[i][0] != ';' && lexer[i][0] != '|')
 	{
 		if (0 == ft_strncmp(inout, lexer[i++], size))
+		{
+			if (lexer[i][0] == '|')
+				return (nbr);
 			nbr++;
+		}
 	}
 	return (nbr);
+}
+
+int init_inouput_back(char **lexer, char *inout)
+{
+	if (lexer[-1][0]== '|' && lexer[-2][0] == inout[0])
+		return (1);
+	return (0);
 }

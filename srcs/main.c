@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/13 16:15:53 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/19 12:06:12 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void		display_parser(t_pipe *parser)
 		n = 0;
 		printf("\n");
 	}
-	printf("%p\n", parser->command[i]);
+	nbr = 1;
+	//printf("%p\n", parser->command[i]);
 	i = -1;
 	n = 0;
 	while (parser->input[++i] != NULL)
@@ -97,12 +98,16 @@ int		main(int	argc, char **argv, char **path)
 		get_next_line(1, &line);
 		toker = token(line);
 		i = 0;
-		while (toker[i]!= NULL)
+		while ( toker != NULL && toker[i] != NULL)
 			printf("{%s} ", toker[i++]);
 		printf("\n");
 		i = 0;
+//		toker[0] = "<\0";
+//		toker[1] = "|\0";
+//		toker[2] = NULL;
 		parser = init_parser(toker, &i);
-		display_total(parser);
+		if (parser != NULL)
+			display_total(parser);
 		free(vars.line);
 	}
 	return (1);

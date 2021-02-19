@@ -6,7 +6,7 @@
 /*   By: gbabeau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 14:19:42 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/02/09 14:37:01 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/02/19 14:50:06 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ t_pipe		*init_pipe(char **lexer, int *i);
 char		**init_command_pipe(char **command, char **lexer, int *i);
 int			nbr_command_line(char **lexer);
 char		**init_input_2(char **input, char **lexer, int nbr_input, int *i);
-char		***init_input(char ***input, char **lexer);
+char		***init_input(char ***input, char **lexer, int debb);
 char		**init_output_3(char **output_1, char **output_2, char **lexer);
 void		*init_output_2(char ***output_s, char ***output_d,
 		char **lexer, int nbr);
-t_pipe		*init_output(t_pipe *t_new, char **lexer);
+t_pipe		*init_output(t_pipe *t_new, char **lexer, int deb);
 t_pipe		*init_put(t_pipe *t_new, char **lexer, int *i);
 int			nbr_words_exe(char **lexer, int *i);
 void		*p_malloc(char ***tab, int sizei);
