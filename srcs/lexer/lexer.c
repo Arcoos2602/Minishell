@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/18 12:42:17 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/18 12:57:46 by tcordonn         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../libft/include/libft.h"
 #include "../../includes/minishell.h"
 
@@ -33,8 +21,6 @@ int				cpt(char *str)
 			cpt++;
 		}
 		cpt2(str, &i, &cpt);
-		if (not_handled(str[i], str[i + 1]))
-			return (-1);
 		i++;
 	}
 	return (cpt);
@@ -108,9 +94,9 @@ char			**token(char *str)
 		ft_putstr_fd("Multilines not handled", 1);
 		return (NULL);
 	}
-	if (cpt(str) < 1)
+	if (not_handled(str) == 1)
 	{
-		ft_putstr_fd("Tokens not handled", 1);
+		ft_putstr_fd("This token does not exist in this shell", 1);
 		return (tab);
 	}
 	if (!(str) || !(tab = malloc(sizeof(char *) * (cpt(str) + 1))))
@@ -145,7 +131,7 @@ char			**token(char *str)
 	char	**lexer;
 
 	(void)lexer;
-	lexer = token("ls|cat|daw>>ls|cat>lel>>d\0");
+	lexer = token("lol | dwa > lol\0");
 	if (lexer != NULL)
 		print_tab(lexer);
 	ft_putchar_fd('\n', 1);

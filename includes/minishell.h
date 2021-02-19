@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/18 12:20:54 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/18 12:20:57 by tcordonn         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef MINISHELL_H
 
 # include <stdio.h>
@@ -42,7 +30,7 @@ typedef struct	s_bi_parser
 
 int				lexer(t_main *vars);
 int				init_all(t_main	*vars);
-int				not_handled(char c, char c_next);
+int				not_handled(char *str);
 char			**token(char *str);
 void			cpt2(char *str, int *i, int *cpt);
 void			count_quote(char *str, int *i, int *cpt);
