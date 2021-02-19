@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:13:44 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/18 10:55:38 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/19 14:46:19 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ int				cpt(char *str)
 			cpt++;
 		}
 		cpt2(str, &i, &cpt);
-		if (not_handled(str[i], str[i + 1]))
-			return (-1);
 		i++;
 	}
 	return (cpt);
@@ -108,9 +106,9 @@ char			**token(char *str)
 		ft_putstr_fd("Multilines not handled", 1);
 		return (tab);
 	}
-	if (cpt(str) < 1)
+	if (not_handled(str) == 1)
 	{
-		ft_putstr_fd("Tokens not handled", 1);
+		ft_putstr_fd("This token does not exist in this shell", 1);
 		return (tab);
 	}
 	if (!(str) || !(tab = malloc(sizeof(char *) * (cpt(str) + 1))))
@@ -145,7 +143,7 @@ int				main(void)
 	char	**lexer;
 
 	(void)lexer;
-	lexer = token("ls|cat|daw>>ls|cat>lel>>d\0");
+	lexer = token("lol | dwa > lol\0");
 	if (lexer != NULL)
 		print_tab(lexer);
 	ft_putchar_fd('\n', 1);

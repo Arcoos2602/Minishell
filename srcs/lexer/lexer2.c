@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 11:23:32 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/18 10:40:44 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/19 14:24:17 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,29 @@ int				check_char(char c)
 	return (0);
 }
 
-int				not_handled(char c, char c_next)
+int				not_handled(char *str)
 {
-	if (c == '|' && c_next == '|')
-		return (1);
-	if (c == '<' && c_next == '<')
-		return (1);
-	if (c == '<' && c_next == '>')
-		return (1);
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '|' || str[i] == '>')
+		{
+			while (ft_iswhitespace(str[i++]))
+				;
+			if (str[i] == '|' || str[i] == '<')
+				return (1);	
+		}
+		if (str[i] == '<')
+		{
+			while (ft_iswhitespace(str[i++]))
+				;
+			if (str[i] == '<')
+				return (1);
+		}
+		i++;
+	}
 	return (0);
 }
 

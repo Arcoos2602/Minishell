@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:55:17 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/17 14:28:59 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/19 13:24:48 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct	s_bi_parser
 int				lexer(t_main *vars);
 t_bi_parser		*parser(char *vars);
 int				init_all(t_main	*vars);
-int				not_handled(char c, char c_next);
+int				not_handled(char *str);
 char			**token(char *str);
 void			cpt2(char *str, int *i, int *cpt);
 void			count_quote(char *str, int *i, int *cpt);
