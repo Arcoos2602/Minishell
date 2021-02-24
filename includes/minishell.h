@@ -40,5 +40,5 @@ int				check_char(char c);
 int				separators(char	c);
 int				quote(char *str);
 int				get_next_line(int fd, char **line);
-
+int				init_inouput_back(char **lexer, char *inout);
 #endif

@@ -6,7 +6,7 @@
 /*   By: gbabeau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 10:43:40 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/02/19 14:24:44 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/02/24 15:05:24 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 char		**init_output_3(char **output_1, char **output_2, char **lexer)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (NULL == (output_1 = malloc_tb_str(output_1, lexer,
@@ -25,45 +25,71 @@ char		**init_output_3(char **output_1, char **output_2, char **lexer)
 	return (output_1);
 }
 
-void		*init_output_2(char ***output_s, char ***output_d,
-		char **lexer, int nbr)
+void		*init_output_2(t_pipe *new, char **lexer, int *deb, int nbr)
 {
 	int	i;
 	int	n;
+	int	nbr_word;
 
-	n = 0;
 	i = -1;
-	while (++i != nbr)
+	if (*deb >= 2 && lexer[0] != NULL && 1 == init_inouput_back(lexer, ">"))
 	{
+		i++;
+		nbr_word = nbr_words_exe(&lexer[-*deb], deb);
+		if(lexer[-2][1]== '\0')
+		{
+			if (NULL == (new->output_s[i] = malloc_tb_str(new->output_s[i], lexer, nbr_word)))
+				return (NULL);
+				new->output_d[i] = NULL;
+		}
+		else
+		{
+			if (NULL == (new->output_d[i] = malloc_tb_str(new->output_d[i], lexer, nbr_word)))
+				return (NULL);
+				new->output_s[i] = NULL;
+		}
+	}
+	i++;
+//	printf("[%p][%p](%d)\n", new->output_s[i], new->output_d[i], i);
+	n = 0;
+	while (i < nbr)
+	{
+			printf("(%d)\n", *deb);
 		while (lexer[n][0] != '>')
 			n++;
 		if (lexer[n++][1] == '\0')
 		{
-			if (0 == (output_s[i] = init_output_3(output_s[i], output_d[i],
+//			printf("(%d)\n", *deb);
+			if (0 == (new->output_s[i] = init_output_3(new->output_s[i], new->output_d[i],
 							&lexer[n])))
 				return (NULL);
 			else
-				output_d[i] = NULL;
+				new->output_d[i] = NULL;
 		}
-		else if (0 == (output_d[i] = init_output_3(output_d[i], output_s[i],
+		else if (0 == (new->output_d[i] = init_output_3(new->output_d[i], new->output_s[i],
 						&lexer[n])))
 			return (NULL);
 		else
-			output_s[i] = NULL;
+			new->output_s[i] = NULL;
+		i++;
 	}
-	return (output_s);
+	return (new);
 }
 
-t_pipe		*init_output(t_pipe *new, char **lexer)
+t_pipe		*init_output(t_pipe *new, char **lexer, int deb)
 {
 	int	nbr;
 
-	nbr = init_inouput(lexer, ">>") + init_inouput(lexer, ">");
+		if (deb >= 2 && lexer[0] != NULL)
+			nbr = init_inouput_back(lexer, ">");
+		else
+			nbr = 0;
+	nbr += init_inouput(lexer, ">>") + init_inouput(lexer, ">");
 	new->output_s = malloc(sizeof(char**) * (nbr + 1));
 	new->output_d = malloc(sizeof(char**) * (nbr + 1));
+	if (NULL == init_output_2(new, lexer, &deb, nbr))
+		return (NULL);
 	new->output_s[nbr] = NULL;
 	new->output_d[nbr] = NULL;
-	if (NULL == init_output_2(new->output_s, new->output_d, lexer, nbr))
-		return (NULL);
 	return (new);
 }

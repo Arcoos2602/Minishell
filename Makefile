@@ -1,7 +1,7 @@
 NAME = minishell
 HEAD = -I./includes/ -I./libft/include
 
-CFLAGS = #-Wall -Wextra -Werror
+CFLAGS = #
 
 SRCS =  srcs/lexer/lexer.c \
 		srcs/main.c \

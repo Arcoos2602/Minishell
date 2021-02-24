@@ -6,7 +6,7 @@
 /*   By: gbabeau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 14:30:09 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/02/19 14:47:36 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/02/22 16:42:07 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int			init_inouput(char **lexer, char *inout)
 
 int init_inouput_back(char **lexer, char *inout)
 {
-	if (lexer[-1][0]== '|' && lexer[-2][0] == inout[0])
+	if (lexer[0][0] == inout[0] && lexer[-1][0] == '|')
 		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/19 12:06:12 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/02/24 15:06:21 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void		display_parser(t_pipe *parser)
 		printf("\n");
 	}
 	nbr = 1;
-	//printf("%p\n", parser->command[i]);
+//	printf("%p\n", parser->command[i]);
 	i = -1;
 	n = 0;
 	while (parser->input[++i] != NULL)
@@ -42,6 +42,7 @@ void		display_parser(t_pipe *parser)
 	}
 	i = -1;
 	n = 0;
+//		printf("u\n");
 	while (parser->output_s[++i] != NULL || parser->output_d[i] != NULL)
 	{
 		printf("output_s %d : ", i + 1);
@@ -53,6 +54,7 @@ void		display_parser(t_pipe *parser)
 		n = 0;
 		printf("\n");
 	}
+//		printf("u\n");
 	i = -1;
 	n = 0;
 	while (parser->output_s[++i] != NULL || parser->output_d[i] != NULL)
@@ -66,6 +68,7 @@ void		display_parser(t_pipe *parser)
 		n = 0;
 		printf("\n");
 	}
+//		printf("uu\n");
 	if (parser->next != NULL)
 		display_parser(parser->next);
 }
@@ -74,10 +77,14 @@ void		display_total(t_parser *parser)
 {
 	static int	i = 1;
 
+//		printf("((%p))\n",parser);
 	printf("\n\nligne command:%d\n", i++);
 	display_parser(parser->pipe);
 	if (parser->next != NULL)
+	{
+//		printf("%p\n",parser->next);
 		display_total(parser->next);
+	}
 }
 
 int		main(int	argc, char **argv, char **path)
@@ -102,9 +109,6 @@ int		main(int	argc, char **argv, char **path)
 			printf("{%s} ", toker[i++]);
 		printf("\n");
 		i = 0;
-//		toker[0] = "<\0";
-//		toker[1] = "|\0";
-//		toker[2] = NULL;
 		parser = init_parser(toker, &i);
 		if (parser != NULL)
 			display_total(parser);

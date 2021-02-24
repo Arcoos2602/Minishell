@@ -6,7 +6,7 @@
 /*   By: gbabeau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 14:19:42 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/02/19 14:50:06 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/02/22 12:54:59 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ int			nbr_command_line(char **lexer);
 char		**init_input_2(char **input, char **lexer, int nbr_input, int *i);
 char		***init_input(char ***input, char **lexer, int debb);
 char		**init_output_3(char **output_1, char **output_2, char **lexer);
-void		*init_output_2(char ***output_s, char ***output_d,
-		char **lexer, int nbr);
+void		*init_output_2(t_pipe *pipe,
+		char **lexer, int *deb, int nbr);
 t_pipe		*init_output(t_pipe *t_new, char **lexer, int deb);
 t_pipe		*init_put(t_pipe *t_new, char **lexer, int *i);
 int			nbr_words_exe(char **lexer, int *i);

@@ -6,7 +6,7 @@
 /*   By: gbabeau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 10:30:09 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/02/19 14:50:21 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/02/22 16:41:50 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_pipe		*init_put(t_pipe *new, char **lexer, int *i)
 	deb = *i - 1;
 	if (NULL == (new->input = init_input(new->input, &lexer[deb], deb)))
 		return (NULL);
-	if (NULL == init_output(new, &lexer[deb], deb))
+	if (NULL == init_output(new, &lexer[deb + 1], deb + 1))
 		return (NULL);
 	return (new);
 }
