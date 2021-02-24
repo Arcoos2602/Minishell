@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 11:39:10 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/19 12:10:55 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/23 10:35:31 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ void			check_double(char *str, int *i, int *first, int *second)
 int				check_end(char *str)
 {
 	if (separators(str[ft_strlen(str) - 1])
-		&& ft_iswhitespace(str[ft_strlen(str) - 1]) == 0)
+		&& ft_iswhitespace(str[ft_strlen(str) - 1]) == 0
+		&& str[ft_strlen(str) - 1] != ';')
 		return (-1);
 	return (1);
 }

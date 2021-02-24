@@ -102,7 +102,7 @@ char			**token(char *str)
 	if (!(str) || !(tab = malloc(sizeof(char *) * (cpt(str) + 1))))
 		return (0);
 	fill_tab(tab, str);
-	return (tab);
+	return (tab); 
 }
 
 /*void			print_tab(char **tab)
