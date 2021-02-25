@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct_pipe.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 10:30:09 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/02/22 16:41:50 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/02/25 11:43:25 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_pipe		*init_pipe(char **lexer, int *i)
 
 	pipe = NULL;
 	nbr = words_command(lexer, *i);
-	printf("nombre pipe = %d\n", nbr);
+	//printf("nombre pipe = %d\n", nbr);
 	while (nbr--)
 	{
 		if (pipe == NULL)

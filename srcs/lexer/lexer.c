@@ -78,7 +78,7 @@ int				fill_tab(char **tab, char *str)
 	return (1);
 }
 
-char			**token(char *str)
+char			**tokenization(char *str)
 {
 	char	**tab;
 	int		i;
@@ -91,13 +91,13 @@ char			**token(char *str)
 	i = 0;
 	if (check_multi(str) == -1)
 	{
-		ft_putstr_fd("Multilines not handled", 1);
+		ft_putstr_fd("Multilines not handled\n", 1);
 		return (NULL);
 	}
 	if (not_handled(str) == 1)
 	{
-		ft_putstr_fd("This token does not exist in this shell", 1);
-		return (tab);
+		ft_putstr_fd("This token does not exist in this shell\n", 1);
+		return (NULL);
 	}
 	if (!(str) || !(tab = malloc(sizeof(char *) * (cpt(str) + 1))))
 		return (0);

@@ -18,23 +18,43 @@ int				check_char(char c)
 int				not_handled(char *str)
 {
 	int		i;
+	int		tmp;
 
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '|' || str[i] == '>')
+		tmp = i;
+		if (str[tmp] == '|')
 		{
-			while (ft_iswhitespace(str[i++]))
+			while (ft_iswhitespace(str[++tmp]))
 				;
-			if (str[i] == '|' || str[i] == '<')
-				return (1);	
-		}
-		if (str[i] == '<')
-		{
-			while (ft_iswhitespace(str[i++]))
-				;
-			if (str[i] == '<')
+			if (str[tmp] == '|')
 				return (1);
+			tmp = i;
+		}
+		if (str[tmp] == '>')
+		{
+			while (ft_iswhitespace(str[++tmp]))
+				;
+			if (str[tmp] == '<')
+				return (1);
+			tmp = i;
+		}
+		if (str[tmp] == '<' || str[tmp] == '>')
+		{
+			while (ft_iswhitespace(str[++tmp]))
+				;
+			if (str[tmp] == '|')
+				return (1);
+			tmp = i;
+		}
+		if (str[tmp] == '<')
+		{
+			while (ft_iswhitespace(str[++tmp]))
+				;
+			if (str[tmp] == '<')
+				return (1);
+			tmp = i;
 		}
 		i++;
 	}

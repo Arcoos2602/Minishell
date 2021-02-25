@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/24 15:06:21 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/02/25 11:53:59 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int		main(int	argc, char **argv, char **path)
 	(void)argv;
 	int 		i;
 	t_parser	*parser;
-	char **toker;
+	char **token;
 
 	ft_putstr_fd("$ ", 1);
 	if ((!init_all(&vars)))
@@ -103,13 +103,13 @@ int		main(int	argc, char **argv, char **path)
 	while (1) // boucle principale
 	{
 		get_next_line(1, &line);
-		toker = token(line);
+		token = tokenization(line);
 		i = 0;
-		while ( toker != NULL && toker[i] != NULL)
-			printf("{%s} ", toker[i++]);
-		printf("\n");
+		/*while ( token != NULL && token[i] != NULL)
+			printf("{%s} ", token[i++]);
+		printf("\n");*/
 		i = 0;
-		parser = init_parser(toker, &i);
+		parser = init_parser(token, &i);
 		if (parser != NULL)
 			display_total(parser);
 		free(vars.line);
