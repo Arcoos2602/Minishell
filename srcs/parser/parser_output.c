@@ -6,7 +6,7 @@
 /*   By: gbabeau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 10:43:40 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/02/24 15:05:24 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/02/25 11:47:59 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,19 @@ void		*init_output_2(t_pipe *new, char **lexer, int *deb, int nbr)
 	{
 		i++;
 		nbr_word = nbr_words_exe(&lexer[-*deb], deb);
-		if(lexer[-2][1]== '\0')
+		if(lexer[0][1]== '\0')
 		{
-			if (NULL == (new->output_s[i] = malloc_tb_str(new->output_s[i], lexer, nbr_word)))
+			if (NULL == (new->output_s[i] = malloc_tb_str(new->output_s[i], &lexer[nbr_word + 1], nbr_word + 1)))
 				return (NULL);
 				new->output_d[i] = NULL;
 		}
 		else
 		{
-			if (NULL == (new->output_d[i] = malloc_tb_str(new->output_d[i], lexer, nbr_word)))
+			if (NULL == (new->output_d[i] = malloc_tb_str(new->output_d[i], &lexer[nbr_word + 1], nbr_word + 1)))
 				return (NULL);
 				new->output_s[i] = NULL;
 		}
+		n = nbr_word + 1;
 	}
 	i++;
 //	printf("[%p][%p](%d)\n", new->output_s[i], new->output_d[i], i);
@@ -84,7 +85,8 @@ t_pipe		*init_output(t_pipe *new, char **lexer, int deb)
 			nbr = init_inouput_back(lexer, ">");
 		else
 			nbr = 0;
-	nbr += init_inouput(lexer, ">>") + init_inouput(lexer, ">");
+	nbr += init_inouput(&lexer[nbr], ">>") + init_inouput(&lexer[nbr], ">");
+	printf("nbr=%d\n",nbr);
 	new->output_s = malloc(sizeof(char**) * (nbr + 1));
 	new->output_d = malloc(sizeof(char**) * (nbr + 1));
 	if (NULL == init_output_2(new, lexer, &deb, nbr))
