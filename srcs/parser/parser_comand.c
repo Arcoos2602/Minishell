@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 14:04:46 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/02/22 11:58:55 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/02/25 11:43:35 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char		**init_command_pipe(char **command, char **lexer, int *i)
 	int	size;
 
 	size = nbr_words_exe(lexer, i);
-	printf("longueur comand = %d\n", size);
+	//printf("longueur comand = %d\n", size);
 	if (NULL == (command = malloc_tb_str(command, &lexer[*i - size], size)))
 		return (NULL);
 	return (command);

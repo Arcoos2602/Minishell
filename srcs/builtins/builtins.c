@@ -1,21 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/24 10:24:14 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/25 11:53:11 by tcordonn         ###   ########.fr       */
+/*   Created: 2021/02/25 11:30:04 by tcordonn          #+#    #+#             */
+/*   Updated: 2021/02/25 11:53:35 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
-#include "../../libft/include/libft.h"
-
-int		ft_echo(char **arg, int	i)
+int		check_builtins(char *command)
 {
-	check_arg(arg[i++]);
-	ft_putstr_fd(arg, 1);
-}
 
+}

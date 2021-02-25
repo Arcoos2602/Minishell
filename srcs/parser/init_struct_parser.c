@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_struct.c                                      :+:      :+:    :+:   */
+/*   init_struct_parser.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 10:26:51 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/02/19 13:40:31 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/02/25 11:42:14 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_parser	*init_parser(char **lexer, int *i)
 	if (lexer == NULL)
 			return (NULL);
 	nbr = nbr_command_line(lexer);
-	printf("nombre command  = %d\n", nbr);
+	//printf("nombre command  = %d\n", nbr);
 	while (nbr != 0)
 	{
 		if (parser == NULL)
