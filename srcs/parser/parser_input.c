@@ -6,7 +6,7 @@
 /*   By: gbabeau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:51:02 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/02/25 12:59:57 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/02/25 17:09:07 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,40 @@
 char		**init_input_2(char **input, char **lexer, int nbr_input, int *i)
 {
 	int nbr_word;
-	if (*i < 2 && 1 == init_inouput_back(lexer, "<"))
+	int n;
+
+	n = 0;
+	if (*i < 2 &&  lexer[0] != NULL && 1 == init_inouput_back(lexer, "<"))
 	{
 		nbr_word = nbr_words_exe(lexer, i);
-			if (NULL == (input = malloc_tb_str(input, &lexer[*i], nbr_word)))
+			if (NULL == (input = malloc_tb_str(input, &lexer[nbr_word + 1], nbr_word + 1)))
 				return (NULL);
 		return (input);
 		*i -= nbr_word;
 	}
-	else
+	else if (lexer[0] != NULL)
 	{
-	while (lexer[*i][0] != '<')
+		printf("{(%s)}\n", lexer[0]);
+	while (lexer[n] != NULL && lexer[n][0] != '<')
+	{
+		printf("(%s\n)", lexer[n]);
 		*i += 1;
-	if (*i >= 2)
-		if (lexer[*i - 2][0] == '|')
-			return (NULL);
-	*i += 1;
-	nbr_word = nbr_words_exe(lexer, i);
-	*i -= nbr_word;
-	printf("%s\n", lexer[*i]);
-	if (NULL == (input = malloc_tb_str(input, &lexer[*i], nbr_word)))
+		n++;
+	}
+	if (n >= 2)
+		if (lexer[n] == NULL|| lexer[n][0] == '|')
+			return (input);
+	if (lexer[n] != NULL)
+	{
+		*i += 1;
+		n++;
+	}
+	printf("(%s)\n", lexer[n]);
+	printf("nbr==(%d et %s)\n", *i, lexer[0]);
+	nbr_word = nbr_words_exe(&lexer[n-*i], i);
+	printf("nbr==(%d)\n", nbr_word);
+	if (NULL == (input = malloc_tb_str(input, &lexer[n], nbr_word)))
 		return (NULL);
-	i++;
 	}
 	return (input);
 }
@@ -50,16 +62,16 @@ char		***init_input(char ***input, char **lexer, int deb)
 
 	n = -1;
 	i = 0;
-	if (deb >= 2)
+	if (deb >= 2 && lexer[0] != NULL)
 		nbr_input = init_inouput_back(lexer, "<");
 	else
 		nbr_input = 0;
-	nbr_input += init_inouput(lexer, "<");
+	nbr_input += init_inouput(&lexer[nbr_input], "<");
 	if (0 == (input = malloc(sizeof(char**) * (nbr_input + 1))))
 		return (NULL);
 	input[nbr_input] = NULL;
 	while (++n != nbr_input)
-		if (0 == (input[n] = init_input_2(input[n], &lexer[deb], nbr_input, &deb)))
+		if (0 == (input[n] = init_input_2(input[n], lexer, nbr_input, &deb)))
 			return (NULL);
 	return (input);
 }
