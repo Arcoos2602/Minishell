@@ -6,12 +6,13 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/25 15:46:51 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/26 13:24:03 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/include/libft.h"
 #include "../includes/minishell.h"
+
 void		display_parser(t_pipe *parser)
 {
 	static int	nbr = 1;
@@ -87,31 +88,46 @@ void		display_total(t_parser *parser)
 	}
 }
 
+char	**init_path(t_pipe *parser, char **path)
+{
+	int		i;
+	char	**tab;
+
+	i = 0;
+	while (path[i] != NULL)
+	{
+		if (ft_strncmp(path[i], "PATH=", 5) == 0)
+			tab = ft_split(path[i], ':');
+		i++;
+	}
+}
+
 int		main(int	argc, char **argv, char **path)
 {
-	t_main	vars;
+	t_main		vars;
 	char		*line;
-	(void)argc;
-	(void)argv;
 	int 		i;
 	t_parser	*parser;
-	char **token;
+	char		**token;
+	char		**exec_path;
 
+	(void)argc;
+	(void)argv;
 	ft_putstr_fd("$ ", 1);
 	if ((!init_all(&vars)))
 		return (-1);
+	exec_path = init_path(parser->pipe, path);
 	while (1) // boucle principale
 	{
 		get_next_line(1, &line);
 		token = tokenization(line);
-		i = 0;
 		/*while ( token != NULL && token[i] != NULL)
 			printf("{%s} ", token[i++]);
 		printf("\n");*/
-		i = 0;
 		parser = init_parser(token, &i);
-		if (parser != NULL)
-			display_total(parser);
+		//check_builtins(parser);
+		/*if (parser != NULL)
+			display_total(parser);*/
 		free(vars.line);
 	}
 	return (1);

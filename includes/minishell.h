@@ -21,13 +21,6 @@ typedef struct	s_main
 	int		command_nbr;
 }				t_main;
 
-typedef struct	s_bi_parser
-{
-	char					*command;
-	struct	s_bi_parser		*left;
-	struct	s_bi_parser		*rigth;
-}				t_bi_parser;
-
 int				lexer(t_main *vars);
 int				init_all(t_main	*vars);
 int				not_handled(char *str);
