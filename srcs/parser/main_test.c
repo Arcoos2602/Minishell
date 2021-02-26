@@ -6,14 +6,14 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:57:58 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/02/13 15:57:17 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/26 15:26:25 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft/include/libft.h"
 #include "../../includes/minishell.h"
 
-void		display_parser(t_pipe *parser)
+void		display_parser(t_pipes *parser)
 {
 	static int	nbr = 1;
 	int			i;

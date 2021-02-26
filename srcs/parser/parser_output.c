@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_output.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 10:43:40 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/02/25 16:39:03 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/02/26 15:26:25 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char		**init_output_3(char **output_1, char **output_2, char **lexer)
 	return (output_1);
 }
 
-void		*init_output_2(t_pipe *new, char **lexer, int *deb, int nbr)
+void		*init_output_2(t_pipes *new, char **lexer, int *deb, int nbr)
 {
 	int	i;
 	int	n;
@@ -77,7 +77,7 @@ void		*init_output_2(t_pipe *new, char **lexer, int *deb, int nbr)
 	return (new);
 }
 
-t_pipe		*init_output(t_pipe *new, char **lexer, int deb)
+t_pipes		*init_output(t_pipes *new, char **lexer, int deb)
 {
 	int	nbr;
 

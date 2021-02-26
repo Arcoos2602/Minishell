@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_struct_pipe.c                                 :+:      :+:    :+:   */
+/*   init_struct_pipes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,7 +13,7 @@
 #include "../../libft/include/libft.h"
 #include "../../includes/minishell.h"
 
-t_pipe		*init_put(t_pipe *new, char **lexer, int *i)
+t_pipes		*init_put(t_pipes *new, char **lexer, int *i)
 {
 	int	deb;
 
@@ -25,7 +25,7 @@ t_pipe		*init_put(t_pipe *new, char **lexer, int *i)
 	return (new);
 }
 
-t_pipe		*add_pipe(t_pipe *pipe, t_pipe *next)
+t_pipes		*add_pipe(t_pipes *pipe, t_pipes *next)
 {
 //	printf("{{%s}}\n",next->command[0]);
 	if (pipe == NULL)
@@ -37,7 +37,7 @@ t_pipe		*add_pipe(t_pipe *pipe, t_pipe *next)
 	return (next);
 }
 
-t_pipe		*init_new(t_pipe *new, char **lexer, int *i)
+t_pipes		*init_new(t_pipes *new, char **lexer, int *i)
 {
 	if (NULL == (new->command = init_command_pipe(new->command, lexer, i)))
 		return (NULL);
@@ -46,20 +46,20 @@ t_pipe		*init_new(t_pipe *new, char **lexer, int *i)
 	return (new);
 }
 
-t_pipe		*pipe_new(char **lexer, int *i)
+t_pipes		*pipe_new(char **lexer, int *i)
 {
-	t_pipe	*new;
+	t_pipes	*new;
 
-	if (0 == (new = malloc(sizeof(t_pipe))))
+	if (0 == (new = malloc(sizeof(t_pipes))))
 		return (NULL);
 	new->next = NULL;
 	return (init_new(new, lexer, i));
 }
 
-t_pipe		*init_pipe(char **lexer, int *i)
+t_pipes		*init_pipes(char **lexer, int *i)
 {
 	int		nbr;
-	t_pipe	*pipe;
+	t_pipes	*pipe;
 
 	pipe = NULL;
 	nbr = words_command(lexer, *i);

@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 10:26:51 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/02/25 11:42:14 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/26 15:26:25 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_parser	*parser_new(char **lexer, int *i)
 		return (NULL);
 	parser->pipe = NULL;
 	parser->next = NULL;
-	if (0 == (parser->pipe = init_pipe(lexer, i)))
+	if (0 == (parser->pipe = init_pipes(lexer, i)))
 		return (NULL);
 	return (parser);
 }

@@ -6,14 +6,14 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/26 13:24:03 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/02/26 15:34:06 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/include/libft.h"
 #include "../includes/minishell.h"
 
-void		display_parser(t_pipe *parser)
+void		display_parser(t_pipes *parser)
 {
 	static int	nbr = 1;
 	int			i;
@@ -88,10 +88,12 @@ void		display_total(t_parser *parser)
 	}
 }
 
-char	**init_path(t_pipe *parser, char **path)
+char	**init_path(t_pipes *pipe, char **path)
 {
 	int		i;
 	char	**tab;
+	char 	*dest;
+
 
 	i = 0;
 	while (path[i] != NULL)
@@ -100,6 +102,51 @@ char	**init_path(t_pipe *parser, char **path)
 			tab = ft_split(path[i], ':');
 		i++;
 	}
+}
+
+void	executor(t_pipes *pipes, char **exec_path, int pipefd_in[2])
+{
+	int		pid;
+	int		success;
+	int 	i;
+	char	*dest;
+	int		pipefd_out[2];
+
+	pipe(pipefd_in);
+	i = 0;
+	pid = fork();
+	success = -1;
+	if (pid == 0)
+		while (success != 1 && exec_path[i]!= NULL)
+		{
+			dest = ft_strjoin(pipes->command[0], exec_path[0]);
+			if (pipefd_int[0] != -1)
+			dup2(pipefd_in[0], STDIN_FILENO);
+			if(pipes->next->next != NULL)
+			dup2(pipefd_out[1], STDOUT_FILENO);
+			success = execve(dest, &pipes->command[1], (char *const*) NULL);
+			i++;
+			free(dest);
+		}
+	else
+	{
+		if(pipes->next->next != NULL)
+			executor(pipes->next, exec_path, pipefd_out);
+	}
+}
+
+int		ft_shell(t_parser *parser, char **exec_path)
+{
+	int		i;
+	int		pipefd_in[2];
+
+	pipefd_in[0] = -1;
+	pipefd_in[1] = -1;
+	i = 0;	
+	executor(parser->pipe, exec_path, pipefd_in);
+	if (parser->next != NULL)
+		ft_shell(parser->next, exec_path);
+	return (0);
 }
 
 int		main(int	argc, char **argv, char **path)
@@ -128,7 +175,7 @@ int		main(int	argc, char **argv, char **path)
 		//check_builtins(parser);
 		/*if (parser != NULL)
 			display_total(parser);*/
-		free(vars.line);
+		free(line);
 	}
 	return (1);
 }
