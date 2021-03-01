@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -45,9 +46,9 @@ char		**init_input_2(char **input, char **lexer, int nbr_input, int *i)
 		n++;
 	}
 	printf("(%s)\n", lexer[n]);
-	printf("nbr==(%d et %s)\n", *i, lexer[0]);
+	//printf("nbr==(%d et %s)\n", *i, lexer[0]);
 	nbr_word = nbr_words_exe(&lexer[n-*i], i);
-	printf("nbr==(%d)\n", nbr_word);
+	//printf("nbr==(%d)\n", nbr_word);
 	if (NULL == (input = malloc_tb_str(input, &lexer[n], nbr_word)))
 		return (NULL);
 	}

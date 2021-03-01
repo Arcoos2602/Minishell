@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/26 15:34:06 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/01 14:40:57 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,10 +120,10 @@ void	executor(t_pipes *pipes, char **exec_path, int pipefd_in[2])
 		while (success != 1 && exec_path[i]!= NULL)
 		{
 			dest = ft_strjoin(pipes->command[0], exec_path[0]);
-			if (pipefd_int[0] != -1)
-			dup2(pipefd_in[0], STDIN_FILENO);
+			if (pipefd_in[0] != -1)
+				dup2(pipefd_in[0], STDIN_FILENO);
 			if(pipes->next->next != NULL)
-			dup2(pipefd_out[1], STDOUT_FILENO);
+				dup2(pipefd_out[1], STDOUT_FILENO);
 			success = execve(dest, &pipes->command[1], (char *const*) NULL);
 			i++;
 			free(dest);
@@ -133,6 +133,7 @@ void	executor(t_pipes *pipes, char **exec_path, int pipefd_in[2])
 		if(pipes->next->next != NULL)
 			executor(pipes->next, exec_path, pipefd_out);
 	}
+	wait(&pid);
 }
 
 int		ft_shell(t_parser *parser, char **exec_path)
@@ -172,6 +173,7 @@ int		main(int	argc, char **argv, char **path)
 			printf("{%s} ", token[i++]);
 		printf("\n");*/
 		parser = init_parser(token, &i);
+		ft_shell(parser, exec_path);
 		//check_builtins(parser);
 		/*if (parser != NULL)
 			display_total(parser);*/
