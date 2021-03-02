@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/01 14:40:57 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/02 15:57:38 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,49 +104,66 @@ char	**init_path(t_pipes *pipe, char **path)
 	}
 }
 
-void	executor(t_pipes *pipes, char **exec_path, int pipefd_in[2])
+int *ft_pipe(t_pipes *pipes, char **exec_path, int pipe_fd[2])
 {
-	int		pid;
-	int		success;
-	int 	i;
-	char	*dest;
-	int		pipefd_out[2];
+	pid_t		pid;
+	int		*pipe_fd_2;
+	int		status;
+	char	*tab2[3];
 
-	pipe(pipefd_in);
-	i = 0;
+	pipe_fd_2 = malloc(sizeof(int) *2);
+	tab2[0] = "/bin/cat\0";
+	tab2[1] = "-n\0";
+	tab2[2] = NULL;
+	
+	if (pipes->next != NULL)
+		if (pipe(pipe_fd_2) == -1)
+			return (NULL);
 	pid = fork();
-	success = -1;
 	if (pid == 0)
-		while (success != 1 && exec_path[i]!= NULL)
-		{
-			dest = ft_strjoin(pipes->command[0], exec_path[0]);
-			if (pipefd_in[0] != -1)
-				dup2(pipefd_in[0], STDIN_FILENO);
-			if(pipes->next->next != NULL)
-				dup2(pipefd_out[1], STDOUT_FILENO);
-			success = execve(dest, &pipes->command[1], (char *const*) NULL);
-			i++;
-			free(dest);
-		}
-	else
 	{
-		if(pipes->next->next != NULL)
-			executor(pipes->next, exec_path, pipefd_out);
+		if (pipe_fd[0] != -1)
+		{
+			close(pipe_fd[1]);
+			dup2(pipe_fd[0], 0);
+		}
+		if (pipes->next != NULL)
+			dup2(pipe_fd_2[1], 1);
+		execve(tab2[0], &tab2[0],  (char *const*) NULL);
 	}
-	wait(&pid);
+
+	if (pipe_fd[0] != -1)
+	{
+		close(pipe_fd[0]);
+		close(pipe_fd[1]);
+	}
+	waitpid(-1, &status, 0);
+	waitpid(-1, &status, 0);
+	return (pipe_fd_2);
 }
 
-int		ft_shell(t_parser *parser, char **exec_path)
+int		line_command(t_pipes *parser, char **exec_path, int pipe_fd[2])
 {
 	int		i;
-	int		pipefd_in[2];
 
-	pipefd_in[0] = -1;
-	pipefd_in[1] = -1;
-	i = 0;	
-	executor(parser->pipe, exec_path, pipefd_in);
+	i = 0;
+	printf("nombre comand\n");
+	pipe_fd = ft_pipe(parser, exec_path, pipe_fd);
 	if (parser->next != NULL)
-		ft_shell(parser->next, exec_path);
+		line_command(parser->next, exec_path, pipe_fd);
+	return (0);
+}
+
+int		ft_shell(t_parser *parser, char **exec_path, int pipe_fd[2])
+{
+	int		i;
+
+	i = 0;
+	pipe_fd[0] = -1;
+	pipe_fd[1] = -1;
+	line_command(parser->pipe, exec_path, pipe_fd);
+	if (parser->next != NULL)
+		ft_shell(parser->next, exec_path, pipe_fd);
 	return (0);
 }
 
@@ -158,7 +175,9 @@ int		main(int	argc, char **argv, char **path)
 	t_parser	*parser;
 	char		**token;
 	char		**exec_path;
+	int			*pipe_fd;
 
+	pipe_fd = malloc(sizeof(int) * 2);
 	(void)argc;
 	(void)argv;
 	ft_putstr_fd("$ ", 1);
@@ -173,10 +192,12 @@ int		main(int	argc, char **argv, char **path)
 			printf("{%s} ", token[i++]);
 		printf("\n");*/
 		parser = init_parser(token, &i);
-		ft_shell(parser, exec_path);
+		ft_shell(parser, exec_path, pipe_fd);
 		//check_builtins(parser);
 		/*if (parser != NULL)
 			display_total(parser);*/
+			while (1)
+			;
 		free(line);
 	}
 	return (1);
