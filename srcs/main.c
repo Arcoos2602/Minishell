@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/02 15:57:38 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/03 14:45:24 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,18 +104,21 @@ char	**init_path(t_pipes *pipe, char **path)
 	}
 }
 
-int *ft_pipe(t_pipes *pipes, char **exec_path, int pipe_fd[2])
+int		*ft_pipe(t_pipes *pipes, char **exec_path, int pipe_fd[2])
 {
 	pid_t		pid;
-	int		*pipe_fd_2;
-	int		status;
-	char	*tab2[3];
+	int			*pipe_fd_2;
+	int			status;
+	char		*tab2[3];
+	char		*dest;
 
 	pipe_fd_2 = malloc(sizeof(int) *2);
 	tab2[0] = "/bin/cat\0";
 	tab2[1] = "-n\0";
 	tab2[2] = NULL;
-	
+
+	dest = ft_strjoin(pipes->command[0], exec_path[0]);
+	printf("exec_path : %s dest : %s \n", dest, exec_path);
 	if (pipes->next != NULL)
 		if (pipe(pipe_fd_2) == -1)
 			return (NULL);
@@ -129,7 +132,7 @@ int *ft_pipe(t_pipes *pipes, char **exec_path, int pipe_fd[2])
 		}
 		if (pipes->next != NULL)
 			dup2(pipe_fd_2[1], 1);
-		execve(tab2[0], &tab2[0],  (char *const*) NULL);
+		execve(dest, &pipes->command[1],  (char *const*) NULL);
 	}
 
 	if (pipe_fd[0] != -1)
@@ -139,10 +142,11 @@ int *ft_pipe(t_pipes *pipes, char **exec_path, int pipe_fd[2])
 	}
 	waitpid(-1, &status, 0);
 	waitpid(-1, &status, 0);
+	free(pipe_fd);
 	return (pipe_fd_2);
 }
 
-int		line_command(t_pipes *parser, char **exec_path, int pipe_fd[2])
+int			*line_command(t_pipes *parser, char **exec_path, int pipe_fd[2])
 {
 	int		i;
 
@@ -151,20 +155,20 @@ int		line_command(t_pipes *parser, char **exec_path, int pipe_fd[2])
 	pipe_fd = ft_pipe(parser, exec_path, pipe_fd);
 	if (parser->next != NULL)
 		line_command(parser->next, exec_path, pipe_fd);
-	return (0);
+	return (pipe_fd);
 }
 
-int		ft_shell(t_parser *parser, char **exec_path, int pipe_fd[2])
+int			*ft_shell(t_parser *parser, char **exec_path, int pipe_fd[2])
 {
 	int		i;
 
 	i = 0;
 	pipe_fd[0] = -1;
 	pipe_fd[1] = -1;
-	line_command(parser->pipe, exec_path, pipe_fd);
+	pipe_fd = line_command(parser->pipe, exec_path, pipe_fd);
 	if (parser->next != NULL)
 		ft_shell(parser->next, exec_path, pipe_fd);
-	return (0);
+	return (pipe_fd);
 }
 
 int		main(int	argc, char **argv, char **path)
@@ -192,13 +196,14 @@ int		main(int	argc, char **argv, char **path)
 			printf("{%s} ", token[i++]);
 		printf("\n");*/
 		parser = init_parser(token, &i);
-		ft_shell(parser, exec_path, pipe_fd);
+		pipe_fd = ft_shell(parser, exec_path, pipe_fd);
 		//check_builtins(parser);
 		/*if (parser != NULL)
 			display_total(parser);*/
-			while (1)
-			;
+			//while (1)
+			//;
 		free(line);
 	}
+	free(pipe_fd);
 	return (1);
 }
