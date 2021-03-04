@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 10:43:40 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/03/04 11:10:15 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/04 11:09:28 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ t_pipes		*init_output(t_pipes *new, char **lexer, int deb)
 		else
 			nbr = 0;
 	nbr += init_inouput(&lexer[nbr], ">>") + init_inouput(&lexer[nbr], ">");
-	//printf("nbr=%s\n",lexer[0]);
+	//printf("s_pipes%s\n",lexer[0]);
 	new->output_s = malloc(sizeof(char**) * (nbr + 1));
 	new->output_d = malloc(sizeof(char**) * (nbr + 1));
 	if (NULL == init_output_2(new, lexer, &deb, nbr))

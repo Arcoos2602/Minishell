@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/03 14:45:24 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/04 15:59:52 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,23 +102,20 @@ char	**init_path(t_pipes *pipe, char **path)
 			tab = ft_split(path[i], ':');
 		i++;
 	}
+	return (tab);
 }
 
 int		*ft_pipe(t_pipes *pipes, char **exec_path, int pipe_fd[2])
 {
 	pid_t		pid;
+	int			i;
 	int			*pipe_fd_2;
 	int			status;
-	char		*tab2[3];
 	char		*dest;
+	int			signum;
 
+	i = 0;
 	pipe_fd_2 = malloc(sizeof(int) *2);
-	tab2[0] = "/bin/cat\0";
-	tab2[1] = "-n\0";
-	tab2[2] = NULL;
-
-	dest = ft_strjoin(pipes->command[0], exec_path[0]);
-	printf("exec_path : %s dest : %s \n", dest, exec_path);
 	if (pipes->next != NULL)
 		if (pipe(pipe_fd_2) == -1)
 			return (NULL);
@@ -132,7 +129,11 @@ int		*ft_pipe(t_pipes *pipes, char **exec_path, int pipe_fd[2])
 		}
 		if (pipes->next != NULL)
 			dup2(pipe_fd_2[1], 1);
-		execve(dest, &pipes->command[1],  (char *const*) NULL);
+		while (exec_path[i++] != NULL)
+		{
+			dest = ft_strjoin(exec_path[i], pipes->command[0]);
+			execve(dest, &pipes->command[0],  (char *const*) NULL);
+		}
 	}
 
 	if (pipe_fd[0] != -1)
@@ -140,21 +141,25 @@ int		*ft_pipe(t_pipes *pipes, char **exec_path, int pipe_fd[2])
 		close(pipe_fd[0]);
 		close(pipe_fd[1]);
 	}
-	waitpid(-1, &status, 0);
-	waitpid(-1, &status, 0);
-	free(pipe_fd);
+	//signal(signum, sig_handler);
+	if (pipes->next != NULL)
+		free(pipe_fd);
 	return (pipe_fd_2);
 }
 
 int			*line_command(t_pipes *parser, char **exec_path, int pipe_fd[2])
 {
 	int		i;
+	int		status;
 
 	i = 0;
-	printf("nombre comand\n");
+	//printf("nombre comand\n");
 	pipe_fd = ft_pipe(parser, exec_path, pipe_fd);
 	if (parser->next != NULL)
 		line_command(parser->next, exec_path, pipe_fd);
+	waitpid(-1, &status, 0);
+	waitpid(-1, &status, 0);
+	//free(pipe_fd);
 	return (pipe_fd);
 }
 
@@ -184,17 +189,14 @@ int		main(int	argc, char **argv, char **path)
 	pipe_fd = malloc(sizeof(int) * 2);
 	(void)argc;
 	(void)argv;
-	ft_putstr_fd("$ ", 1);
 	if ((!init_all(&vars)))
 		return (-1);
 	exec_path = init_path(parser->pipe, path);
-	while (1) // boucle principale
+	while (1)
 	{
+		ft_putstr_fd("\n[minishell]$ ", 1);
 		get_next_line(1, &line);
 		token = tokenization(line);
-		/*while ( token != NULL && token[i] != NULL)
-			printf("{%s} ", token[i++]);
-		printf("\n");*/
 		parser = init_parser(token, &i);
 		pipe_fd = ft_shell(parser, exec_path, pipe_fd);
 		//check_builtins(parser);
