@@ -7,7 +7,7 @@ SRCS =  srcs/lexer/lexer.c \
 		srcs/main.c \
 		srcs/lexer/lexer2.c \
 		srcs/lexer/quote.c \
-		srcs/init.c \
+		srcs/pipes.c \
 		srcs/get_next_line.c \
 		srcs/parser/init_struct_parser.c \
 		srcs/parser/init_struct_pipe.c \

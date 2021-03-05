@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 14:49:55 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/01/22 10:47:22 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/05 10:34:54 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,7 @@ int		get_next_line(int fd, char **line)
 		if (ft_strchr(str[fd], '\n'))
 			break ;
 	}
+	if (ret == 0)
+		exit(0);
 	return (ft_return(str, line, ret, fd));
 }

@@ -13,6 +13,7 @@ int		main(int argc, char **argv)
 	char	buf[486153];
 
 	pid = read(1, buf, 4854);
+	printf("%d\n", pid);
 	if (pid == 0)
 		exit(0);
 	return (0);
