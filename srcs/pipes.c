@@ -6,26 +6,18 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:03:19 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/05 14:27:21 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/07 15:13:45 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/include/libft.h"
 #include "../includes/minishell.h"
 
-int		*ft_pipe(t_pipes *pipes, char **exec_path, int pipe_fd[2])
+void	father(t_pipes *pipes, pid_t pid, int pipe_fd[2], int pipe_fd_2[2], char *dest, char **exec_path)
 {
-	pid_t		pid;
 	int			i;
-	int			*pipe_fd_2;
-	char		*dest;
 
 	i = 0;
-	pipe_fd_2 = malloc(sizeof(int) *2);
-	if (pipes->next != NULL)
-		if (pipe(pipe_fd_2) == -1)
-			return (NULL);
-	pid = fork();
 	if (pid == 0)
 	{
 		if (pipe_fd[0] != -1)
@@ -40,7 +32,28 @@ int		*ft_pipe(t_pipes *pipes, char **exec_path, int pipe_fd[2])
 			dest = ft_strjoin(exec_path[i], pipes->command[0]);
 			execve(dest, &pipes->command[0],  (char *const*) NULL);
 		}
+		//kill(pid, SIGKILL);
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(pipes->command[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
 	}
+}
+
+int		*ft_pipe(t_pipes *pipes, char **exec_path, int pipe_fd[2])
+{
+	pid_t		pid;
+	int			*pipe_fd_2;
+	char		*dest;
+
+	pipe_fd_2 = malloc(sizeof(int) *2);
+	if (pipes->next != NULL)
+		if (pipe(pipe_fd_2) == -1)
+		{
+			ft_putstr_fd(strerror(errno), 2);
+			return (NULL);
+		}
+	pid = fork();
+	father(pipes, pid, pipe_fd, pipe_fd_2, dest, exec_path);
 	if (pipe_fd[0] != -1)
 	{
 		close(pipe_fd[0]);
@@ -48,6 +61,7 @@ int		*ft_pipe(t_pipes *pipes, char **exec_path, int pipe_fd[2])
 	}
 	if (pipes->next != NULL)
 		free(pipe_fd);
+	free(dest);
 	return (pipe_fd_2);
 }
 
@@ -62,7 +76,6 @@ int			*line_command(t_pipes *parser, char **exec_path, int pipe_fd[2])
 		line_command(parser->next, exec_path, pipe_fd);
 	waitpid(-1, &status, 0);
 	waitpid(-1, &status, 0);
-	//free(pipe_fd);
 	return (pipe_fd);
 }
 

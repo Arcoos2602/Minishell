@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/05 14:35:00 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/07 13:17:30 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,17 +115,16 @@ int		main(int	argc, char **argv, char **path)
 	int			*pipe_fd;
 
 	pipe_fd = malloc(sizeof(int) * 2);
-	(void)argc;
-	(void)argv;
 	exec_path = init_path(path);
 	while (1)
 	{
-		ft_putstr_fd("[minishell]$ ", 1);
+		ft_putstr_fd("[minishell]$ ", 2);
 		get_next_line(1, &line);
 		token = tokenization(line);
 		parser = init_parser(token, &i);
 		pipe_fd = ft_shell(parser, exec_path, pipe_fd);
 		free(line);
+		free(parser);
 	}
 	free(pipe_fd);
 	return (1);

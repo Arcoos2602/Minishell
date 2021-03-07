@@ -2,6 +2,8 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
+# include <errno.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <dirent.h>
@@ -11,8 +13,8 @@
 # include <fcntl.h>
 # include "../libft/include/libft.h"
 # define BUFFER_SIZE 1096
-# include "../libft/include/libft.h"
 # include "parser.h"
+# include "get_next_line.h"
 
 int				not_handled(char *str);
 char			**tokenization(char *str);

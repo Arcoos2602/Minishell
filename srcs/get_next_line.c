@@ -5,78 +5,118 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/21 14:49:55 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/05 10:34:54 by tcordonn         ###   ########.fr       */
+/*   Created: 2019/10/24 14:53:59 by gbabeau           #+#    #+#             */
+/*   Updated: 2021/03/07 13:19:49 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
 #include "../libft/include/libft.h"
+#include "../includes/minishell.h"
 
-int		ft_struct(char **str, char **line)
+char	*copy(char *c, char *buffer, int size)
 {
-	char	*tmp;
-	int		len;
+	int		i;
+	char	*line2;
 
-	len = 0;
-	while ((*str)[len] != '\0' && (*str)[len] != '\n')
-		len++;
-	if ((*str)[len] == '\n')
+	i = size;
+	if (c == 0)
 	{
-		*line = ft_substr(*str, 0, len);
-		tmp = ft_strdup(&(*str)[len + 1]);
-		free(*str);
-		*str = tmp;
+		if (!(line2 = malloc(i + 1)))
+			return (NULL);
+		line2[i] = '\0';
+		ft_memcpy(line2, buffer, size);
+		return (line2);
 	}
 	else
 	{
-		*line = ft_substr(*str, 0, len);
-		free(*str);
-		*str = NULL;
-		return (0);
+		line2 = ft_strjoin2(c, buffer, size);
+		free(c);
+		c = 0;
 	}
+	return (line2);
+}
+
+int		ft_line(char *c)
+{
+	if (c != 0)
+		if (ft_buffer_size_char(c) == ft_strlen(c))
+			return (2);
 	return (1);
 }
 
-int		ft_return(char **str, char **line, int ret, int fd)
+char	*c_finish(char **c)
 {
-	if (ret < 0)
-		return (-1);
-	else if ((ret == 0 && str[fd] == NULL) || str[fd] == '\0')
+	char	*line2;
+	int		i;
+	int		n;
+
+	line2 = "12";
+	if (*c != 0 && (ft_buffer_size_char(*c) != (n = ft_strlen(*c))))
 	{
-		*line = ft_strdup("");
-		return (0);
+		i = n - ft_buffer_size_char(*c) + 1;
+		if (!(line2 = malloc(i)))
+			return (NULL);
+		line2[--i] = '\0';
+		while (i--)
+			line2[i] = (*c)[n--];
+		free(*c);
+		*c = line2;
 	}
 	else
-		return (ft_struct(&str[fd], line));
+	{
+		if (*c != 0)
+			free(*c);
+		*c = 0;
+	}
+	return (line2);
+}
+
+int		ft_line_copy(int a, char **line, char **c, char *buffer)
+{
+	int	i;
+
+	if (*c != 0)
+		i = ft_buffer_size_char(*c) + 1;
+	else
+		i = 1;
+	if (!(*line = malloc(i)))
+		return (-1);
+	(*line)[--i] = '\0';
+	while (i-- != 0)
+		(*line)[i] = (*c)[i];
+	if (0 == c_finish(&(*c)))
+		return (-1);
+	free(buffer);
+	if (a == 1 || *c != 0)
+		return (1);
+	return (0);
 }
 
 int		get_next_line(int fd, char **line)
 {
-	int			ret;
-	char		buff[BUFFER_SIZE + 1];
-	static char	*str[4096];
-	char		*tmp;
+	static char	*c = 0;
+	int			check_read;
+	char		*buffer;
 
-	if (BUFFER_SIZE <= 0)
+	check_read = 2;
+	if (fd < 0 || BUFFER_SIZE <= 0 || !(buffer = ft_calloc(BUFFER_SIZE + 1, 1))
+		|| line == 0)
 		return (-1);
-	if (fd < 0 || line == NULL)
-		return (-1);
-	while ((ret = read(fd, buff, BUFFER_SIZE)) > 0)
-	{
-		buff[ret] = '\0';
-		if (str[fd] == NULL)
-			str[fd] = ft_strdup(buff);
-		else
+	while (check_read == 2)
+		if (c != 0 && 1 >= (ft_line(c)))
+			return (ft_line_copy(1, &(*line), &c, buffer));
+		else if (0 <= (check_read = read(fd, buffer, BUFFER_SIZE)))
 		{
-			tmp = ft_strjoin(str[fd], buff);
-			free(str[fd]);
-			str[fd] = tmp;
+			if (check_read == 0) // RAJOUTER
+				exit(0);
+			c = copy(c, buffer, check_read);
+			if ((c != 0) && (check_read <= 0 || BUFFER_SIZE > check_read))
+				return (ft_line_copy(0, &(*line), &c, buffer));
+			else if ((c != 0) && 1 == (check_read = ft_line(c)))
+				return (ft_line_copy(1, &(*line), &c, buffer));
 		}
-		if (ft_strchr(str[fd], '\n'))
-			break ;
-	}
-	if (ret == 0)
-		exit(0);
-	return (ft_return(str, line, ret, fd));
+	free(buffer);
+	if (c != 0)
+		free(c);
+	return (-1);
 }
