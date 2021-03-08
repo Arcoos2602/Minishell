@@ -6,12 +6,19 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/02 15:57:38 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/08 15:35:48 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/include/libft.h"
 #include "../includes/minishell.h"
+
+void display_put(t_redi *redi)
+{
+	printf("type = %d, [%s]\n", redi->type, redi->put);
+		if(redi->next != NULL)
+			display_put(redi->next);
+}
 
 void		display_parser(t_pipes *parser)
 {
@@ -25,51 +32,12 @@ void		display_parser(t_pipes *parser)
 	{
 		printf("command %d : ", nbr++);
 		while (parser->command[i] != NULL)
-			printf("[%s] ", parser->command[i++]);
+			printf("{[%s]} ", parser->command[i++]);
 		n = 0;
 		printf("\n");
 	}
-	nbr = 1;
-//	printf("%p\n", parser->command[i]);
-	i = -1;
-	n = 0;
-	while (parser->input[++i] != NULL)
-	{
-		printf("input %d : ", i + 1);
-		while (parser->input[i][n] != NULL)
-			printf("[%s] ", parser->input[i][n++]);
-		n = 0;
-		printf("\n");
-	}
-	i = -1;
-	n = 0;
-//		printf("u\n");
-	while (parser->output_s[++i] != NULL || parser->output_d[i] != NULL)
-	{
-		printf("output_s %d : ", i + 1);
-		if (parser->output_s[i] != NULL)
-			while (parser->output_s[i][n] != NULL)
-				printf("[%s]", parser->output_s[i][n++]);
-		else
-			printf("<NULL>");
-		n = 0;
-		printf("\n");
-	}
-//		printf("u\n");
-	i = -1;
-	n = 0;
-	while (parser->output_s[++i] != NULL || parser->output_d[i] != NULL)
-	{
-		printf("output_d %d : ", i + 1);
-		if (parser->output_d[i] != NULL)
-			while (parser->output_d[i][n] != NULL)
-				printf("[%s]", parser->output_d[i][n++]);
-		else
-			printf("<NULL>");
-		n = 0;
-		printf("\n");
-	}
-//		printf("uu\n");
+	if (parser->redi != NULL)
+		display_put(parser->redi);
 	if (parser->next != NULL)
 		display_parser(parser->next);
 }
@@ -78,17 +46,15 @@ void		display_total(t_parser *parser)
 {
 	static int	i = 1;
 
-//		printf("((%p))\n",parser);
 	printf("\n\nligne command:%d\n", i++);
 	display_parser(parser->pipe);
 	if (parser->next != NULL)
 	{
-//		printf("%p\n",parser->next);
 		display_total(parser->next);
 	}
 }
 
-char	**init_path(t_pipes *pipe, char **path)
+char	**init_path(char **path)
 {
 	int		i;
 	char	**tab;
@@ -102,6 +68,7 @@ char	**init_path(t_pipes *pipe, char **path)
 			tab = ft_split(path[i], ':');
 		i++;
 	}
+	return tab;
 }
 
 int *ft_pipe(t_pipes *pipes, char **exec_path, int pipe_fd[2])
@@ -183,7 +150,7 @@ int		main(int	argc, char **argv, char **path)
 	ft_putstr_fd("$ ", 1);
 	if ((!init_all(&vars)))
 		return (-1);
-	exec_path = init_path(parser->pipe, path);
+	exec_path = init_path(path);
 	while (1) // boucle principale
 	{
 		get_next_line(1, &line);
@@ -192,12 +159,10 @@ int		main(int	argc, char **argv, char **path)
 			printf("{%s} ", token[i++]);
 		printf("\n");*/
 		parser = init_parser(token, &i);
-		ft_shell(parser, exec_path, pipe_fd);
+		//ft_shell(parser, exec_path, pipe_fd);
 		//check_builtins(parser);
-		/*if (parser != NULL)
-			display_total(parser);*/
-			while (1)
-			;
+		if (parser != NULL)
+			display_total(parser);
 		free(line);
 	}
 	return (1);
