@@ -2,6 +2,8 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
+# include <errno.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <dirent.h>
@@ -11,18 +13,10 @@
 # include <fcntl.h>
 # include "../libft/include/libft.h"
 # define BUFFER_SIZE 1096
-# include "../libft/include/libft.h"
 # include "parser.h"
+# include "get_next_line.h"
+# include "builtins.h"
 
-typedef struct	s_main
-{
-	char	*line;
-	char	**lexer;
-	int		command_nbr;
-}				t_main;
-
-int				lexer(t_main *vars);
-int				init_all(t_main	*vars);
 int				not_handled(char *str);
 char			**tokenization(char *str);
 void			cpt2(char *str, int *i, int *cpt);
@@ -34,4 +28,5 @@ int				separators(char	c);
 int				quote(char *str);
 int				get_next_line(int fd, char **line);
 int				init_inouput_back(char **lexer, char *inout);
+int				*ft_shell(t_parser *parser, char **exec_path, int pipe_fd[2]);
 #endif
