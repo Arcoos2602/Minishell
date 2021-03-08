@@ -20,5 +20,5 @@ int		main(int argc, char **argv)
 }
 
 /// SIGINT ctrl c
-/// SIGQUIT ctrl \
+/// SIGQUIT ctrl
 /// EOF ctrl d

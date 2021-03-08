@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 14:53:59 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/03/07 13:19:49 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/08 10:09:45 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,16 @@ int		get_next_line(int fd, char **line)
 		return (-1);
 	while (check_read == 2)
 		if (c != 0 && 1 >= (ft_line(c)))
+		{
+			if (check_read == 0)
+			{
+				//ft_free(); // appeler les fonctions free
+				exit(0);
+			}
 			return (ft_line_copy(1, &(*line), &c, buffer));
+		}
 		else if (0 <= (check_read = read(fd, buffer, BUFFER_SIZE)))
 		{
-			if (check_read == 0) // RAJOUTER
-				exit(0);
 			c = copy(c, buffer, check_read);
 			if ((c != 0) && (check_read <= 0 || BUFFER_SIZE > check_read))
 				return (ft_line_copy(0, &(*line), &c, buffer));

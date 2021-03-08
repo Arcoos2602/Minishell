@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/07 13:17:30 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/08 13:03:10 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,16 @@ char	**init_path(char **path)
 	return (tab);
 }
 
+void	int_handler(int signum)
+{
+	exit(0);
+}
+
+void	quit_handler(int signum)
+{
+	
+}
+
 int		main(int	argc, char **argv, char **path)
 {
 	char		*line;
@@ -113,11 +123,15 @@ int		main(int	argc, char **argv, char **path)
 	char		**token;
 	char		**exec_path;
 	int			*pipe_fd;
+	int			keep_running;
 
+	keep_running = 1;
 	pipe_fd = malloc(sizeof(int) * 2);
 	exec_path = init_path(path);
-	while (1)
+	while (keep_running)
 	{
+		signal(SIGQUIT, quit_handler);
+		signal(SIGINT, int_handler);
 		ft_putstr_fd("[minishell]$ ", 2);
 		get_next_line(1, &line);
 		token = tokenization(line);
@@ -129,3 +143,7 @@ int		main(int	argc, char **argv, char **path)
 	free(pipe_fd);
 	return (1);
 }
+
+/// SIGINT ctrl c
+/// SIGQUIT ctrl \
+/// EOF ctrl d

@@ -6,16 +6,21 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:03:19 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/07 15:13:45 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/08 13:51:17 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/include/libft.h"
 #include "../includes/minishell.h"
 
-void	father(t_pipes *pipes, pid_t pid, int pipe_fd[2], int pipe_fd_2[2], char *dest, char **exec_path)
+/// PB QUAND FINIT PAR CTRLD
+
+void	father(t_pipes *pipes, pid_t pid, int pipe_fd[2], int pipe_fd_2[2], char *dest, char **exec_path) // pas a la norme
 {
 	int			i;
+	char		*buf;
+	size_t		size;
+	char		*env;
 
 	i = 0;
 	if (pid == 0)
@@ -29,8 +34,9 @@ void	father(t_pipes *pipes, pid_t pid, int pipe_fd[2], int pipe_fd_2[2], char *d
 			dup2(pipe_fd_2[1], 1);
 		while (exec_path[i++] != NULL)
 		{
+			env = getcwd(buf, size);
 			dest = ft_strjoin(exec_path[i], pipes->command[0]);
-			execve(dest, &pipes->command[0],  (char *const*) NULL);
+			execve(dest, &pipes->command[0], (char *const*) NULL);
 		}
 		//kill(pid, SIGKILL);
 		ft_putstr_fd("minishell: ", 2);
@@ -44,6 +50,7 @@ int		*ft_pipe(t_pipes *pipes, char **exec_path, int pipe_fd[2])
 	pid_t		pid;
 	int			*pipe_fd_2;
 	char		*dest;
+	int			signum;
 
 	pipe_fd_2 = malloc(sizeof(int) *2);
 	if (pipes->next != NULL)
@@ -67,10 +74,8 @@ int		*ft_pipe(t_pipes *pipes, char **exec_path, int pipe_fd[2])
 
 int			*line_command(t_pipes *parser, char **exec_path, int pipe_fd[2])
 {
-	int		i;
 	int		status;
 
-	i = 0;
 	pipe_fd = ft_pipe(parser, exec_path, pipe_fd);
 	if (parser->next != NULL)
 		line_command(parser->next, exec_path, pipe_fd);
@@ -91,3 +96,7 @@ int			*ft_shell(t_parser *parser, char **exec_path, int pipe_fd[2])
 		ft_shell(parser->next, exec_path, pipe_fd);
 	return (pipe_fd);
 }
+
+/// SIGINT ctrl c
+/// SIGQUIT ctrl
+/// EOF ctrl d

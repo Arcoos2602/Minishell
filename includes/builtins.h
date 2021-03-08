@@ -6,16 +6,12 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 10:29:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/25 11:29:41 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/08 12:16:15 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <sys/wait.h>
-# include <sys/stat.h>
-# include <dirent.h>
-# include <signal.h>
-# include <unistd.h>
-# include <sys/types.h>
-# include <fcntl.h>
+#ifndef BUILTINS_H
+
+int		check_builtins(t_pipes	*pipes);
+
+#endif

@@ -15,6 +15,7 @@
 # define BUFFER_SIZE 1096
 # include "parser.h"
 # include "get_next_line.h"
+# include "builtins.h"
 
 int				not_handled(char *str);
 char			**tokenization(char *str);
