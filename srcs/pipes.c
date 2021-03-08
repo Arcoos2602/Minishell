@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:03:19 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/08 13:54:20 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/08 15:10:26 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	father(t_pipes *pipes, pid_t pid, int pipe_fd[2], int pipe_fd_2[2], char *d
 		{
 			//env = getcwd(buf, size);
 			dest = ft_strjoin(exec_path[i], pipes->command[0]);
-			execve(dest, &pipes->command[0], (char *const*) NULL);
+			execve(dest, &pipes->command[0], (char *const*) NULL); // variable env, repertoire de travail
 		}
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(pipes->command[0], 2);

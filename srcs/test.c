@@ -6,17 +6,10 @@ void		signal_handler(int signum)
 	printf("Caught signal %d\n", signum);
 }
 
-int		main(int argc, char **argv)
+int		main(int argc, char **argv, char **path)
 {
-	int		signum = 10;
-	int		pid;
-	char	buf[486153];
+	chdir("srcs");
 
-	pid = read(1, buf, 4854);
-	printf("%d\n", pid);
-	if (pid == 0)
-		exit(0);
-	return (0);
 }
 
 /// SIGINT ctrl c
