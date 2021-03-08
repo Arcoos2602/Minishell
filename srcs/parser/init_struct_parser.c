@@ -6,7 +6,11 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 10:26:51 by gbabeau           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/03/05 14:30:45 by tcordonn         ###   ########.fr       */
+=======
+/*   Updated: 2021/03/08 15:43:15 by gbabeau          ###   ########.fr       */
+>>>>>>> parser
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +51,6 @@ t_parser	*init_parser(char **lexer, int *i)
 	if (lexer == NULL)
 			return (NULL);
 	nbr = nbr_command_line(lexer);
-	//printf("nombre command  = %d\n", nbr);
 	while (nbr != 0)
 	{
 		if (parser == NULL)
@@ -64,6 +67,7 @@ t_parser	*init_parser(char **lexer, int *i)
 				*i += 1;
 			*i += 1;
 		}
+		printf("%s\n", lexer[*i]);
 	}
 	return (parser);
 }
