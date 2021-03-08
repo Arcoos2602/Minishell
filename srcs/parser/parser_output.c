@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 10:43:40 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/03/01 14:09:46 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/08 15:35:05 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,13 @@ void		*init_output_2(t_pipes *new, char **lexer, int *deb, int nbr)
 		n = nbr_word + 1;
 	}
 	i++;
-//	printf("[%p][%p](%d)\n", new->output_s[i], new->output_d[i], i);
 	n = 0;
 	while (i < nbr)
 	{
-			printf("(%d)\n", *deb);
 		while (lexer[n][0] != '>')
 			n++;
 		if (lexer[n++][1] == '\0')
 		{
-//			printf("(%d)\n", *deb);
 			if (0 == (new->output_s[i] = init_output_3(new->output_s[i], new->output_d[i],
 							&lexer[n])))
 				return (NULL);
@@ -86,7 +83,6 @@ t_pipes		*init_output(t_pipes *new, char **lexer, int deb)
 		else
 			nbr = 0;
 	nbr += init_inouput(&lexer[nbr], ">>") + init_inouput(&lexer[nbr], ">");
-	printf("nbr=%s\n",lexer[0]);
 	new->output_s = malloc(sizeof(char**) * (nbr + 1));
 	new->output_d = malloc(sizeof(char**) * (nbr + 1));
 	if (NULL == init_output_2(new, lexer, &deb, nbr))
