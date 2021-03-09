@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:03:19 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/08 15:10:26 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/09 14:30:26 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int		*ft_pipe(t_pipes *pipes, char **exec_path, int pipe_fd[2])
 	}
 	if (pipes->next != NULL)
 		free(pipe_fd);
-	free(dest);
+	//free(dest);
 	return (pipe_fd_2);
 }
 

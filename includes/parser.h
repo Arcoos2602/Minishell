@@ -5,16 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/09 14:19:42 by gbabeau           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/03/07 12:50:59 by tcordonn         ###   ########.fr       */
-=======
-/*   Updated: 2021/03/05 16:01:16 by gbabeau          ###   ########.fr       */
->>>>>>> parser
+/*   Created: 2021/03/09 09:39:46 by tcordonn          #+#    #+#             */
+/*   Updated: 2021/03/09 09:40:05 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef PARSER_H
+#ifndef PARSER_H
+
 typedef struct s_redi
 {
 	int				type;
@@ -61,4 +58,4 @@ int			words_command(char **lexer, int i);
 char		**malloc_tb_str(char **dst, char **in, int size);
 int			init_inouput(char **lexer, char *inout);
 
-# endif
+#endif

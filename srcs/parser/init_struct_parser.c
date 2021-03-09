@@ -6,11 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 10:26:51 by gbabeau           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/03/05 14:30:45 by tcordonn         ###   ########.fr       */
-=======
-/*   Updated: 2021/03/08 15:43:15 by gbabeau          ###   ########.fr       */
->>>>>>> parser
+/*   Updated: 2021/03/09 10:27:40 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +63,6 @@ t_parser	*init_parser(char **lexer, int *i)
 				*i += 1;
 			*i += 1;
 		}
-		printf("%s\n", lexer[*i]);
 	}
 	return (parser);
 }

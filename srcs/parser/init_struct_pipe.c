@@ -54,6 +54,7 @@ t_redi	*init_put(t_redi *redi, char **lexer, int *i)
 	deb = 0;
 	while (lexer[*i + deb] != NULL && 0 == ft_compare_c_to_s(lexer[*i + deb][0],"|;"))
 	{
+					printf("lexer[%d] = %s\n", *i + deb ,lexer[*i + deb]);
 		if (ft_compare_c_to_s(lexer[*i + deb][0],"><"))
 			redi = add_redi(redi, redi_new(&lexer[*i + deb]));
 		deb++;
@@ -68,10 +69,14 @@ static int nbr_redi(char **lexer)
 
 	n = -1;
 	i = 0;
-	while (lexer[++n] != NULL)
+
+	while (lexer[++n] != NULL && 0 == ft_compare_c_to_s(lexer[n][0],"|;"))
+	{
+			printf("lexer[%d] = %s\n", n ,lexer[n]);
 		if( 1 == ft_compare_c_to_s(lexer[n][0],"><"))
 			i++;
-	return i;
+	}
+	return (i);
 }
 
 t_pipes		*add_pipe(t_pipes *pipe, t_pipes *next)
@@ -89,9 +94,14 @@ t_pipes		*init_new(t_pipes *new, char **lexer, int *i)
 {
 	if (0 == (new->command = init_command_pipe(new->command, lexer, i)))
 		return (NULL);
-	if (0 != nbr_redi(lexer))
+		printf("ALLEMAND\n");
+	if (0 != nbr_redi(&lexer[*i]))
+	{
+		printf("ALLEMAND\n");
 		if (0 == (new->redi = init_put(new->redi, lexer, i)))
 			return (NULL);
+		printf("ALLEMAND\n");
+	}
 	return (new);
 }
 
