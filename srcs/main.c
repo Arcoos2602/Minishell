@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/09 14:18:23 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/11 12:27:53 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,6 @@ void		display_total(t_parser *parser)
 	printf("\n\nligne command:%d {%p}\n", i++, parser);
 	if ( parser->pipe != NULL)
 	display_parser(parser->pipe);
-	else
-	{
-		printf("ALLEMAND\n");
-	}
-	
 	if (parser->next != NULL)
 	{
 //		printf("%p\n",parser->next);
@@ -113,7 +108,7 @@ int		main(int	argc, char **argv, char **path)
 		token = tokenization(line);
 		parser = init_parser(token, &i);
 		pipe_fd = ft_shell(parser, exec_path, pipe_fd);
-		display_total(parser);
+		//display_total(parser);
 		free(line);
 		free(parser);
 	}

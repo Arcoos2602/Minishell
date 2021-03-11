@@ -21,8 +21,10 @@ int		main(int argc, char **argv, char **path)
 {
 	int		i;
 	int		fd;
+	int		
 	int		pipe_fd[2];
 
+	pipe(pipe_fd);
 	fd = redirect(argv[1], pipe_fd, ft_atoi(argv[2]));
 	close(fd);
 	return (0);

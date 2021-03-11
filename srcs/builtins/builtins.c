@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 11:30:04 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/08 13:53:49 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/11 10:44:39 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,12 @@ int		ft_exit(t_pipes *pipes)
 
 int		check_builtins(t_pipes	*pipes)
 {
+	int		check;
+
+	check = 0;
 	if (ft_strncmp(pipes->command[0], "exit", 4) == 0)
 		ft_exit(pipes);
+	/*if (ft_strncmp(pipes->command[0], "cd", 2) == 0)
+		ft_cd(pipes);*/
 	return (1);
 }

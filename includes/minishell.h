@@ -29,4 +29,6 @@ int				quote(char *str);
 int				get_next_line(int fd, char **line);
 int				init_inouput_back(char **lexer, char *inout);
 int				*ft_shell(t_parser *parser, char **exec_path, int pipe_fd[2]);
+int				ft_cd(t_pipes *pipes);
+
 #endif
