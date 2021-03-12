@@ -1,0 +1,9 @@
+     1	Makefile
+     2	README.md
+     3	a.out
+     4	c
+     5	includes
+     6	libft
+     7	ls
+     8	minishell
+     9	srcs

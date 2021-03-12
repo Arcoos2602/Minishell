@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/11 12:27:53 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/12 12:17:56 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,12 @@ char	**init_path(char **path)
 	return (tab);
 }
 
-void	int_handler(int signum)
+void	int_handler(int signum) // ctrl   c
 {
 	exit(0);
 }
 
-void	quit_handler(int signum)
+void	quit_handler(int signum) // ctrl
 {
 	
 }
@@ -107,7 +107,7 @@ int		main(int	argc, char **argv, char **path)
 		get_next_line(1, &line);
 		token = tokenization(line);
 		parser = init_parser(token, &i);
-		pipe_fd = ft_shell(parser, exec_path, pipe_fd);
+		pipe_fd = ft_shell(parser, exec_path, pipe_fd, path);
 		//display_total(parser);
 		free(line);
 		free(parser);
@@ -115,7 +115,3 @@ int		main(int	argc, char **argv, char **path)
 	free(pipe_fd);
 	return (1);
 }
-
-/// SIGINT ctrl c
-/// SIGQUIT ctrl \
-/// EOF ctrl d

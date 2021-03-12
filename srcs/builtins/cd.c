@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 10:10:07 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/11 10:32:37 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/12 12:15:00 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,6 @@ int		ft_cd(t_pipes *pipes)
 	{
 		ft_putstr_fd(strerror(errno), 2);
 		return (-1);
-	}
-	else
-	{
-		printf("OK");
 	}
 	return (1);
 }
