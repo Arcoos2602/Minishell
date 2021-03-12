@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:03:19 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/11 15:04:38 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/12 10:43:32 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,18 @@ int		redirect(char put[1] ,t_redi *redi, int *pipe_in, int *pipe_out)
 
 	if (redi->type == 0)
 	{
-		//close(*pipe_in);
 		if ((*pipe_in = open(redi->put, O_APPEND | O_RDWR, 0666)) == -1)
 			return (0);
 	}
 	if (redi->type == 1)
 	{
 		put[0] = 1;
-		//close(*pipe_out);
 		*pipe_out = open(redi->put, O_APPEND | O_CREAT | O_RDWR | O_TRUNC, 0666);
 		printf("{%d}\n", *pipe_out);
 	}
 	if (redi->type == 2)
 	{
 		put[0] = 1;
-		//close(*pipe_out);
 		*pipe_out = open(redi->put, O_APPEND | O_CREAT | O_RDWR, 0666);	
 	}
 	if (redi->next != NULL)
@@ -64,6 +61,7 @@ void	father(t_pipes *pipes, pid_t pid, int pipe_fd[2], int pipe_fd_2[2], char *d
 		{
 			dest = ft_strjoin(exec_path[i], pipes->command[0]);
 			execve(dest, &pipes->command[0], (char *const*) NULL); // variable env, repertoire de travail
+			free(dest);
 		}
 		if (pipes->command != NULL)
 		{
@@ -105,12 +103,12 @@ int		*ft_pipe(t_pipes *pipes, char **exec_path, int pipe_fd[2])
 	}
 	if (pipes->next != NULL)
 		free(pipe_fd);
-	free(dest);
-	//if (pipes->next != NULL || pipe_fd_2[1] != -1)
-	//{
-	//	close(pipe_fd_2[1]);
-	//	close(pipe_fd_2[0]);
-	//}
+	//free(dest);
+	/*if (pipes->next != NULL || pipe_fd_2[1] != -1)
+	{
+		close(pipe_fd_2[1]);
+		close(pipe_fd_2[0]);
+	}*/
 	return (pipe_fd_2);
 }
 
@@ -138,7 +136,3 @@ int			*ft_shell(t_parser *parser, char **exec_path, int pipe_fd[2])
 		ft_shell(parser->next, exec_path, pipe_fd);
 	return (pipe_fd);
 }
-
-/// SIGINT ctrl c
-/// SIGQUIT ctrl
-/// EOF ctrl d
