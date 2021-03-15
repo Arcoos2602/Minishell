@@ -66,6 +66,7 @@ int				fill_tab(char **tab, char *str)
 			i++;
 		if (str[i] == '"' || str[i] == 39)
 			fill_quote(tab, str, &i, &x);
+		if (str[i])
 		if (str[i] == '>' && str[i + 1] == '>')
 		{
 			tab[x] = ft_strndup(&str[i], 2);
@@ -76,6 +77,27 @@ int				fill_tab(char **tab, char *str)
 	}
 	tab[x] = NULL;
 	return (1);
+}
+
+void			print_tab(char **tab)
+{
+	int		x;
+	int		y;
+
+	x = 0;
+	y = 0;
+	while (tab[x] != NULL)
+	{
+		y = 0;
+		ft_putchar_fd('[', 1);
+		while (tab[x][y] != '\0')
+		{
+			ft_putchar_fd(tab[x][y], 1);
+			y++;
+		}
+		ft_putchar_fd(']', 1);
+		x++;
+	}
 }
 
 char			**tokenization(char *str)
@@ -102,29 +124,9 @@ char			**tokenization(char *str)
 	if (!(str) || !(tab = malloc(sizeof(char *) * (cpt(str) + 1))))
 		return (0);
 	fill_tab(tab, str);
+	//print_tab(tab);
 	return (tab); 
 }
-
-/*void			print_tab(char **tab)
-{
-	int		x;
-	int		y;
-
-	x = 0;
-	y = 0;
-	while (tab[x] != NULL)
-	{
-		y = 0;
-		ft_putchar_fd('[', 1);
-		while (tab[x][y] != '\0')
-		{
-			ft_putchar_fd(tab[x][y], 1);
-			y++;
-		}
-		ft_putchar_fd(']', 1);
-		x++;
-	}
-}*/
 
 /*int				main(void)
 {

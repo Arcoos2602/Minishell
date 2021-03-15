@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 10:24:14 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/12 12:15:33 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/15 13:00:48 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,58 @@
 #include "../../includes/minishell.h"
 #include "../../includes/builtins.h"
 
-int		ft_echo(char **arg, int	i)
+int			var(char *str, char **path)
 {
-	check_arg(arg[i++]);
-	ft_putstr_fd(arg, 1);
+	int		i;
+	int		j;
+
+	i = -1;
+	j = -1;
+	if (str[0] == '$')
+	{
+		while (path[++i] != NULL)
+		{
+			j = 0;
+			while (path[i][++j] != '=')
+				;
+			if (ft_strncmp(&str[1], path[i], j) == 0)
+			{
+				ft_putstr_fd(&path[i][j + 1], 1);
+			}
+		}
+		return (1);
+	}
+	return (0);
+}
+
+void		ft_echo(t_pipes *pipes, char **path)
+{
+	int		i;
+
+	i = 1;
+	if (ft_strncmp(pipes->command[1], "-n", ft_strlen(pipes->command[1])) == 0)
+	{
+		i++;
+		while (pipes->command[i] != NULL)
+		{
+			if (var(pipes->command[i], path) == 0)
+				ft_putstr_fd(pipes->command[i], 1);
+			i++;
+			if (pipes->command[i] != NULL)
+				ft_putchar_fd(' ', 1);
+		}
+	}
+	else
+	{
+		while (pipes->command[i] != NULL)
+		{
+			if (var(pipes->command[i], path) == 0)
+				ft_putstr_fd(pipes->command[i], 1);
+			i++;
+			if (pipes->command[i] != NULL)
+				ft_putchar_fd(' ', 1);
+		}
+		ft_putchar_fd('\n', 1);
+	}
+	exit(EXIT_SUCCESS);
 }

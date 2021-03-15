@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 12:15:05 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/12 12:27:10 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/15 11:23:18 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../../includes/minishell.h"
 #include "../../includes/builtins.h"
 
-int		ft_env(char **path)
+void		ft_env(char **path)
 {
 	int		i;
 
@@ -24,4 +24,5 @@ int		ft_env(char **path)
 		ft_putstr_fd(path[i], 1);
 		ft_putchar_fd('\n', 1);
 	}
+	exit(EXIT_SUCCESS);
 }

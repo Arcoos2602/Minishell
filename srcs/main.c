@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/12 12:17:56 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/15 11:36:41 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	**init_path(char **path)
 	while (path[i] != NULL)
 	{
 		if (ft_strncmp(path[i], "PATH=", 5) == 0)
-			tab = ft_split(path[i], ':');
+			tab = ft_split(path[i], ':'); /// a free
 		i++;
 	}
 	return (tab);

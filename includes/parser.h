@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 09:39:46 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/11 14:53:00 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/15 15:02:28 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@ typedef struct s_pipes
 {
 	char			output;
 	char			**command;
-	char			***input;
-	char			***output_s;
-	char			***output_d;
 	struct	s_redi	*redi;
 	struct	s_pipes	*next;
 }	t_pipes;
@@ -46,17 +43,10 @@ t_pipes		*pipe_new(char **lexer, int *i);
 t_pipes		*init_pipes(char **lexer, int *i);
 char		**init_command_pipe(char **command, char **lexer, int *i);
 int			nbr_command_line(char **lexer);
-char		**init_input_2(char **input, char **lexer, int nbr_input, int *i);
-char		***init_input(char ***input, char **lexer, int debb);
-char		**init_output_3(char **output_1, char **output_2, char **lexer);
-void		*init_output_2(t_pipes *pipe,
-			char **lexer, int *deb, int nbr);
 t_pipes		*init_output(t_pipes *t_new, char **lexer, int deb);
 t_redi		*init_put(t_redi *t_new, char **lexer, int *i);
 int			nbr_words_exe(char **lexer, int *i);
-void		*p_malloc(char ***tab, int sizei);
 int			words_command(char **lexer, int i);
 char		**malloc_tb_str(char **dst, char **in, int size);
-int			init_inouput(char **lexer, char *inout);
 
 #endif

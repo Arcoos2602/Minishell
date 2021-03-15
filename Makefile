@@ -14,10 +14,10 @@ SRCS =  srcs/lexer/lexer.c \
 		srcs/parser/init_struct_pipe.c \
 		srcs/parser/other.c \
 		srcs/parser/parser_comand.c \
-		srcs/parser/parser_input.c \
-		srcs/parser/parser_output.c \
 		srcs/builtins/builtins.c \
-		srcs/builtins/env.c
+		srcs/builtins/env.c \
+		srcs/builtins/pwd.c \
+		srcs/builtins/echo.c
 
 OBJS = $(SRCS:.c=.o)
 
