@@ -18,7 +18,7 @@
 # include "builtins.h"
 
 int				not_handled(char *str);
-char			**tokenization(char *str);
+char			**tokenization(char *str, char **path);
 void			cpt2(char *str, int *i, int *cpt);
 void			count_quote(char *str, int *i, int *cpt);
 void			fill_quote(char **tab, char *str, int *i, int *x);

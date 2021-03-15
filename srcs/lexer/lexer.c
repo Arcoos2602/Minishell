@@ -51,7 +51,27 @@ void			fill_tab2(char **tab, char *str, int *i, int *x)
 	}
 }
 
-int				fill_tab(char **tab, char *str)
+void	search_env(char **tab, char *str, int *x, char **path, int *i)
+{
+	int		k;
+	int		j;
+
+	k = 0;
+	while (path[++k] != NULL)
+	{
+		j = 0;
+		while (path[k][++j] != '=')
+			;
+		if (ft_strncmp(&str[1], path[k], j) == 0)
+		{
+			tab[*x] = ft_strdup(&path[k][j + 1]);
+			*i += j + 1;
+			++*x;
+		}
+	}
+}
+
+int				fill_tab(char **tab, char *str, char **path)
 {
 	int		x;
 	int		i;
@@ -64,9 +84,12 @@ int				fill_tab(char **tab, char *str)
 	{
 		while (ft_iswhitespace(str[i]) && str[i] != '\0')
 			i++;
+		if (str[i] == '$')
+		{
+			search_env(tab, &str[i], &x, path, &i);
+		}
 		if (str[i] == '"' || str[i] == 39)
 			fill_quote(tab, str, &i, &x);
-		if (str[i])
 		if (str[i] == '>' && str[i + 1] == '>')
 		{
 			tab[x] = ft_strndup(&str[i], 2);
@@ -100,7 +123,7 @@ void			print_tab(char **tab)
 	}
 }
 
-char			**tokenization(char *str)
+char			**tokenization(char *str, char **path)
 {
 	char	**tab;
 	int		i;
@@ -123,8 +146,9 @@ char			**tokenization(char *str)
 	}
 	if (!(str) || !(tab = malloc(sizeof(char *) * (cpt(str) + 1))))
 		return (0);
-	fill_tab(tab, str);
-	//print_tab(tab);
+	fill_tab(tab, str, path);
+	print_tab(tab);
+	ft_putchar_fd('\n', 1);
 	return (tab); 
 }
 

@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 10:24:14 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/15 13:00:48 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/15 15:43:00 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ void		ft_echo(t_pipes *pipes, char **path)
 		i++;
 		while (pipes->command[i] != NULL)
 		{
-			if (var(pipes->command[i], path) == 0)
-				ft_putstr_fd(pipes->command[i], 1);
+			ft_putstr_fd(pipes->command[i], 1);
 			i++;
 			if (pipes->command[i] != NULL)
 				ft_putchar_fd(' ', 1);
@@ -59,8 +58,7 @@ void		ft_echo(t_pipes *pipes, char **path)
 	{
 		while (pipes->command[i] != NULL)
 		{
-			if (var(pipes->command[i], path) == 0)
-				ft_putstr_fd(pipes->command[i], 1);
+			ft_putstr_fd(pipes->command[i], 1);
 			i++;
 			if (pipes->command[i] != NULL)
 				ft_putchar_fd(' ', 1);

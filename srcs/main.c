@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/15 11:36:41 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/15 15:23:17 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int		main(int	argc, char **argv, char **path)
 		signal(SIGINT, int_handler);
 		ft_putstr_fd("[minishell]$ ", 2);
 		get_next_line(1, &line);
-		token = tokenization(line);
+		token = tokenization(line, path);
 		parser = init_parser(token, &i);
 		pipe_fd = ft_shell(parser, exec_path, pipe_fd, path);
 		//display_total(parser);
