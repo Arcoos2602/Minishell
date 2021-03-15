@@ -7,14 +7,16 @@ SRCS =  srcs/lexer/lexer.c \
 		srcs/main.c \
 		srcs/lexer/lexer2.c \
 		srcs/lexer/quote.c \
-		srcs/init.c \
+		srcs/pipes.c \
 		srcs/get_next_line.c \
+		srcs/get_next_line_utils.c \
 		srcs/parser/init_struct_parser.c \
 		srcs/parser/init_struct_pipe.c \
 		srcs/parser/other.c \
 		srcs/parser/parser_comand.c \
 		srcs/parser/parser_input.c \
-		srcs/parser/parser_output.c
+		srcs/parser/parser_output.c \
+		srcs/builtins/builtins.c
 
 OBJS = $(SRCS:.c=.o)
 
