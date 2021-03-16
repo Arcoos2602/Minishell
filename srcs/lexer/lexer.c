@@ -26,48 +26,50 @@ int				cpt(char *str)
 	return (cpt);
 }
 
-void			fill_tab2(char **tab, char *str, int *i, int *x)
-{
-	int		size_line;
-	int		tmp;
-
-	size_line = 0;
-	if (separators(str[*i]) && ft_iswhitespace(str[*i]) == 0)
-	{
-		tab[*x] = ft_strndup(&str[*i], 1);
-		++*i;
-		++*x;
-	}
-	if (check_char(str[*i]) && str[*i] != '\0')
-	{
-		tmp = *i;
-		while (check_char(str[*i]) && str[*i] != '\0')
-		{
-			size_line++;
-			++*i;
-		}
-		tab[*x] = ft_strndup(&str[tmp], size_line);
-		++*x;
-	}
-}
-
-void	search_env(char **tab, char *str, int *x, char **path, int *i)
+int		search_env(char **tab, char *str, int *x, char **path, int *i)
 {
 	int		k;
 	int		j;
 
 	k = 0;
-	while (path[++k] != NULL)
+	if (str[*i] == '$')
 	{
-		j = 0;
-		while (path[k][++j] != '=')
-			;
-		if (ft_strncmp(&str[1], path[k], j) == 0)
+		while (path[++k] != NULL)
 		{
-			tab[*x] = ft_strdup(&path[k][j + 1]);
-			*i += j + 1;
-			++*x;
+			j = 0;
+			while (path[k][++j] != '=')
+				;
+			if (ft_strncmp(&str[1], path[k], j) == 0)
+			{
+				tab[*x] = ft_strdup(&path[k][j + 1]);
+				*i += j;
+				return (1);
+			}
 		}
+	}
+	return (0);
+}
+
+void			fill_tab2(char **tab, char *str, int *i, int *x)
+{
+	int		size_line;
+	int		tmp;
+
+	while (ft_iswhitespace(str[*i]) && str[*i] != '\0')
+			++*i;
+	if (str[*i] == '"' || str[*i] == 39)
+		fill_quote(tab, str, i, x);
+	if (str[*i] == '>' && str[*i + 1] == '>')
+	{
+		tab[*x] = ft_strndup(&str[*i], 2);
+		*i += 2;
+		++*x;
+	}
+	if (separators(str[*i]) && ft_iswhitespace(str[*i]) == 0)
+	{
+		tab[*x] = ft_strndup(&str[*i], 1);
+		++*i;
+		++*x;
 	}
 }
 
@@ -76,27 +78,28 @@ int				fill_tab(char **tab, char *str, char **path)
 	int		x;
 	int		i;
 	int		size_line;
+	int		tmp;
 
+	tmp = 0;
 	x = 0;
 	i = 0;
-	size_line = 0;
 	while (x < cpt(str))
 	{
-		while (ft_iswhitespace(str[i]) && str[i] != '\0')
-			i++;
-		if (str[i] == '$')
-		{
-			search_env(tab, &str[i], &x, path, &i);
-		}
-		if (str[i] == '"' || str[i] == 39)
-			fill_quote(tab, str, &i, &x);
-		if (str[i] == '>' && str[i + 1] == '>')
-		{
-			tab[x] = ft_strndup(&str[i], 2);
-			i += 2;
-			x++;
-		}
 		fill_tab2(tab, str, &i, &x);
+		if (check_char(str[i]) && str[i] != '\0')
+		{
+			tmp = i;
+			size_line = 0;
+			while (search_env(tab, str, &x, path , &i) == 0 && 
+					check_char(str[i]) && str[i] != '\0')
+			{
+				size_line++;
+				++i;
+			}
+			if (size_line != 0)
+				tab[x] = ft_strndup(&str[tmp], size_line);
+			++x;
+		}
 	}
 	tab[x] = NULL;
 	return (1);
