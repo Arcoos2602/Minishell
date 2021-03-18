@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/15 15:23:17 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/18 13:55:37 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int		main(int	argc, char **argv, char **path)
 		pipe_fd = ft_shell(parser, exec_path, pipe_fd, path);
 		//display_total(parser);
 		free(line);
-		free(parser);
+		free_parser(parser);
 	}
 	free(pipe_fd);
 	return (1);
