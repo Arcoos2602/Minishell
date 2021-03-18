@@ -17,7 +17,8 @@ SRCS =  srcs/lexer/lexer.c \
 		srcs/builtins/builtins.c \
 		srcs/builtins/env.c \
 		srcs/builtins/pwd.c \
-		srcs/builtins/echo.c
+		srcs/builtins/echo.c \
+		srcs/parser/free_parser.c
 
 OBJS = $(SRCS:.c=.o)
 
