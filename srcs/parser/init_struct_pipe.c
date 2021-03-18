@@ -68,10 +68,13 @@ static int nbr_redi(char **lexer)
 
 	n = -1;
 	i = 0;
-	while (lexer[++n] != NULL)
+
+	while (lexer[++n] != NULL && 0 == ft_compare_c_to_s(lexer[n][0],"|;"))
+	{
 		if( 1 == ft_compare_c_to_s(lexer[n][0],"><"))
 			i++;
-	return i;
+	}
+	return (i);
 }
 
 t_pipes		*add_pipe(t_pipes *pipe, t_pipes *next)
@@ -82,6 +85,7 @@ t_pipes		*add_pipe(t_pipes *pipe, t_pipes *next)
 		pipe->next = next;
 	else
 		add_pipe(pipe->next, next);
+	pipe->output = 0;
 	return (next);
 }
 
@@ -89,9 +93,11 @@ t_pipes		*init_new(t_pipes *new, char **lexer, int *i)
 {
 	if (0 == (new->command = init_command_pipe(new->command, lexer, i)))
 		return (NULL);
-	if (0 != nbr_redi(lexer))
+	if (0 != nbr_redi(&lexer[*i]))
+	{
 		if (0 == (new->redi = init_put(new->redi, lexer, i)))
 			return (NULL);
+	}
 	return (new);
 }
 
