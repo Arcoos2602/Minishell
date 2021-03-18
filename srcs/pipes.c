@@ -6,9 +6,10 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:03:19 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/18 10:52:39 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/18 16:50:27 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../libft/include/libft.h"
 #include "../includes/minishell.h"
@@ -44,13 +45,15 @@ int		redirect(char put[1] ,t_redi *redi, int *pipe_in, int *pipe_out)
 	return (1);
 }
 
-void	father(t_pipes *pipes, pid_t pid, int pipe_fd[2], int pipe_fd_2[2], char *dest, char **exec_path, char **path) // pas a la norme
+void	father(t_pipes *pipes, pid_t pid, int pipe_fd[2], int pipe_fd_2[2],  char **exec_path, char **path) // pas a la norme
 {
 	int			i;
 	char		*buf;
 	size_t		size;
 	char		*env;
+	char		*dest;
 
+	dest = NULL;
 	i = 0;
 	if (pid == 0)
 	{
@@ -60,28 +63,32 @@ void	father(t_pipes *pipes, pid_t pid, int pipe_fd[2], int pipe_fd_2[2], char *d
 			dup2(pipe_fd[0], 0);
 		}
 		if (pipes->next != NULL || pipes->output == 1)
+		{
 			dup2(pipe_fd_2[1], 1);
-		while (exec_path[i++] != NULL)
+		}
+		while (pipes->command[0] != NULL && exec_path[i++] != NULL)
 		{
 			check_builtins(pipes, path);
 			dest = ft_strjoin(exec_path[i], pipes->command[0]);
 			execve(dest, &pipes->command[0], (char *const*) NULL); // variable env, repertoire de travail
 			free(dest);
 		}
-		if (pipes->command != NULL && pipes->command[0][0] != '$')
+		if (pipes->command[0] != NULL && pipes->command[0][0] != '$')
 		{
 			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd(pipes->command[0], 2);
 			ft_putstr_fd(": command not found\n", 2);
 		}
+		exit(EXIT_SUCCESS);
 	}
+	if (dest != NULL)
+		free(dest);
 }
 
 int		*ft_pipe(t_pipes *pipes, char **exec_path, int pipe_fd[2], char **path) // pas oublier de free le dernier dest
 {
 	pid_t		pid;
 	int			*pipe_fd_2;
-	char		*dest;
 	int			signum;
 
 	pipe_fd_2 = malloc(sizeof(int) * 2);
@@ -98,9 +105,9 @@ int		*ft_pipe(t_pipes *pipes, char **exec_path, int pipe_fd[2], char **path) // 
 			return (0);
 		//printf("%d, %d\n", pipe_fd_2[1], (int)pipes->output);
 	}
-	//printf("%d\n",pipe_fd_2[1]);
+	printf("pipe_fd : %d %d\n pipe_fd_2 : %d %d\n",pipe_fd[0], pipe_fd[1], pipe_fd_2[0], pipe_fd_2[1]); // pipe_fd_2 = 0 : cat | > a
 	pid = fork();
-	father(pipes, pid, pipe_fd, pipe_fd_2, dest, exec_path, path);
+	father(pipes, pid, pipe_fd, pipe_fd_2, exec_path, path);
 	if (pipe_fd[0] != -1)
 	{
 		close(pipe_fd[0]);
@@ -127,7 +134,7 @@ int			*line_command(t_pipes *parser, char **exec_path, int pipe_fd[2], char **pa
 	if (parser->next != NULL)
 		line_command(parser->next, exec_path, pipe_fd, path);
 	waitpid(-1, &status, 0);
-	waitpid(-1, &status, 0);
+	//waitpid(-1, &status, 0);
 	return (pipe_fd);
 }
 

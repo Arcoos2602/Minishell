@@ -148,12 +148,12 @@ char			**tokenization(char *str, char **path)
 		ft_putstr_fd("This token does not exist in this shell\n", 1);
 		return (NULL);
 	}
-	printf("%d\n", cpt(str));
+	//printf("%d\n", cpt(str));
 	if (!(str) || !(tab = malloc(sizeof(char *) * (cpt(str) + 1))))
 		return (0);
 	fill_tab(tab, str, path);
-	print_tab(tab);
-	ft_putchar_fd('\n', 1);
+	//print_tab(tab);
+	//ft_putchar_fd('\n', 1);
 	return (tab); 
 }
 

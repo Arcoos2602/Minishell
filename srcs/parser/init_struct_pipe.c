@@ -91,8 +91,7 @@ t_pipes		*add_pipe(t_pipes *pipe, t_pipes *next)
 
 t_pipes		*init_new(t_pipes *new, char **lexer, int *i)
 {
-	if (0 == (new->command = init_command_pipe(new->command, lexer, i)))
-		return (NULL);
+	new->command = init_command_pipe(new->command, lexer, i);
 	if (0 != nbr_redi(&lexer[*i]))
 	{
 		if (0 == (new->redi = init_put(new->redi, lexer, i)))

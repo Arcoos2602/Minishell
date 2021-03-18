@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 09:39:46 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/15 15:02:28 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/18 14:00:23 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,6 @@ t_redi		*init_put(t_redi *t_new, char **lexer, int *i);
 int			nbr_words_exe(char **lexer, int *i);
 int			words_command(char **lexer, int i);
 char		**malloc_tb_str(char **dst, char **in, int size);
+void		free_parser(t_parser *parser);
 
 #endif
