@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:03:19 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/15 11:21:18 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/18 10:52:39 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	father(t_pipes *pipes, pid_t pid, int pipe_fd[2], int pipe_fd_2[2], char *d
 			execve(dest, &pipes->command[0], (char *const*) NULL); // variable env, repertoire de travail
 			free(dest);
 		}
-		if (pipes->command != NULL)
+		if (pipes->command != NULL && pipes->command[0][0] != '$')
 		{
 			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd(pipes->command[0], 2);

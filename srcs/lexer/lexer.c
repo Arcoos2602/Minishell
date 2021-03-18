@@ -42,7 +42,8 @@ int		search_env(char **tab, char *str, int *x, char **path, int *i)
 			if (ft_strncmp(&str[1], path[k], j) == 0)
 			{
 				tab[*x] = ft_strdup(&path[k][j + 1]);
-				*i += j;
+				//*i += j + 1;
+				printf("%d\n", j);
 				return (1);
 			}
 		}
@@ -147,6 +148,7 @@ char			**tokenization(char *str, char **path)
 		ft_putstr_fd("This token does not exist in this shell\n", 1);
 		return (NULL);
 	}
+	printf("%d\n", cpt(str));
 	if (!(str) || !(tab = malloc(sizeof(char *) * (cpt(str) + 1))))
 		return (0);
 	fill_tab(tab, str, path);
