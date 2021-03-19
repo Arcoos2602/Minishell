@@ -154,7 +154,7 @@ char			**tokenization(char *str, char **path)
 	fill_tab(tab, str, path);
 	//print_tab(tab);
 	//ft_putchar_fd('\n', 1);
-	return (tab); 
+	return (tab);
 }
 
 /*int				main(void)

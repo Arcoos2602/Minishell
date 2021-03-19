@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   free_lexer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/15 11:24:50 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/19 12:12:18 by tcordonn         ###   ########.fr       */
+/*   Created: 2021/03/19 10:47:59 by tcordonn          #+#    #+#             */
+/*   Updated: 2021/03/19 10:52:37 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft/include/libft.h"
 #include "../../includes/minishell.h"
 
-void	ft_pwd(char **path)
+void	free_token(char	**token)
 {
 	int		i;
 
 	i = 0;
-	while (path[i] != NULL)
+	while (token[i] != NULL)
 	{
-		if (ft_strncmp(path[i], "PWD=", 4) == 0)
-		{
-			ft_putstr_fd(&path[i][4], 1);
-			ft_putchar_fd('\n', 1);
-		}	
+		free(token[i]);
 		i++;
 	}
-	exit(EXIT_SUCCESS);
+	free(token);
 }

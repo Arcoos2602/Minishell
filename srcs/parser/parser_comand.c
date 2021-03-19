@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 14:04:46 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/03/18 16:04:02 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/19 10:57:09 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../../includes/minishell.h"
 
 
-static char ** comand_malloc(char **command, char **lexer)
+static char **comand_malloc(char **command, char **lexer)
 {
 	int n;
 	int i;

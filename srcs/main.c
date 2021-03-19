@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/18 14:36:17 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/19 15:53:26 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int     main(int    argc, char **argv, char **path)
 {
 	char		*line;
 	int 		i;
+	t_path		paths;
 	t_parser	*parser;
 	char		**token;
 	char		**exec_path;
@@ -93,7 +94,8 @@ int     main(int    argc, char **argv, char **path)
 
 	keep_running = 1;
 	pipe_fd = malloc(sizeof(int) * 2);
-	exec_path = init_path(path);
+	paths.exec_path = init_path(path);
+	paths.path = path;
 	while (keep_running)
 	{
 		signal(SIGQUIT, quit_handler);
@@ -104,10 +106,10 @@ int     main(int    argc, char **argv, char **path)
 		if (token != NULL && token[0] != NULL)
 		{
 			parser = init_parser(token, &i);
-			pipe_fd = ft_shell(parser, exec_path, pipe_fd, path);
+			pipe_fd = ft_shell(parser, pipe_fd, paths);
 			free_parser(parser);
 		}
-		//free_token()s
+		free_token(token);
 		free(line);
 	}
 	free(pipe_fd);
