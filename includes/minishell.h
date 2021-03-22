@@ -12,7 +12,7 @@
 # include <sys/types.h>
 # include <fcntl.h>
 # include "../libft/include/libft.h"
-# define BUFFER_SIZE 1096
+# define BUFFER_SIZE 50000
 # include "parser.h"
 # include "get_next_line.h"
 # include "builtins.h"

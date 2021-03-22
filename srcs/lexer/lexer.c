@@ -32,6 +32,7 @@ int		search_env(char **tab, char *str, int *x, char **path, int *i)
 	int		j;
 
 	k = 0;
+	//printf("%c\n", str[*i]); 
 	if (str[*i] == '$')
 	{
 		while (path[++k] != NULL)
@@ -42,7 +43,9 @@ int		search_env(char **tab, char *str, int *x, char **path, int *i)
 			if (ft_strncmp(&str[1], path[k], j) == 0)
 			{
 				tab[*x] = ft_strdup(&path[k][j + 1]);
-				//*i += j + 1;
+				*i += j + 1;
+				while (ft_iswhitespace(str[*i]))
+					++*i;
 				printf("%d\n", j);
 				return (1);
 			}
@@ -152,8 +155,8 @@ char			**tokenization(char *str, char **path)
 	if (!(str) || !(tab = malloc(sizeof(char *) * (cpt(str) + 1))))
 		return (0);
 	fill_tab(tab, str, path);
-	//print_tab(tab);
-	//ft_putchar_fd('\n', 1);
+	/*print_tab(tab);
+	ft_putchar_fd('\n', 1);*/
 	return (tab);
 }
 

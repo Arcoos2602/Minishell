@@ -6,12 +6,14 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/19 15:53:26 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/22 12:31:16 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/include/libft.h"
 #include "../includes/minishell.h"
+
+int			global;
 
 void		display_put(t_redi *redi)
 {
@@ -90,18 +92,19 @@ int     main(int    argc, char **argv, char **path)
 	char		**token;
 	char		**exec_path;
 	int			*pipe_fd;
-	int			keep_running;
+	int			status;
+	struct  rusage rusage;
 
-	keep_running = 1;
 	pipe_fd = malloc(sizeof(int) * 2);
 	paths.exec_path = init_path(path);
 	paths.path = path;
-	while (keep_running)
+	global = 1;
+	while (global)
 	{
 		signal(SIGQUIT, quit_handler);
 		signal(SIGINT, int_handler);
-		ft_putstr_fd("[minishell]$ ", 2);
-		get_next_line(1, &line);
+		ft_putstr_fd("[minishell]$", 2);
+		get_next_line(0, &line);
 		token = tokenization(line, path);
 		if (token != NULL && token[0] != NULL)
 		{
