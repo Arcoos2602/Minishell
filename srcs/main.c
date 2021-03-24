@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/22 12:31:16 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/24 15:13:56 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char    **init_path(char **path)
 
 void    int_handler(int signum) // ctrl   c
 {
-    exit(0);
+	exit(0);
 }
 
 void    quit_handler(int signum) // ctrl
@@ -99,20 +99,23 @@ int     main(int    argc, char **argv, char **path)
 	paths.exec_path = init_path(path);
 	paths.path = path;
 	global = 1;
-	while (global)
+	while (global > 0)
 	{
+		global = 1;
 		signal(SIGQUIT, quit_handler);
-		signal(SIGINT, int_handler);
 		ft_putstr_fd("[minishell]$", 2);
 		get_next_line(0, &line);
+		signal(SIGINT, int_handler);
+		if (global == 2)
+			line = NULL;
 		token = tokenization(line, path);
 		if (token != NULL && token[0] != NULL)
 		{
 			parser = init_parser(token, &i);
 			pipe_fd = ft_shell(parser, pipe_fd, paths);
-			free_parser(parser);
+			//free_parser(parser);
 		}
-		free_token(token);
+		//free_token(token);
 		free(line);
 	}
 	free(pipe_fd);
