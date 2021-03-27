@@ -8,25 +8,28 @@ int				cpt(char *str)
 
 	i = 0;
 	cpt = 0;
+	//printf("STRING : %s\n", str);
 	while (str[i])
 	{
+		//printf("current : [%c] i : %d size : {%d} \n", str[i], i, cpt);
 		while (ft_iswhitespace(str[i]) && str[i] != '\0')
 			i++;
 		if (str[i] == '"' || str[i] == 39)
 			count_quote(str, &i, &cpt);
-		if (check_char(str[i]))
+		if (check_char(str[i]) && str[i] != '\0')
 		{
-			while (check_char(str[i]))
+			while (check_char(str[i]) && str[i] != '\0')
 				i++;
 			cpt++;
 		}
 		cpt2(str, &i, &cpt);
-		i++;
+		if (str[i] != '\0')
+			i++;
 	}
 	return (cpt);
 }
 
-int		search_env(char **tab, char *str, int *x, char **path, int *i)
+/*int		search_env(char **tab, char *str, int *x, char **path, int *i)
 {
 	int		k;
 	int		j;
@@ -52,7 +55,7 @@ int		search_env(char **tab, char *str, int *x, char **path, int *i)
 		}
 	}
 	return (0);
-}
+}*/
 
 void			fill_tab2(char **tab, char *str, int *i, int *x)
 {
@@ -83,19 +86,21 @@ int				fill_tab(char **tab, char *str, char **path)
 	int		i;
 	int		size_line;
 	int		tmp;
+	int		size;
 
 	tmp = 0;
 	x = 0;
 	i = 0;
-	while (x < cpt(str))
+	size = cpt(str);
+	//printf("%d\n", size);
+	while (x < size)
 	{
 		fill_tab2(tab, str, &i, &x);
 		if (check_char(str[i]) && str[i] != '\0')
 		{
 			tmp = i;
 			size_line = 0;
-			while (search_env(tab, str, &x, path , &i) == 0 && 
-					check_char(str[i]) && str[i] != '\0')
+			while (check_char(str[i]) && str[i] != '\0')
 			{
 				size_line++;
 				++i;
@@ -141,6 +146,9 @@ char			**tokenization(char *str, char **path)
 	y = 0;
 	tab = NULL;
 	i = 0;
+
+	if (str == NULL)
+		return (NULL);
 	if (check_multi(str) == -1)
 	{
 		ft_putstr_fd("Multilines not handled\n", 1);

@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/24 15:13:56 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/26 12:54:43 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,16 +106,18 @@ int     main(int    argc, char **argv, char **path)
 		ft_putstr_fd("[minishell]$", 2);
 		get_next_line(0, &line);
 		signal(SIGINT, int_handler);
-		if (global == 2)
-			line = NULL;
+		/*if (global == 2)
+			line = NULL;*/
+		printf("DEBUT TOKEN\n");
 		token = tokenization(line, path);
+		printf("FIN TOKEN\n");
 		if (token != NULL && token[0] != NULL)
 		{
 			parser = init_parser(token, &i);
 			pipe_fd = ft_shell(parser, pipe_fd, paths);
-			//free_parser(parser);
+			free_parser(parser);
 		}
-		//free_token(token);
+		free_token(token);
 		free(line);
 	}
 	free(pipe_fd);

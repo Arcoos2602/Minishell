@@ -1,31 +1,25 @@
 #include "../includes/minishell.h"
 #include "../libft/include/libft.h"
 
-int		redirect(char *str, int pipe_fd[2], int type)
+int		ft_ballec(int *i)
 {
-	int fd;
-
-	if (type == 1)
-	{
-		fd = open(str, O_APPEND | O_CREAT | O_RDWR | O_TRUNC, 0666);
-	}
-	if (type == 2)
-	{
-		fd = open(str, O_APPEND | O_CREAT | O_RDWR, 0666);
-	}
-	write(fd, "d", 1);
-	return (fd);
+	printf("%p\n", i);
 }
 
 int		main(int argc, char **argv, char **path)
 {
-	int		i;
-	int		fd;
-	int		
-	int		pipe_fd[2];
+	int		*i;
+	pid_t	pid;
 
-	pipe(pipe_fd);
-	fd = redirect(argv[1], pipe_fd, ft_atoi(argv[2]));
-	close(fd);
+	i = malloc(sizeof(int));
+	*i = 0;
+	pid = fork();
+	if (pid == 0)
+	{
+		*i = 1;
+	}
+	else
+	usleep(1000);
+	printf("%d %p\n", *i, i);
 	return (0);
 }

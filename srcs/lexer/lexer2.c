@@ -66,7 +66,7 @@ void			cpt2(char *str, int *i, int *cpt)
 	int		tmp;
 
 	tmp = *i;
-	while (ft_iswhitespace(str[tmp]))
+	while (ft_iswhitespace(str[tmp]) && str[tmp] != '\0')
 		tmp++;
 	if (separators(str[tmp]))
 	{
