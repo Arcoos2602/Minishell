@@ -9,17 +9,11 @@ int		ft_ballec(int *i)
 int		main(int argc, char **argv, char **path)
 {
 	int		*i;
-	pid_t	pid;
+	int		fd;
+	int 	pipe_fd[2];
+	pid_t pid;
 
-	i = malloc(sizeof(int));
-	*i = 0;
-	pid = fork();
-	if (pid == 0)
-	{
-		*i = 1;
-	}
-	else
-	usleep(1000);
-	printf("%d %p\n", *i, i);
+	argv[2] = NULL;
+	execve("/bin/ls", &argv[1] , (char *const*) NULL);
 	return (0);
 }

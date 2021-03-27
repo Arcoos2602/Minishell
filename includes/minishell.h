@@ -21,6 +21,7 @@ typedef struct	s_path
 {
 	char 		**path;
 	char 		**exec_path;
+	int			first[1];
 }				t_path;
 
 int				not_handled(char *str);
@@ -35,6 +36,6 @@ int				separators(char	c);
 int				quote(char *str);
 int				get_next_line(int fd, char **line);
 int				init_inouput_back(char **lexer, char *inout);
-int				*ft_shell(t_parser *parser, int pipe_fd[2], t_path path);
+int				ft_shell(t_parser *parser, t_path path);
 
 #endif

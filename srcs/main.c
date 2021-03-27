@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/26 12:54:43 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/27 15:10:48 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,9 @@ int     main(int    argc, char **argv, char **path)
 	t_parser	*parser;
 	char		**token;
 	char		**exec_path;
-	int			*pipe_fd;
 	int			status;
 	struct  rusage rusage;
 
-	pipe_fd = malloc(sizeof(int) * 2);
 	paths.exec_path = init_path(path);
 	paths.path = path;
 	global = 1;
@@ -114,12 +112,11 @@ int     main(int    argc, char **argv, char **path)
 		if (token != NULL && token[0] != NULL)
 		{
 			parser = init_parser(token, &i);
-			pipe_fd = ft_shell(parser, pipe_fd, paths);
+			ft_shell(parser, paths);
 			free_parser(parser);
 		}
 		free_token(token);
 		free(line);
 	}
-	free(pipe_fd);
 	return (1);
 }

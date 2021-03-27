@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:03:19 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/26 16:54:42 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/27 15:59:24 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		redirect(char put[1] ,t_redi *redi, int *pipe_in, int *pipe_out)
 	return (1);
 }
 
-pid_t	father(t_pipes *pipes, int pipe_fd[2], int pipe_fd_2[2], t_path path, pid_t pid_2) // pas a la norme
+pid_t	father(t_pipes *pipes, int pipe_fd[2], t_path path, pid_t pid_2) // pas a la norme
 {
 	int			i;
 	char		*dest;
@@ -56,17 +56,11 @@ pid_t	father(t_pipes *pipes, int pipe_fd[2], int pipe_fd_2[2], t_path path, pid_
 	dest = NULL;
 	i = 0;
 	printf("NBR_4\n");
+	
 		
 	pid = fork();
 	if (pid == 0)
 	{
-		if (pipe_fd[0] != -1)
-		{
-			close(pipe_fd[1]);
-			dup2(pipe_fd[0], STDIN_FILENO);
-		}
-		if (pipes->next != NULL || pipes->output == 1)
-			dup2(pipe_fd_2[1], STDOUT_FILENO);
 		while (pipes->command[0] != NULL && path.exec_path[i++] != NULL)
 		{
 			check_builtins(pipes, path.path);
@@ -85,18 +79,17 @@ pid_t	father(t_pipes *pipes, int pipe_fd[2], int pipe_fd_2[2], t_path path, pid_
 	printf("NBR_3\n");
 	//wait(NULL);
 	//close(pipe_fd[0]);
-	close(pipe_fd_2[1]);
 	waitpid(pid, &ret, 0); //a remettre
 	//close(pipe_fd_2[1]);
-	 printf("NBR_2\n");
+	printf("NBR_2\n");
 	if (dest != NULL)
 		free(dest);
 	return (pid);
 }
 
-int		*ft_pipe(t_pipes *pipes, int pipe_fd[2], t_path path, pid_t *pid_2) // pas oublier de free le dernier dest
+int		ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2) // pas oublier de free le dernier dest
 {
-	int			*pipe_fd_2;
+	int			pipe_fd[2];
 	int			signum;
 	pid_t		  pid;
 	pid_t		 pid_3;
@@ -104,26 +97,28 @@ int		*ft_pipe(t_pipes *pipes, int pipe_fd[2], t_path path, pid_t *pid_2) // pas 
 
 	i = malloc(sizeof(int));
 	i[0] = 0;
-	pipe_fd_2 = ft_calloc(2, sizeof(int));
-	pipe_fd_2[0] = -1;
-	pipe_fd_2[1] = -1;
-	if (pipes->next != NULL || pipes->output == 1)
-		if (pipe(pipe_fd_2) == -1)
+		if (pipe(pipe_fd) == -1)
 		{
 			ft_putstr_fd(strerror(errno), 2);
-			return (NULL);
+			return (-1);
 		}
 	if (pipes->redi != NULL)
 	{
-		if (redirect(&(pipes->output) ,pipes->redi, &pipe_fd[0], &pipe_fd_2[1]) == 0)
-			return (0);
+		/*if (redirect(&(pipes->output) ,pipes->redi, &pipe_fd[0], &pipe_fd_2[1]) == 0)
+			return (0);*/
 	}
 	pid = fork();
 	if (pid != 0)
 	{
 		i[0] = 1;
 		printf("%d\n", i[0]);
-		pid_3 = father(pipes, pipe_fd, pipe_fd_2, path, *pid_2);
+		if (path->first[0] == 1)
+		{
+			printf("AAA\n");
+			close(pipe_fd[1]);
+			dup2(pipe_fd[0], STDIN_FILENO);
+		}
+		pid_3 = father(pipes, pipe_fd, *path, *pid_2);
 		printf("NBR\n");
 		if (*pid_2 != 0)
 		{
@@ -133,41 +128,43 @@ int		*ft_pipe(t_pipes *pipes, int pipe_fd[2], t_path path, pid_t *pid_2) // pas 
 			printf("C\n");
 			exit(EXIT_SUCCESS);
 		}
-		return (pipe_fd_2);
+		return (1);
 	}
 	else
 	{
-		close(pipe_fd_2[1]);
-		if (pipes->next != NULL)
-			free(pipe_fd);
+		path->first[0] = 1;
+	close(pipe_fd[1]);
+	if (pipes->next != NULL || pipes->output == 1)
+			dup2(pipe_fd[1], STDOUT_FILENO);
+		/*if (pipes->next != NULL)
+			free(pipe_fd);*/
 			//free(dest);
 	}
 	printf("%d\n", i[0]);
 	*pid_2 = 1;
-
-	return (pipe_fd_2);
+	return (1);
 }
 
-int			*line_command(t_pipes *parser, int pipe_fd[2], t_path path, pid_t *pid_2) // getpid
+int		line_command(t_pipes *parser, t_path *path, pid_t *pid_2) // getpid
 {
 	int           options;
 	int			  status;
 	struct        rusage rusage;
 
-	
-	pipe_fd = ft_pipe(parser, pipe_fd, path, pid_2);
-	if (pipe_fd == 0)
+	ft_pipe(parser, path, pid_2);
+	printf("[%d]\n", path->first[0]);
+	/*if (pipe_fd == 0)
 	{
 		return (0);
-	}
+	}*/
 	if (parser->next != NULL && *pid_2 == 1)
 	{
-		line_command(parser->next, pipe_fd, path, pid_2);
+		line_command(parser->next, path, pid_2);
 	}
-	return (pipe_fd);
+	return (1);
 }
 
-int			*ft_shell(t_parser *parser, int pipe_fd[2], t_path path)
+int		ft_shell(t_parser *parser, t_path path)
 {
 	int		i;
 	int			  status;
@@ -175,11 +172,10 @@ int			*ft_shell(t_parser *parser, int pipe_fd[2], t_path path)
 	int		pid_2;
 
 	i = 0;
-	pipe_fd[0] = -1;
-	pipe_fd[1] = -1;
 	pid_2 = 0;
+	path.first[0] = 0;
 	printf("DEBUT\n");
-	pipe_fd = line_command(parser->pipe, pipe_fd, path, &pid_2);
+	line_command(parser->pipe, &path, &pid_2);
 	if (pid_2 != 0)
 	{
 		printf("FILS\n");
@@ -188,9 +184,9 @@ int			*ft_shell(t_parser *parser, int pipe_fd[2], t_path path)
 	printf("PERE\n");
 	wait(NULL);
 	printf("PERE2\n");
-	if (pipe_fd == 0)
-		return (0);
+	/*if (pipe_fd == 0)
+		return (0);*/
 	if (parser->next != NULL)
-		ft_shell(parser->next, pipe_fd, path);
-	return (pipe_fd);
+		ft_shell(parser->next, path);
+	return (1);
 }
