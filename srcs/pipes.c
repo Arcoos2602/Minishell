@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:03:19 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/28 15:43:16 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/29 14:18:59 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ pid_t	father(t_pipes *pipes, int pipe_fd[2], t_path path, pid_t pid_2) // pas a 
 	dest = NULL;
 	i = 0;
 	printf("NBR_4\n");
-	
-		
 	pid = fork();
 	if (pid == 0)
 	{
@@ -78,8 +76,9 @@ pid_t	father(t_pipes *pipes, int pipe_fd[2], t_path path, pid_t pid_2) // pas a 
 	}
 	printf("NBR_3\n");
 	//wait(NULL);
-	
-	waitpid(pid, &ret, 0); //a remettre
+	waitpid(pid,NULL,-1);
+		wait(NULL);
+
 	//close(pipe_fd_2[1]);
 	printf("NBR_2\n");
 	if (dest != NULL)
@@ -94,6 +93,7 @@ int		ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2) // pas oublier de free 
 	pid_t		  pid;
 	pid_t		 pid_3;
 
+	printf("beginning : %d\n", path->pipe_in);
 	if (pipes->next != NULL || pipes->output == 1)
 		if (pipe(pipe_fd) == -1)
 		{
@@ -103,23 +103,26 @@ int		ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2) // pas oublier de free 
 	if (pipes->redi != NULL)
 	{
 		/*if (redirect(&(pipes->output) ,pipes->redi, &pipe_fd[0], &pipe_fd_2[1]) == 0)
-			return (0);*/
-	}
+			return (0);*/	}
 	pid = fork();
 	if (pid != 0)
 	{
 		path->pipe_out = pipe_fd[1];
-		
-		if(path->pipe_out != -1)
+		if (path->pipe_out != -1)
 		{
 			printf("AAA\n");
 			close(pipe_fd[0]);
 			//close(path->pipe_out);
 			dup2(pipe_fd[1], STDOUT_FILENO);
 		}
+		printf("mid : %d\n", path->pipe_in);
+		//close(path->pipe_out);
+		close(path->pipe_in);
+		//close(pipe_fd[0]);
+		//close(pipe_fd[1]);
 		pid_3 = father(pipes, pipe_fd, *path, *pid_2);
-		close(path->pipe_out);
-		close(pipe_fd[0]);
+		if (pipes->next == NULL)
+		printf("DSGRSGVSD\n");
 		printf("NBR\n");
 		if (*pid_2 != 0)
 		{
@@ -129,24 +132,24 @@ int		ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2) // pas oublier de free 
 			printf("C\n");
 			exit(EXIT_SUCCESS);
 		}
+		printf("AAAA\n");
 		return (1);
 	}
 	else
 	{
-	
-	
-	if (pipes->next != NULL || pipes->output == 1)
-	{
 		path->pipe_in = pipe_fd[0];
-		close(pipe_fd[1]);
+		if (pipes->next != NULL || pipes->output == 1)
+		{
+			close(pipe_fd[1]);
 			dup2(pipe_fd[0], STDIN_FILENO);
-	}
-			path->first[0] = 1;
-		/*if (pipes->next != NULL)
-			free(pipe_fd);*/
-			//free(dest);
+		}
+		path->first[0] = 1;
+		//if (pipes->next != NULL)
+		//	free(pipe_fd);
+		//free(dest);
 	}
 	*pid_2 = 1;
+	printf("end : %d\n", path->pipe_in);
 	return (1);
 }
 
@@ -157,7 +160,7 @@ int		line_command(t_pipes *parser, t_path *path, pid_t *pid_2) // getpid
 	struct        rusage rusage;
 
 	ft_pipe(parser, path, pid_2);
-	printf("[%d]\n", path->first[0]);
+	printf("[%d]\n", *pid_2);
 	/*if (pipe_fd == 0)
 	{
 		return (0);
@@ -191,9 +194,7 @@ int		ft_shell(t_parser *parser, t_path path)
 	}
 	printf("PERE\n");
 	wait(NULL);
-	printf("PERE2\n");
-	/*if (pipe_fd == 0)
-		return (0);*/
+	//printf("PERE2\n");
 	if (parser->next != NULL)
 		ft_shell(parser->next, path);
 	return (1);

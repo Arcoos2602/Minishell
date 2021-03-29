@@ -14,6 +14,12 @@ int		main(int argc, char **argv, char **path)
 	pid_t pid;
 
 	argv[2] = NULL;
-	execve("/bin/ls", &argv[1] , (char *const*) NULL);
+	//close(1);
+	//close(0);
+	execve("/bin/cat", &argv[1] , (char *const*) NULL);
+
+	//close(0);
+	/*while(1);
+	;*/
 	return (0);
 }
