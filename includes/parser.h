@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 09:39:46 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/18 14:00:23 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/03/30 13:19:33 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef struct s_redi
 
 typedef struct s_pipes
 {
-	char			output;
+	char			put[2];
 	char			**command;
 	struct	s_redi	*redi;
 	struct	s_pipes	*next;

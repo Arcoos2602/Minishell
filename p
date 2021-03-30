@@ -3,7 +3,6 @@ README.md
 a
 a.out
 b
-c
 dd
 dosjd
 includes

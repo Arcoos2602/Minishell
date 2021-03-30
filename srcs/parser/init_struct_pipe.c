@@ -40,10 +40,12 @@ t_redi		*add_redi(t_redi *redi, t_redi *next)
 	if (redi == NULL)
 		redi = next;
 	else if (redi->next == NULL)
+	{
 		redi->next = next;
+	}
 	else
 		add_redi(redi->next, next);
-	return (next);
+	return (redi);
 }
 
 
@@ -85,7 +87,8 @@ t_pipes		*add_pipe(t_pipes *pipe, t_pipes *next)
 		pipe->next = next;
 	else
 		add_pipe(pipe->next, next);
-	pipe->output = 0;
+	pipe->put[1] = -1;
+	pipe->put[0] = -1;
 	return (next);
 }
 
