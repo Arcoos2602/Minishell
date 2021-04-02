@@ -79,15 +79,12 @@ pid_t	father(t_pipes *pipes, int pipe_fd[2], t_path path, int pipe_fd_in[2]) // 
 	//if (pipes->put[0] == 1)
 	//	close(pipe_fd_in[1]);
 	//else 
-	//if (path.pipe_out != -1 || pipes->put[1] == 1)
-	//	close(pipe_fd[0]);
+	if (path.pipe_out != -1 || pipes->put[1] == 1)
+		close(pipe_fd[0]);
 	pid = fork();
 	if (pid == 0)
 	{
 			printf("DUP_PIPE : %d\n", pipe_fd[1]);
-			if (pipes->put[0] == 1)
-				dup2(pipe_fd_in[0], STDIN_FILENO);
-			//else 
 			if (path.pipe_out != -1 || pipes->put[1] == 1)
 				dup2(pipe_fd[1], STDOUT_FILENO);
 	
@@ -171,7 +168,7 @@ int		ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2) // pas oublier de free 
 		pid_3 = father(pipes, pipe_fd, *path, pipe_fd_in);
 		close(path->pipe_out);
 		close(path->pipe_in);
-		//close(pipe_fd[1]);
+		close(pipe_fd[1]);
 		if (*pid_2 != 0)
 		{
 			waitpid(pid, NULL, 0);;
@@ -182,20 +179,13 @@ int		ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2) // pas oublier de free 
 	else
 	{
 		path->pipe_in = pipe_fd[0];
-
-		//if (pipes->put[0] == 1)
-		//{
-		//	close(pipe_fd_in[0]);
-		//	dup2(pipe_fd_in[1], STDOUT_FILENO);
-		//}
-		//else 
 		if (pipes->next != NULL || pipes->put[1] == 1)
 		{
-			//close(pipe_fd[1]);
+			close(pipe_fd[1]);
 			dup2(pipe_fd[0], STDIN_FILENO);
 		}
 		path->first[0] = 1;
-		//close(pipe_fd[0]);
+		close(pipe_fd[0]);
 		*pid_2 = 1;
 		if(pipes->next != NULL)
 			ft_pipe(pipes->next, path, pid_2);
@@ -208,7 +198,6 @@ int		line_command(t_pipes *parser, t_path *path, pid_t *pid_2) // getpid
 {
 	int           options;
 	int			  status;
-	struct        rusage rusage;
 
 	ft_pipe(parser, path, pid_2);
 	//printf("[%d]\n", *pid_2);
@@ -227,7 +216,6 @@ int		ft_shell(t_parser *parser, t_path path)
 {
 	int		i;
 	int			  status;
-	struct        rusage rusage;
 	int		pid_2;
 
 	i = 0;

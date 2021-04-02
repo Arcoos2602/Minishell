@@ -14,11 +14,6 @@
 
 static int		ft_compt(unsigned int nb, unsigned int i)
 {
-	if (nb < 0)
-	{
-		i++;
-		nb *= -1;
-	}
 	if (nb / 10)
 		return (ft_compt(nb / 10, i + 1));
 	return (i + 1);

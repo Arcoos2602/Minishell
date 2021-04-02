@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbabeau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/13 15:45:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/13 15:45:53 by tcordonn         ###   ########.fr       */
+/*   Created: 2019/06/17 20:04:16 by gbabeau           #+#    #+#             */
+/*   Updated: 2020/10/20 17:35:20 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,5 @@ int					ft_compare_c_to_s(char c, char *str);
 int					ft_compare_s_to_s(char *str_1, char *str_2);
 int					ft_xor(char a, char b);
 int					ft_iswhitespace(char c);
-char				*ft_strndup(const char *src, int n);
+char	*ft_strndup(const char *src, int n);
 #endif

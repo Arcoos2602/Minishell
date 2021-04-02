@@ -92,7 +92,6 @@ int     main(int    argc, char **argv, char **path)
 	char		**token;
 	char		**exec_path;
 	int			status;
-	struct  rusage rusage;
 
 	paths.exec_path = init_path(path);
 	paths.path = path;

@@ -42,9 +42,7 @@ static void			ft_putnbr_base(char **s, int nbr, char *base, int taill)
 {
 	unsigned int	nb;
 	unsigned int	bs;
-	unsigned int	i;
 
-	i = 0;
 	bs = 0;
 	bs = verification(base);
 	nb = nbr;
@@ -54,12 +52,6 @@ static void			ft_putnbr_base(char **s, int nbr, char *base, int taill)
 			ft_putnbr_base(s, nb / bs, base, taill + 1);
 		if (nb / bs == 0)
 			*s = malloc(sizeof(**s) * (taill + 2));
-		if (nb < 0)
-		{
-			nb = nb * -1;
-			s[0][0] = '-';
-			taill++;
-		}
 		s[0][taill] = base[nb % bs];
 		if (nb / bs == 0)
 			s[0][taill + 1] = '\0';
@@ -107,9 +99,7 @@ char				*ft_convert_base(char *nbr, char *base_from, char *base_to)
 {
 	char				*s1;
 	unsigned int		a;
-	unsigned int		b;
 
-	b = 0;
 	if (0 == verification_atoi(base_from))
 		return (NULL);
 	if (0 == verification(base_to))
