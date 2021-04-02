@@ -22,6 +22,8 @@ typedef struct	s_path
 	char 		**path;
 	char 		**exec_path;
 	int			first[1];
+  int     start;
+  int     exit;
 	int			pipe_out;
 	int 		pipe_in;
 }				t_path;

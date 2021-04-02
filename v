@@ -1,0 +1,13 @@
+     1	Makefile
+     2	README.md
+     3	a
+     4	b
+     5	includes
+     6	libft
+     7	ls
+     8	minishell
+     9	minishell.dSYM
+    10	n
+    11	q
+    12	srcs
+    13	v
