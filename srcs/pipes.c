@@ -6,7 +6,7 @@
 /*   By: thomas <thomas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:03:19 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/04/02 17:01:39 by thomas           ###   ########.fr       */
+/*   Updated: 2021/04/06 11:52:42 by thomas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,14 @@ int		redirect_in(char *put, t_redi *redi, int *pipe_in)
 
 pid_t	father(t_pipes *pipes, int pipe_fd[2], t_path *path, int pipe_fd_in[2]) // pas a la norme
 {
-	char		*dest;
-	pid_t		pid;
-	int ret;
-  static int    i = 0;
+	char      *dest;
+	pid_t      pid;
+	int        ret;
+  int        i;
+  static int b;
 
 	ret = 0;
+  i = 0;
 	dest = NULL;
 	printf("NBR_4\n");
 	pid = fork();
@@ -81,6 +83,7 @@ pid_t	father(t_pipes *pipes, int pipe_fd[2], t_path *path, int pipe_fd_in[2]) //
     close(pipe_fd[0]);
     dup2(pipe_fd[1], STDOUT_FILENO);
   }
+  printf("pipe_fd[1] %d\n", pipe_fd[1]);
 	if (pid == 0)
 	{
 		while (pipes->command[0] != NULL && path->exec_path[i++] != NULL)
@@ -99,8 +102,7 @@ pid_t	father(t_pipes *pipes, int pipe_fd[2], t_path *path, int pipe_fd_in[2]) //
 		exit(EXIT_SUCCESS);
 	}
 	//printf("NBR_3\n");
-	waitpid(pid,NULL, 0);
-  printf("%d\n", i++);
+  wait(NULL);
   if (pipes->next != NULL)
     close(pipe_fd[1]);
 	//printf("NBR_2\n");
@@ -119,6 +121,7 @@ int		ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2) // pas oublier de free 
 	pid_t		 pid_3;
 
 	//printf("beginning : %d\n", path->pipe_in);
+  printf("path->pipe_out %d\n", path->pipe_out);
 	if (pipes->next != NULL || pipes->redi != NULL)
 	{
 		if (pipe(pipe_fd) == -1)
@@ -139,10 +142,10 @@ int		ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2) // pas oublier de free 
 			if (redirect_out(&pipes->put[1], pipes->redi, &pipe_fd[1]) == 0)
 				return (0);
 	}
+  path->pipe_in = pipe_fd[0];
 	pid = fork();
 	if (pid != 0)
 	{
-    path->pipe_in = pipe_fd[0];
 		pid_3 = father(pipes, pipe_fd, path, pipe_fd_in);
     dup2(0, STDOUT_FILENO);
     dup2(1, STDIN_FILENO);
@@ -152,6 +155,7 @@ int		ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2) // pas oublier de free 
     close(path->pipe_out);
 		if (*pid_2 != 0)
 		{
+      waitpid(pid_3, NULL, 0);
 			waitpid(pid, NULL, 0);
 			exit(EXIT_SUCCESS);
 	  }
@@ -161,10 +165,11 @@ int		ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2) // pas oublier de free 
 	{
     path->pipe_out = pipe_fd[1];
 		*pid_2 = 1;
-    if (path->start != 1 || pipes->put[0] == 1)
+    if (pipes->next != NULL || pipes->put[1] == 1)
     {
       close(pipe_fd[1]);
-      dup2(pipe_fd[0], STDIN_FILENO);
+      printf("%d\n", dup2(pipe_fd[0], STDIN_FILENO));
+      printf("%s\n", strerror(errno));
     }
     path->start = 0;
     if (pipes->put[1] == 1)
