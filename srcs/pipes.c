@@ -6,7 +6,7 @@
 /*   By: thomas <thomas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:03:19 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/04/06 11:52:42 by thomas           ###   ########.fr       */
+/*   Updated: 2021/04/06 16:37:28 by thomas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,9 @@ pid_t	father(t_pipes *pipes, int pipe_fd[2], t_path *path, int pipe_fd_in[2]) //
 	//printf("NBR_3\n");
   wait(NULL);
   if (pipes->next != NULL)
+  {
     close(pipe_fd[1]);
+  }
 	//printf("NBR_2\n");
 	if (dest != NULL)
 		free(dest);
@@ -127,13 +129,11 @@ int		ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2) // pas oublier de free 
 		pipes->put[1] = -1;
 			if (redirect_in(&pipes->put[0], pipes->redi, &buf[0]) == 0)
 				return (0);
-			if (pipes->put[0] == -1);
+			if (pipes->put[0] == -1)
 				if (redirect_out(&pipes->put[1], pipes->redi, &buf[1]) == 0)
 					return (0);
 	}
-
-
- // printf("path->pipe_out %d\n", path->pipe_out);
+  // printf("path->pipe_out %d\n", path->pipe_out);
 	if (pipes->next != NULL || pipes->redi != NULL || pipes->put[0] == 1)
 	{
 		if (pipe(pipe_fd) == -1)
@@ -151,16 +151,15 @@ int		ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2) // pas oublier de free 
 		pipe_fd[0] = buf[0];
 	else if (pipes->put[1] ==1)
 		pipe_fd[1] = buf[1];
-
-    path->pipe_in = pipe_fd[0];
+  path->pipe_in = pipe_fd[0];
 	pid = fork();
 	if (pid != 0)
 	{
 		if (pipes->put[0] == 1)
-		pid_3 = 0;
+		  pid_3 = 0;
 		else
-		pid_3 = father(pipes, pipe_fd, path, pipe_fd_in);
-	    dup2(0, STDOUT_FILENO);
+	    pid_3 = father(pipes, pipe_fd, path, pipe_fd_in);
+	  dup2(0, STDOUT_FILENO);
 		dup2(1, STDIN_FILENO);
     close(pipe_fd[0]);
     close(pipe_fd[1]);
@@ -168,8 +167,8 @@ int		ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2) // pas oublier de free 
     close(path->pipe_out);
 		if (*pid_2 != 0)
 		{
-		//if (pid_3 !=0)
-			// waitpid(pid_3, NULL, 0);
+		  if (pid_3 !=0)
+			  waitpid(pid_3, NULL, 0);
 			waitpid(pid, NULL, 0);
 			exit(EXIT_SUCCESS);
 	  }
@@ -188,12 +187,11 @@ int		ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2) // pas oublier de free 
     path->start = 0;
     if (pipes->put[1] == 1)
       path->exit = 1;
-
+    close(path->pipe_in);
     if (pipes->put[0] == 1)
 			ft_pipe(pipes, path, pid_2);
 		else if (pipes->next != NULL)
 			ft_pipe(pipes->next, path, pid_2);
-		
 		waitpid(pid, NULL, 0);
     close(path->pipe_in);
 	}
