@@ -27,11 +27,11 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	make -C ./libft
-	gcc -g $(HEAD) $(OBJS) -o $(NAME) -L./libft -lft
+	clang -g $(HEAD) $(OBJS) -o $(NAME) -L./libft -lft
 
 G: $(OBJS)
 	make -C ./libft
-	gcc -g3 -fsanitize=address $(HEAD) $(OBJS) -o $(NAME) -L./libft -lft
+	clang -g3 -fsanitize=address $(HEAD) $(OBJS) -o $(NAME) -L./libft -lft
 
 clean:
 	rm -rf $(OBJS) objs
