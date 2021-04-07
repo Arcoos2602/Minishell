@@ -6,14 +6,14 @@
 /*   By: thomas <thomas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/04/06 10:05:54 by thomas           ###   ########.fr       */
+/*   Updated: 2021/04/07 15:15:43 by thomas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/include/libft.h"
 #include "../includes/minishell.h"
 
-int			global;
+int     global;
 
 void		display_put(t_redi *redi)
 {
@@ -73,14 +73,15 @@ char    **init_path(char **path)
     return (tab);
 }
 
-void    int_handler(int signum) // ctrl   c
+static void		int_handler(int signum) // ctrl '\'
 {
-	exit(0);
+	ft_putstr_fd("\n[minishell]$", 2);
+	global++;
 }
 
-void    quit_handler(int signum) // ctrl
+static void		quit_handler(int signum) // ctrl '\'
 {
-
+    exit(0);
 }
 
 int     main(int    argc, char **argv, char **path)
@@ -93,29 +94,36 @@ int     main(int    argc, char **argv, char **path)
 	char		**exec_path;
 	int			status;
 
+	global = 0;
 	paths.exec_path = init_path(path);
 	paths.path = path;
+	line = NULL;
 	global = 1;
+	ft_putstr_fd("[minishell]$", 2);
 	while (global > 0)
 	{
 		global = 1;
+    	signal(SIGINT, int_handler);
 		signal(SIGQUIT, quit_handler);
-		ft_putstr_fd("[minishell]$", 2);
-		get_next_line(0, &line);
-		signal(SIGINT, int_handler);
-		/*if (global == 2)
-			line = NULL;*/
-		printf("DEBUT TOKEN\n");
-		token = tokenization(line, path);
-		printf("FIN TOKEN\n");
-		if (token != NULL && token[0] != NULL)
-		{
-			parser = init_parser(token, &i);
-			ft_shell(parser, paths);
-			free_parser(parser);
+		//printf("%d\n", global);
+		if (global != 2)
+		{	
+			if (get_next_line(0, &line) == 2)
+				exit(EXIT_SUCCESS);
+			printf("DEBUT TOKEN\n");
+			if (line != NULL)
+				token = tokenization(line, path);
+			printf("FIN TOKEN\n");
+			if (token != NULL && token[0] != NULL)
+			{
+				parser = init_parser(token, &i);
+				ft_shell(parser, paths);
+				free_parser(parser);
+			}
+			ft_putstr_fd("[minishell]$", 2);
+			free_token(token);
+			free(line);
 		}
-		free_token(token);
-		free(line);
 	}
 	return (1);
 }

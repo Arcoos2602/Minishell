@@ -17,6 +17,8 @@
 # include "get_next_line.h"
 # include "builtins.h"
 
+extern int			global;
+
 typedef struct	s_path
 {
 	char 		**path;

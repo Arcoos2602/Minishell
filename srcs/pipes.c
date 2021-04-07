@@ -6,7 +6,7 @@
 /*   By: thomas <thomas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:03:19 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/04/07 10:23:26 by thomas           ###   ########.fr       */
+/*   Updated: 2021/04/07 14:21:14 by thomas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,17 @@ int		redirect_in(char *put, t_redi *redi, int *pipe_in)
 	return (1);
 }
 
+static void int_handler(int sig)
+{
+  ft_putchar_fd('\n', 2);
+}
+
+static void quit_handler(int sig)
+{
+  exit(0);
+  ft_putchar_fd('\n', 2);
+}
+
 pid_t	father(t_pipes *pipes, int pipe_fd[2], t_path *path, int pipe_fd_in[2]) // pas a la norme
 {
 	char      *dest;
@@ -76,15 +87,14 @@ pid_t	father(t_pipes *pipes, int pipe_fd[2], t_path *path, int pipe_fd_in[2]) //
 	ret = 0;
   i = 0;
 	dest = NULL;
-	//printf("NBR_4\n");
 	if (pipes->next != NULL || pipes->put[1] == 1)
 	{
-	close(pipe_fd[0]);
+	  close(pipe_fd[0]);
     dup2(pipe_fd[1], STDOUT_FILENO);
 	}
 	pid = fork();
-  //signal();
-  //printf("pipe_fd[1] %d\n", pipe_fd[1]);
+  signal(SIGINT, int_handler);
+  signal(SIGQUIT, quit_handler);
 	if (pid == 0)
 	{
 		while (pipes->command[0] != NULL && path->exec_path[i++] != NULL)
@@ -123,7 +133,6 @@ int		ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2) // pas oublier de free 
 	pid_t		  pid;
 	pid_t		 pid_3;
 
-	//printf("beginning : %d\n", path->pipe_in);
 	if (pipes->redi != NULL)
 	{
 		pipes->put[0] = -1;
@@ -134,7 +143,6 @@ int		ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2) // pas oublier de free 
 				if (redirect_out(&pipes->put[1], pipes->redi, &buf[1]) == 0)
 					return (0);
 	}
-  // printf("path->pipe_out %d\n", path->pipe_out);
 	if (pipes->next != NULL || pipes->redi != NULL || pipes->put[0] == 1)
 	{
 		if (pipe(pipe_fd) == -1)
