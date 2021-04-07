@@ -6,7 +6,7 @@
 /*   By: thomas <thomas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:03:19 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/04/06 16:37:28 by thomas           ###   ########.fr       */
+/*   Updated: 2021/04/07 10:23:26 by thomas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ pid_t	father(t_pipes *pipes, int pipe_fd[2], t_path *path, int pipe_fd_in[2]) //
     dup2(pipe_fd[1], STDOUT_FILENO);
 	}
 	pid = fork();
-    //printf("pipe_fd[1] %d\n", pipe_fd[1]);
+  //signal();
+  //printf("pipe_fd[1] %d\n", pipe_fd[1]);
 	if (pid == 0)
 	{
 		while (pipes->command[0] != NULL && path->exec_path[i++] != NULL)
@@ -228,8 +229,8 @@ int		ft_shell(t_parser *parser, t_path path)
 	}
   printf("PERE\n");
 	wait(NULL);
-		dup2(0, STDOUT_FILENO);
-		dup2(1, STDIN_FILENO);
+	dup2(0, STDOUT_FILENO);
+	dup2(1, STDIN_FILENO);
   //wait(NULL);
 	//printf("PERE2\n");
 	if (parser->next != NULL)
