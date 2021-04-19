@@ -28,6 +28,7 @@ typedef struct	s_path
   int     exit;
 	int			pipe_out;
 	int 		pipe_in;
+  int     exit_status;
 }				t_path;
 
 int				not_handled(char *str);

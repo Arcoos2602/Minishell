@@ -6,7 +6,7 @@
 /*   By: thomas <thomas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/04/07 15:15:43 by thomas           ###   ########.fr       */
+/*   Updated: 2021/04/19 15:14:00 by thomas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,14 +98,13 @@ int     main(int    argc, char **argv, char **path)
 	paths.exec_path = init_path(path);
 	paths.path = path;
 	line = NULL;
-	global = 1;
+  	global = 1;
 	ft_putstr_fd("[minishell]$", 2);
 	while (global > 0)
 	{
 		global = 1;
     	signal(SIGINT, int_handler);
 		signal(SIGQUIT, quit_handler);
-		//printf("%d\n", global);
 		if (global != 2)
 		{	
 			if (get_next_line(0, &line) == 2)

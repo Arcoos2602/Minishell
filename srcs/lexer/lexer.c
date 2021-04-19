@@ -11,7 +11,6 @@ int				cpt(char *str)
 	//printf("STRING : %s\n", str);
 	while (str[i])
 	{
-		//printf("current : [%c] i : %d size : {%d} \n", str[i], i, cpt);
 		while (ft_iswhitespace(str[i]) && str[i] != '\0')
 			i++;
 		if (str[i] == '"' || str[i] == 39)
@@ -29,13 +28,12 @@ int				cpt(char *str)
 	return (cpt);
 }
 
-/*int		search_env(char **tab, char *str, int *x, char **path, int *i)
+int		search_env(char **tab, char *str, int *x, char **path, int *i)
 {
 	int		k;
 	int		j;
 
 	k = 0;
-	//printf("%c\n", str[*i]); 
 	if (str[*i] == '$')
 	{
 		while (path[++k] != NULL)
@@ -49,13 +47,12 @@ int				cpt(char *str)
 				*i += j + 1;
 				while (ft_iswhitespace(str[*i]))
 					++*i;
-				printf("%d\n", j);
 				return (1);
 			}
 		}
 	}
 	return (0);
-}*/
+}
 
 void			fill_tab2(char **tab, char *str, int *i, int *x)
 {
@@ -92,7 +89,6 @@ int				fill_tab(char **tab, char *str, char **path)
 	x = 0;
 	i = 0;
 	size = cpt(str);
-	//printf("%d\n", size);
 	while (x < size)
 	{
 		fill_tab2(tab, str, &i, &x);

@@ -6,7 +6,7 @@
 /*   By: thomas <thomas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:03:19 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/04/07 14:21:14 by thomas           ###   ########.fr       */
+/*   Updated: 2021/04/19 15:18:33 by thomas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		redirect_in(char *put, t_redi *redi, int *pipe_in)
 		redi->type = -1;
 		*put = 1;
 	}
-		printf("PIPE_IN (REDIR) : %d\n", *pipe_in);
+	printf("PIPE_IN (REDIR) : %d\n", *pipe_in);
 	if (redi->next != NULL)
 		redirect_in(put, redi->next, pipe_in);
 	return (1);
@@ -82,7 +82,8 @@ pid_t	father(t_pipes *pipes, int pipe_fd[2], t_path *path, int pipe_fd_in[2]) //
 	pid_t      pid;
 	int        ret;
   int        i;
-  static int b;
+  char      *env_args[] = {"/bin", (char*)0};
+  char      *env2;
 
 	ret = 0;
   i = 0;
@@ -99,9 +100,11 @@ pid_t	father(t_pipes *pipes, int pipe_fd[2], t_path *path, int pipe_fd_in[2]) //
 	{
 		while (pipes->command[0] != NULL && path->exec_path[i++] != NULL)
 		{
-			check_builtins(pipes, path->path);
+		  check_builtins(pipes, path->path, env2); // quand cd fait crée odlpwd
 			dest = ft_strjoin(path->exec_path[i], pipes->command[0]);
-			execve(dest, &pipes->command[0], (char *const*) NULL); // variable env, repertoire de travail
+      if (pipes->command[0][0] == '$')
+        exit(EXIT_SUCCESS);
+			execve(dest, &pipes->command[0], NULL); // variable env, repertoire de travail modif avec cd
 			free(dest);
 		}
 		if (pipes->command[0] != NULL && pipes->command[0][0] != '$')
@@ -112,7 +115,6 @@ pid_t	father(t_pipes *pipes, int pipe_fd[2], t_path *path, int pipe_fd_in[2]) //
 		}
 		exit(EXIT_SUCCESS);
 	}
-	//printf("NBR_3\n");
   wait(NULL);
   if (pipes->next != NULL)
   {
@@ -191,7 +193,6 @@ int		ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2) // pas oublier de free 
     {
       close(pipe_fd[1]);
       dup2(pipe_fd[0], STDIN_FILENO);
-      //printf("%s\n", strerror(errno));
     }
     path->start = 0;
     if (pipes->put[1] == 1)
@@ -209,9 +210,6 @@ int		ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2) // pas oublier de free 
 
 int		line_command(t_pipes *parser, t_path *path, pid_t *pid_2) // getpid
 {
-	int           options;
-	int			  status;
-
 	ft_pipe(parser, path, pid_2);
 	return (1);
 }

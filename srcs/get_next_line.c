@@ -6,7 +6,7 @@
 /*   By: thomas <thomas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 14:53:59 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/04/07 15:15:07 by thomas           ###   ########.fr       */
+/*   Updated: 2021/04/08 17:05:28 by thomas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,23 +102,21 @@ int		get_next_line(int fd, char **line)
 	if (fd < 0 || BUFFER_SIZE <= 0 || !(buffer = ft_calloc(BUFFER_SIZE + 1, 1))
 		|| line == 0)
 		return (-1);
-	while (check_read == 2)
+  	while (check_read == 2)
 		if (c != 0 && 1 >= (ft_line(c)))
-		{
 			return (ft_line_copy(1, &(*line), &c, buffer));
-		}
 		else if (0 <= (check_read = read(fd, buffer, BUFFER_SIZE)))
 		{
-      if (check_read == 0)
-      {
-        ft_putstr_fd("exit\n", 1);
+      	if (check_read == 0)
+     	 {
+        	ft_putstr_fd(" exit\n", 1);
 		    exit(EXIT_SUCCESS);
-      }
-			c = copy(c, buffer, check_read);
-			if ((c != 0) && (check_read <= 0 || BUFFER_SIZE > check_read))
-				return (ft_line_copy(0, &(*line), &c, buffer));
-			else if ((c != 0) && 1 == (check_read = ft_line(c)))
-				return (ft_line_copy(1, &(*line), &c, buffer));
+      	}
+		c = copy(c, buffer, check_read);
+		if ((c != 0) && (check_read <= 0 || BUFFER_SIZE > check_read))
+			return (ft_line_copy(0, &(*line), &c, buffer));
+		else if ((c != 0) && 1 == (check_read = ft_line(c)))
+			return (ft_line_copy(1, &(*line), &c, buffer));
 		}
 	free(buffer);
 	if (c != 0)
