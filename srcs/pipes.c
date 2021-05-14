@@ -6,7 +6,7 @@
 /*   By: thomas <thomas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:03:19 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/04/19 15:18:33 by thomas           ###   ########.fr       */
+/*   Updated: 2021/05/06 13:59:09 by thomas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,30 +81,31 @@ pid_t	father(t_pipes *pipes, int pipe_fd[2], t_path *path, int pipe_fd_in[2]) //
 	char      *dest;
 	pid_t      pid;
 	int        ret;
-  int        i;
-  char      *env_args[] = {"/bin", (char*)0};
-  char      *env2;
+  	int        i;
+  	char      *env_args[] = {"/bin", (char*)0};
+  	char      *env2;
 
 	ret = 0;
-  i = 0;
+  	i = 0;
 	dest = NULL;
 	if (pipes->next != NULL || pipes->put[1] == 1)
 	{
-	  close(pipe_fd[0]);
-    dup2(pipe_fd[1], STDOUT_FILENO);
+		close(pipe_fd[0]);
+    	dup2(pipe_fd[1], STDOUT_FILENO);
 	}
+	check_builtins(pipes, path->path);
 	pid = fork();
-  signal(SIGINT, int_handler);
-  signal(SIGQUIT, quit_handler);
+  	signal(SIGINT, int_handler);
+  	signal(SIGQUIT, quit_handler);
 	if (pid == 0)
 	{
 		while (pipes->command[0] != NULL && path->exec_path[i++] != NULL)
 		{
-		  check_builtins(pipes, path->path, env2); // quand cd fait crée odlpwd
 			dest = ft_strjoin(path->exec_path[i], pipes->command[0]);
-      if (pipes->command[0][0] == '$')
-        exit(EXIT_SUCCESS);
+      		if (pipes->command[0][0] == '$')
+        		exit(EXIT_SUCCESS);
 			execve(dest, &pipes->command[0], NULL); // variable env, repertoire de travail modif avec cd
+			printf("%d\n", errno);
 			free(dest);
 		}
 		if (pipes->command[0] != NULL && pipes->command[0][0] != '$')
@@ -139,8 +140,8 @@ int		ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2) // pas oublier de free 
 	{
 		pipes->put[0] = -1;
 		pipes->put[1] = -1;
-			if (redirect_in(&pipes->put[0], pipes->redi, &buf[0]) == 0)
-				return (0);
+		if (redirect_in(&pipes->put[0], pipes->redi, &buf[0]) == 0)
+			return (0);
 			if (pipes->put[0] == -1)
 				if (redirect_out(&pipes->put[1], pipes->redi, &buf[1]) == 0)
 					return (0);

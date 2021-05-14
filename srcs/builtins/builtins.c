@@ -6,7 +6,7 @@
 /*   By: thomas <thomas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 11:30:04 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/04/19 15:25:43 by thomas           ###   ########.fr       */
+/*   Updated: 2021/05/06 13:38:44 by thomas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ void	env_delete(char **env, char  *var) // recreer env avec un en -
 {
 	static 	int	check = 0;
 	int		i;
-    int		j;
+  	int		j;
 	int		new;
-	char	**env2;
+	char  **env2;
 
-    i = -1;
+  	i = -1;
 	new = 0;
     while (env[++i] != NULL)
 	{
@@ -84,7 +84,6 @@ void	env_delete(char **env, char  *var) // recreer env avec un en -
         	j++;
       	if (ft_strncmp(var, env[i], j) == 0)
 			new++;
-		//printf("%s\n", env[i]);
     }
 	if (new == 1)
 	{
@@ -92,10 +91,10 @@ void	env_delete(char **env, char  *var) // recreer env avec un en -
 		check++;
 	}
 	i = -1;
-	while (env[++i] != NULL)
+	/*while (env[++i] != NULL)
 	{
-		printf("env : %s\n", env[i]);
-	}
+		printf("%s\n", env[i]);
+	}*/
 }
 
 void    env_add(char **env, char  *var) // recreer env avec un en +
@@ -112,12 +111,19 @@ int    ft_export(t_pipes *pipes, char **env)
 
 int    ft_unset(t_pipes *pipes, char **env)
 {
+	int		i;
+
+	i = 0;
 	if (pipes->command[1] != NULL)
     	env_delete(env, pipes->command[1]);
+	/*while (env[++i] != NULL)
+	{
+		printf("%s\n", env[i]);
+	}*/
     exit(EXIT_SUCCESS);
 }
 
-char		*check_builtins(t_pipes	*pipes, char **env, char *useless)
+char		*check_builtins(t_pipes	*pipes, char **env)
 {
 	int		ret;
 
