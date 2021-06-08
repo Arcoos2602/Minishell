@@ -69,7 +69,13 @@ void			fill_tab2(char **tab, char *str, int *i, int *x)
 		*i += 2;
 		++*x;
 	}
-	if (separators(str[*i]) && ft_iswhitespace(str[*i]) == 0)
+	if (str[*i] == '<' && str[*i + 1] == '<')
+	{
+		tab[*x] = ft_strndup(&str[*i], 2);
+		*i += 2;
+		++*x;
+	}
+	if (separators(str[*i]) && ft_iswhitespace(str[*i]) == 0) // separators sur &str[i]
 	{
 		tab[*x] = ft_strndup(&str[*i], 1);
 		++*i;
@@ -155,7 +161,6 @@ char			**tokenization(char *str, char **path)
 		ft_putstr_fd("This token does not exist in this shell\n", 1);
 		return (NULL);
 	}
-	//printf("%d\n", cpt(str));
 	if (!(str) || !(tab = malloc(sizeof(char *) * (cpt(str) + 1))))
 		return (0);
 	fill_tab(tab, str, path);
