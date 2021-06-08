@@ -6,13 +6,19 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:57:58 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/02/26 15:26:25 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/06/08 16:32:21 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft/include/libft.h"
 #include "../../includes/minishell.h"
 
+void		display_redi(t_redi *redi)
+{
+	printf("type = %d, name: %s\n", redi->type, redi->put);
+	if ( redi->next != NULL)
+		display_redi(redi->next);
+}
 void		display_parser(t_pipes *parser)
 {
 	static int	nbr = 1;
@@ -32,40 +38,8 @@ void		display_parser(t_pipes *parser)
 	printf("%p\n", parser->command[i]);
 	i = -1;
 	n = 0;
-	while (parser->input[++i] != NULL)
-	{
-		printf("input %d : ", i + 1);
-		while (parser->input[i][n] != NULL)
-			printf("<%s> ", parser->input[i][n++]);
-		n = 0;
-		printf("\n");
-	}
-	i = -1;
-	n = 0;
-	while (parser->output_s[++i] != NULL || parser->output_d[i] != NULL)
-	{
-		printf("output_s %d : ", i + 1);
-		if (parser->output_s[i] != NULL)
-			while (parser->output_s[i][n] != NULL)
-				printf("<%s>", parser->output_s[i][n++]);
-		else
-			printf("<NULL>");
-		n = 0;
-		printf("\n");
-	}
-	i = -1;
-	n = 0;
-	while (parser->output_s[++i] != NULL || parser->output_d[i] != NULL)
-	{
-		printf("output_d %d : ", i + 1);
-		if (parser->output_d[i] != NULL)
-			while (parser->output_d[i][n] != NULL)
-				printf("<%s>", parser->output_d[i][n++]);
-		else
-			printf("<NULL>");
-		n = 0;
-		printf("\n");
-	}
+		if ( parser->redi != NULL)
+			display_redi(parser->redi);
 	if (parser->next != NULL)
 		display_parser(parser->next);
 }

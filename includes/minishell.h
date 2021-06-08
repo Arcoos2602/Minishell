@@ -44,5 +44,6 @@ int				quote(char *str);
 int				get_next_line(int fd, char **line);
 int				init_inouput_back(char **lexer, char *inout);
 int				ft_shell(t_parser *parser, t_path path);
+void			display_total(t_parser *parser);
 
 #endif

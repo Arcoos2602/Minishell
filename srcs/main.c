@@ -6,7 +6,7 @@
 /*   By: thomas <thomas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/04/19 15:14:00 by thomas           ###   ########.fr       */
+/*   Updated: 2021/06/08 16:59:51 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int     global;
 
 void		display_put(t_redi *redi)
 {
-    //printf("put = %s, type = %d\n", redi->put, redi->type);
+    printf("put = %s, type = %d\n", redi->put, redi->type);
     if (redi->next != NULL)
         display_put(redi->next);
 }
@@ -109,17 +109,14 @@ int     main(int    argc, char **argv, char **path)
 		{	
 			if (get_next_line(0, &line) == 2)
 				exit(EXIT_SUCCESS);
-			printf("DEBUT TOKEN\n");
 			if (line != NULL)
 				token = tokenization(line, path);
-			printf("FIN TOKEN\n");
 			if (token != NULL && token[0] != NULL)
 			{
 				parser = init_parser(token, &i);
 				ft_shell(parser, paths);
 				free_parser(parser);
 			}
-			ft_putstr_fd("[minishell]$", 2);
 			free_token(token);
 			free(line);
 		}

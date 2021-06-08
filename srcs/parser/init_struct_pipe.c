@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 12:26:38 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/08 15:46:33 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/06/08 16:13:42 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,11 @@
 t_redi *init_new_redi(t_redi *redi, char **lexer)
 {
 	if (lexer[0][0]== '<')
-	redi->type = 0;
+	{
+		redi->type = 0;
+		if (lexer[0][1] == '<')
+			redi->type = 10;
+	}
 	else if (lexer[0][1] == '\0')
 	redi->type = 1;
 	else
