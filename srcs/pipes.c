@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thomas <thomas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:03:19 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/05/06 13:59:09 by thomas           ###   ########.fr       */
+/*   Updated: 2021/06/09 15:04:45 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		redirect_in(char *put, t_redi *redi, int *pipe_in)
 		redi->type = -1;
 		*put = 1;
 	}
-	printf("PIPE_IN (REDIR) : %d\n", *pipe_in);
+	//printf("PIPE_IN (REDIR) : %d\n", *pipe_in);
 	if (redi->next != NULL)
 		redirect_in(put, redi->next, pipe_in);
 	return (1);
@@ -171,19 +171,19 @@ int		ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2) // pas oublier de free 
 		  pid_3 = 0;
 		else
 	    pid_3 = father(pipes, pipe_fd, path, pipe_fd_in);
-	  dup2(0, STDOUT_FILENO);
+	  	dup2(0, STDOUT_FILENO);
 		dup2(1, STDIN_FILENO);
-    close(pipe_fd[0]);
-    close(pipe_fd[1]);
-    close(path->pipe_in);
-    close(path->pipe_out);
+    	close(pipe_fd[0]);
+    	close(pipe_fd[1]);
+    	close(path->pipe_in);
+    	close(path->pipe_out);
 		if (*pid_2 != 0)
 		{
 		  if (pid_3 !=0)
 			  waitpid(pid_3, NULL, 0);
 			waitpid(pid, NULL, 0);
 			exit(EXIT_SUCCESS);
-	  }
+	  	}
 		return (1);
 	}
 	else
@@ -234,11 +234,11 @@ int		ft_shell(t_parser *parser, t_path path)
 		//printf("FILS\n");
 		exit(EXIT_SUCCESS);
 	}
-  printf("PERE\n");
+  	//printf("PERE\n");
 	wait(NULL);
 	dup2(0, STDOUT_FILENO);
 	dup2(1, STDIN_FILENO);
-  //wait(NULL);
+  	//wait(NULL);
 	//printf("PERE2\n");
 	if (parser->next != NULL)
 		ft_shell(parser->next, path);

@@ -6,7 +6,7 @@ int				separators(char c)
 	int		i;
 
 	i = 0;
-	if (c == '|' || c == '>' || c == '<' || c == ' ' || c == ';')
+	if (c == '|' || c == '>' || c == '<' || c == ' ' || c == ';' || c == '$')
 		return (1);
 	return (0);
 }
@@ -68,6 +68,7 @@ void			cpt2(char *str, int *i, int *cpt)
 		tmp++;
 	if (separators(str[tmp]))
 	{
+		printf("check\n");
 		*i = tmp;
 		++*cpt;
 	}

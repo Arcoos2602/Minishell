@@ -8,7 +8,6 @@ int				cpt(char *str)
 
 	i = 0;
 	cpt = 0;
-	//printf("STRING : %s\n", str);
 	while (str[i])
 	{
 		while (ft_iswhitespace(str[i]) && str[i] != '\0')
@@ -161,9 +160,11 @@ char			**tokenization(char *str, char **path)
 		ft_putstr_fd("This token does not exist in this shell\n", 1);
 		return (NULL);
 	}
-	if (!(str) || !(tab = malloc(sizeof(char *) * (cpt(str) + 1))))
+	/*if (!(str) || !(tab = malloc(sizeof(char *) * (cpt(str) + 1))))
 		return (0);
-	fill_tab(tab, str, path);
+	fill_tab(tab, str, path);*/
+	printf("count %d\n", cpt(str));
+	exit(0);
 	/*print_tab(tab);
 	ft_putchar_fd('\n', 1);*/
 	return (tab);
