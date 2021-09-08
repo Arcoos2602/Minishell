@@ -23,6 +23,7 @@ typedef struct s_pipes
 {
 	char			put[2];
 	char			**command;
+	int				error;
 	struct	s_redi	*redi;
 	struct	s_pipes	*next;
 }	t_pipes;
@@ -49,5 +50,6 @@ int			nbr_words_exe(char **lexer, int *i);
 int			words_command(char **lexer, int i);
 char		**malloc_tb_str(char **dst, char **in, int size);
 void		free_parser(t_parser *parser);
+
 
 #endif

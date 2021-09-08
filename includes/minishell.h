@@ -16,6 +16,8 @@
 # include "parser.h"
 # include "get_next_line.h"
 # include "builtins.h"
+#include <readline/readline.h>
+#include <readline/history.h>
 
 extern int			global;
 
@@ -45,5 +47,11 @@ int				get_next_line(int fd, char **line);
 int				init_inouput_back(char **lexer, char *inout);
 int				ft_shell(t_parser *parser, t_path path);
 void			display_total(t_parser *parser);
+int				ft_pipe(t_pipes *pipe, t_pipes *pipes, t_path *path, pid_t *pid_2);
+void			ft_free_redi(t_redi *redi);
+void			ft_free(t_pipes *pipe, t_path *path);
+int				redirect_out(char *put, t_redi *redi, int *pipe_out);
+int				redirect_in(char *command, char *put, t_redi *redi, int *pipe_in);
+void 		free_paths(t_path *path);
 
 #endif

@@ -98,6 +98,8 @@ int		get_next_line(int fd, char **line)
 	int			check_read;
 	char		*buffer;
 
+	if (line == 0 && c != 0)
+		free(c);
 	check_read = 2;
 	if (fd < 0 || BUFFER_SIZE <= 0 || !(buffer = ft_calloc(BUFFER_SIZE + 1, 1))
 		|| line == 0)

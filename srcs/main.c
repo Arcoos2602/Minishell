@@ -13,7 +13,7 @@
 #include "../libft/include/libft.h"
 #include "../includes/minishell.h"
 
-int     global;
+int         global;
 
 void		display_put(t_redi *redi)
 {
@@ -83,6 +83,15 @@ static void		quit_handler(int signum) // ctrl '\'
 {
     exit(0);
 }
+void free_paths(t_path *path)
+{
+    int i;
+
+    i = 0;
+    while (path->exec_path[i] != NULL)
+        free(path->exec_path[i++]);
+    free(path->exec_path);
+}
 
 int     main(int    argc, char **argv, char **path)
 {
@@ -107,18 +116,23 @@ int     main(int    argc, char **argv, char **path)
 		signal(SIGQUIT, quit_handler);
 		if (global != 2)
 		{	
-			if (get_next_line(0, &line) == 2)
-				exit(EXIT_SUCCESS);
+		//	if (get_next_line(0, &line) == 2)
+            readline(line);
+            add_history(line);
+			//	exit(EXIT_SUCCESS);
 			if (line != NULL)
 				token = tokenization(line, path);
+                			free(line);
 			if (token != NULL && token[0] != NULL)
 			{
 				parser = init_parser(token, &i);
+                free_token(token);
 				ft_shell(parser, paths);
 				free_parser(parser);
 			}
-			free_token(token);
-			free(line);
+            free_paths(&paths);
+            get_next_line(-1,NULL);
+            exit(1);
 		}
 	}
 	return (1);
