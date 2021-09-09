@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct_parser.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 10:26:51 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/03/09 10:27:40 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/09 19:02:04 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,25 @@ t_parser	*parser_new(char **lexer, int *i)
 {
 	t_parser	*parser;
 
-	if (0 == (parser = malloc(sizeof(t_parser))))
+	parser = malloc(sizeof(t_parser));
+	if (parser == NULL)
 		return (NULL);
 	parser->pipe = NULL;
 	parser->next = NULL;
-	if (0 == (parser->pipe = init_pipes(lexer, i)))
+	parser->pipe = init_pipes(lexer, i);
+	if (parser->pipe == NULL)
 		return (NULL);
 	return (parser);
+}
+
+static int	init_variable_p(char **lexer,int *nbr, t_parser *parser, int *i)
+{
+	*i = 0;
+	parser = NULL;
+	if (lexer == NULL)
+		return (0);
+	*nbr = nbr_command_line(lexer);
+	return (1);
 }
 
 t_parser	*init_parser(char **lexer, int *i)
@@ -42,16 +54,14 @@ t_parser	*init_parser(char **lexer, int *i)
 	int			nbr;
 	t_parser	*parser;
 
-	*i = 0;
-	parser = NULL;
-	if (lexer == NULL)
-			return (NULL);
-	nbr = nbr_command_line(lexer);
+	if (init_variable_p(lexer, &nbr, parser, i) == 0)
+		return (NULL);
 	while (nbr != 0)
 	{
 		if (parser == NULL)
 		{
-			if (0 == (parser = parser_new(lexer, i)))
+			parser = parser_new(lexer, i);
+			if (0 == parser)
 				return (NULL);
 		}
 		else if (0 == add_parser(parser, parser_new(lexer, i)))

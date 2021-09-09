@@ -52,6 +52,15 @@ void			ft_free_redi(t_redi *redi);
 void			ft_free(t_pipes *pipe, t_path *path);
 int				redirect_out(char *put, t_redi *redi, int *pipe_out);
 int				redirect_in(char *command, char *put, t_redi *redi, int *pipe_in);
-void 		free_paths(t_path *path);
+void 			free_paths(t_path *path);
+pid_t			father_0(t_pipes *pipes, t_path *path, int pipe_fd[2]);
+void			child(t_pipes *pipes, t_path *path, int pipe_fd[2], pid_t *pid_2);
+void			ft_free_pipe(t_pipes *pipe);
+void			ft_free_paths(char **paths);
+void			ft_close(int pipe_1, int pipe_2, int pipe_3, int pipe_4);
+int				exit_ft_pipe(pid_t pid, t_pipes *pipes, t_path *path);
+int				init_redi(t_pipes *pipes, int buf[2]);
+int				init_fd(t_pipes *pipes, int buf[2], int pipe_fd[2], t_path *path);
+int				exit_ft_parser(pid_t pid, t_parser *parser, t_path *path);
 
 #endif
