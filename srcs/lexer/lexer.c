@@ -1,14 +1,13 @@
 #include "../../libft/include/libft.h"
 #include "../../includes/minishell.h"
 
-int				cpt(char *str)
+int	cpt(char *str)
 {
 	int		i;
 	int		cpt;
 
 	i = 0;
 	cpt = 0;
-	//printf("STRING : %s\n", str);
 	while (str[i])
 	{
 		while (ft_iswhitespace(str[i]) && str[i] != '\0')
@@ -28,7 +27,7 @@ int				cpt(char *str)
 	return (cpt);
 }
 
-int		search_env(char **tab, char *str, int *x, char **path, int *i)
+int	search_env(char **tab, char *str, int *x, char **path, int *i)
 {
 	int		k;
 	int		j;
@@ -54,13 +53,13 @@ int		search_env(char **tab, char *str, int *x, char **path, int *i)
 	return (0);
 }
 
-void			fill_tab2(char **tab, char *str, int *i, int *x)
+void	fill_tab2(char **tab, char *str, int *i, int *x)
 {
 	int		size_line;
 	int		tmp;
 
 	while (ft_iswhitespace(str[*i]) && str[*i] != '\0')
-			++*i;
+		++*i;
 	if (str[*i] == '"' || str[*i] == 39)
 		fill_quote(tab, str, i, x);
 	if (str[*i] == '>' && str[*i + 1] == '>')
@@ -75,7 +74,8 @@ void			fill_tab2(char **tab, char *str, int *i, int *x)
 		*i += 2;
 		++*x;
 	}
-	if (separators(str[*i]) && ft_iswhitespace(str[*i]) == 0) // separators sur &str[i]
+	if (separators(str[*i]) == 1
+		&& ft_iswhitespace(str[*i]) == 0) // separators sur &str[i]
 	{
 		tab[*x] = ft_strndup(&str[*i], 1);
 		++*i;
@@ -83,13 +83,13 @@ void			fill_tab2(char **tab, char *str, int *i, int *x)
 	}
 }
 
-int				fill_tab(char **tab, char *str, char **path)
+int	fill_tab(char **tab, char *str, char **path)
 {
-	int		x;
-	int		i;
-	int		size_line;
-	int		tmp;
-	int		size;
+	int	x;
+	int	i;
+	int	size_line;
+	int	tmp;
+	int	size;
 
 	tmp = 0;
 	x = 0;
@@ -116,7 +116,7 @@ int				fill_tab(char **tab, char *str, char **path)
 	return (1);
 }
 
-void			print_tab(char **tab)
+void	print_tab(char **tab)
 {
 	int		x;
 	int		y;
@@ -137,18 +137,15 @@ void			print_tab(char **tab)
 	}
 }
 
-char			**tokenization(char *str, char **path)
+char	**tokenization(char *str, char **path)
 {
 	char	**tab;
-	int		i;
 	int		x;
 	int		y;
 
 	x = 0;
 	y = 0;
 	tab = NULL;
-	i = 0;
-
 	if (str == NULL)
 		return (NULL);
 	if (check_multi(str) == -1)
@@ -161,21 +158,9 @@ char			**tokenization(char *str, char **path)
 		ft_putstr_fd("This token does not exist in this shell\n", 1);
 		return (NULL);
 	}
-	if (!(str) || !(tab = malloc(sizeof(char *) * (cpt(str) + 1))))
+	tab = malloc(sizeof(char *) * (cpt(str) + 1));
+	if (str == NULL || tab == NULL)
 		return (0);
 	fill_tab(tab, str, path);
-	/*print_tab(tab);
-	ft_putchar_fd('\n', 1);*/
 	return (tab);
 }
-
-/*int				main(void)
-{
-	char	**lexer;
-
-	(void)lexer;
-	lexer = token("lol | dwa > lol\0");
-	if (lexer != NULL)
-		print_tab(lexer);
-	ft_putchar_fd('\n', 1);
-}*/

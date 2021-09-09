@@ -1,7 +1,7 @@
 #include "../../libft/include/libft.h"
 #include "../../includes/minishell.h"
 
-int				separators(char c)
+int	separators(char c)
 {
 	int		i;
 
@@ -11,17 +11,17 @@ int				separators(char c)
 	return (0);
 }
 
-int				check_char(char c)
+int	check_char(char c)
 {
-	int		i;
-	
+	int	i;
+
 	i = 0;
 	if (c >= 33 && c <= 126 && separators(c) == 0 && c != '"' && c != 39)
 		return (1);
 	return (0);
 }
 
-int				not_handled(char *str)
+int	not_handled(char *str)
 {
 	int		i;
 	int		tmp;
@@ -59,7 +59,7 @@ int				not_handled(char *str)
 	return (0);
 }
 
-void			cpt2(char *str, int *i, int *cpt)
+void	cpt2(char *str, int *i, int *cpt)
 {
 	int		tmp;
 

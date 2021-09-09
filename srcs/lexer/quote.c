@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   quote.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 11:39:10 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/06/08 15:50:58 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/09 19:23:31 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft/include/libft.h"
 #include "../../includes/minishell.h"
 
-void			count_quote(char *str, int *i, int *cpt)
+void	count_quote(char *str, int *i, int *cpt)
 {
 	if (str[*i] == '"')
 		while (str[++*i] != '"')
@@ -24,7 +24,7 @@ void			count_quote(char *str, int *i, int *cpt)
 	++*cpt;
 }
 
-void			fill_quote(char **tab, char *str, int *i, int *x)
+void	fill_quote(char **tab, char *str, int *i, int *x)
 {
 	int		size_line;
 	int		tmp;
@@ -44,7 +44,7 @@ void			fill_quote(char **tab, char *str, int *i, int *x)
 	++*x;
 }
 
-void			check_double(char *str, int *i, int *first, int *second)
+void	check_double(char *str, int *i, int *first, int *second)
 {
 	if (str[*i] == '"')
 	{
@@ -57,7 +57,7 @@ void			check_double(char *str, int *i, int *first, int *second)
 	}
 }
 
-int				check_end(char *str)
+int	check_end(char *str)
 {
 	if (separators(str[ft_strlen(str) - 1])
 		&& ft_iswhitespace(str[ft_strlen(str) - 1]) == 0
@@ -66,7 +66,7 @@ int				check_end(char *str)
 	return (1);
 }
 
-int				check_multi(char *str)
+int	check_multi(char *str)
 {
 	int		i;
 	int		first;
