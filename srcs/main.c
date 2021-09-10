@@ -89,9 +89,12 @@ void	free_paths(t_path *path)
 	int	i;
 
 	i = 0;
+	if(path != NULL)
+	{
 	while (path->exec_path[i] != NULL)
 		free(path->exec_path[i++]);
 	free(path->exec_path);
+	}
 }
 
 int	main(int argc, char **argv, char **path)
@@ -120,6 +123,8 @@ int	main(int argc, char **argv, char **path)
 		{	
 			line = readline("[minishell]$");
 			add_history(line);
+			if (line == NULL)
+				exit(0);
 			if (line != NULL)
 			{
 				token = tokenization(line);

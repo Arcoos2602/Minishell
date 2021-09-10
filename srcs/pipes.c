@@ -26,6 +26,7 @@ void	ft_close(int pipe_1, int pipe_2, int pipe_3, int pipe_4)
 	if (pipe_4 >= 0)
 		close(pipe_4);
 }
+
 /*
 static void	int_handler(int sig)
 {
@@ -40,6 +41,7 @@ static void	quit_handler(int sig)
 	exit(0);
 }
 */
+
 int	ft_pipe(t_pipes *pipe, t_pipes *pipes, t_path *path, pid_t *pid_2)
 {
 	int		pipe_fd[2];

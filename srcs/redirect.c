@@ -65,7 +65,7 @@ int	redirect_out(char *put, t_redi *redi, int *pipe_out)
 				O_APPEND | O_CREAT | O_RDWR | O_TRUNC, 0664);
 		if (*pipe_out == -1)
 		{
-			ft_putstr_fd("pipex: ", 2);
+			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd(redi->put, 2);
 			ft_putstr_fd(": ", 2);
 			ft_putstr_fd(strerror(errno), 2);
@@ -87,7 +87,7 @@ int	redirect_in(char *command, char *put, t_redi *redi, int *pipe_in)
 		*pipe_in = open(redi->put, O_RDONLY);
 		if (*pipe_in == -1)
 		{
-			ft_putstr_fd("pipex: ", 2);
+			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd(redi->put, 2);
 			ft_putstr_fd(": ", 2);
 			ft_putstr_fd(strerror(errno), 2);

@@ -50,10 +50,11 @@ void	father_2(t_pipes *pipes, t_path *path)
 			ft_execve(path->exec_path[i], pipes->command[0],
 				pipes->command, path->path);
 	}
-	execve(pipes->command[0], &pipes->command[0], NULL);
+	if (ft_compare_c_to_s('/', pipes->command[0]))
+		execve(pipes->command[0], &pipes->command[0], NULL);
 	if (pipes->command[0] != NULL && pipes->command[0][0] != '$')
 	{
-		ft_putstr_fd("pipex: ", 2);
+		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(pipes->command[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
 	}

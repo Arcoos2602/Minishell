@@ -67,12 +67,13 @@ void	fill_tab2(char **tab, char *str, int *i, int *x)
 	}
 	if (str[*i] == '<' && str[*i + 1] == '<')
 	{
+		printf("check double in\n");
 		tab[*x] = ft_strndup(&str[*i], 2);
 		*i += 2;
 		++*x;
 	}
 	if (separators(str[*i]) == 1
-		&& ft_iswhitespace(str[*i]) == 0) // separators sur &str[i]
+		&& ft_iswhitespace(str[*i]) == 0)
 	{
 		tab[*x] = ft_strndup(&str[*i], 1);
 		++*i;
