@@ -26,17 +26,14 @@ void	display_parser(t_pipes *parser)
 {
 	static int	nbr = 1;
 	int			i;
-	int			n;
 
 	i = 0;
-	n = 0;
-	//printf("command\n");
+		//printf("command\n");
 	while (parser->command[i] != NULL)
 	{
 		printf("command %d : ", nbr++);
 		while (parser->command[i] != NULL)
 			printf("[%s] ", parser->command[i++]);
-		n = 0;
 		printf("\n");
 	}
 	if (parser->redi != NULL)
@@ -54,7 +51,7 @@ void	display_total(t_parser *parser)
 		display_parser(parser->pipe);
 	if (parser->next != NULL)
 	{
-//      printf("%p\n”,parser->next);
+      printf("%d\n",i);
 		display_total(parser->next);
 	}
 }
@@ -63,7 +60,6 @@ char	**init_path(char **path)
 {
 	int		i;
 	char	**tab;
-	char	*dest;
 
 	i = 0;
 	while (path[i] != NULL)
@@ -77,12 +73,14 @@ char	**init_path(char **path)
 
 static void	int_handler(int signum)// ctrl '\'
 {
+	printf("signum=%d\n", signum);
 	ft_putstr_fd("\n[minishell]$", 2);
 	global++;
 }
 
 static void	quit_handler(int signum)// ctrl '\'
 {
+	printf("signum=%d\n", signum);
 	exit(0);
 }
 
@@ -103,27 +101,28 @@ int	main(int argc, char **argv, char **path)
 	t_path		paths;
 	t_parser	*parser;
 	char		**token;
-	char		**exec_path;
-	int			status;
+//	char		**exec_path;
+//	int			status;
 
 	global = 0;
+	printf("argc = %d et argv = %s\n", argc, argv[0]);
 	paths.exec_path = init_path(path);
 	paths.path = path;
 	line = NULL;
 	global = 1;
+
 	while (global > 0)
 	{
-		ft_putstr_fd("[minishell]$", 2);
 		global = 1;
 		signal(SIGINT, int_handler);
 		signal(SIGQUIT, quit_handler);
 		if (global != 2)
 		{	
-			if (get_next_line(0, &line) == 2)
-				exit(EXIT_SUCCESS);
+			line = readline("[minishell]$");
+			add_history(line);
 			if (line != NULL)
 			{
-				token = tokenization(line, path);
+				token = tokenization(line);
 				free(line);
 			}
 			if (token != NULL && token[0] != NULL)
@@ -133,10 +132,9 @@ int	main(int argc, char **argv, char **path)
 				ft_shell(parser, paths);
 				free_parser(parser);
 			}
-			free_paths(&paths);
-			get_next_line(-1, NULL);
-			exit(1);
 		}
 	}
+	free_paths(&paths);
+	rl_clear_history();
 	return (1);
 }

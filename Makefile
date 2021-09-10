@@ -1,7 +1,7 @@
 NAME = minishell
 HEAD = -I./includes/ -I./libft/include
 
-CFLAGS = #
+CFLAGS = -Wall -Werror -Wextra -lreadline
 
 SRCS =  srcs/lexer/lexer.c \
 		srcs/main.c \
@@ -9,8 +9,6 @@ SRCS =  srcs/lexer/lexer.c \
 		srcs/lexer/quote.c \
 		srcs/lexer/free_lexer.c \
 		srcs/pipes.c \
-		srcs/get_next_line.c \
-		srcs/get_next_line_utils.c \
 		srcs/parser/init_struct_parser.c \
 		srcs/parser/init_struct_pipe.c \
 		srcs/parser/other.c \
@@ -31,11 +29,11 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	make -C ./libft
-	clang -g $(HEAD) $(OBJS) -o $(NAME) -L./libft -lft
+	clang -g $(CFLAGS) $(HEAD) $(OBJS) -o $(NAME) -L./libft -lft
 
 G: $(OBJS)
 	make -C ./libft
-	clang -g3 -fsanitize=address $(HEAD) $(OBJS) -o $(NAME) -L./libft -lft
+	clang -g3 -fsanitize=address $(CFLAGS) $(HEAD) $(OBJS) -o $(NAME) -L./libft -lft
 
 clean:
 	rm -rf $(OBJS) objs

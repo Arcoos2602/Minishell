@@ -52,9 +52,7 @@ static int	command_size(char **lexer)
 char	**init_command_pipe(char **command, char **lexer, int *i)
 {
 	int	size;
-	int	id;
 
-	id = -1;
 	if (lexer[0] != NULL)
 	{
 		size = command_size(&lexer[*i]);

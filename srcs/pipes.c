@@ -26,18 +26,20 @@ void	ft_close(int pipe_1, int pipe_2, int pipe_3, int pipe_4)
 	if (pipe_4 >= 0)
 		close(pipe_4);
 }
-
+/*
 static void	int_handler(int sig)
 {
+		printf("signum=%d\n", sig);
 	ft_putchar_fd('\n', 2);
 }
 
 static void	quit_handler(int sig)
 {
+			printf("signum=%d\n", sig);
+				ft_putchar_fd('\n', 2);
 	exit(0);
-	ft_putchar_fd('\n', 2);
 }
-
+*/
 int	ft_pipe(t_pipes *pipe, t_pipes *pipes, t_path *path, pid_t *pid_2)
 {
 	int		pipe_fd[2];
@@ -72,11 +74,8 @@ int	line_command(t_pipes *parser, t_path *path, pid_t *pid_2) // getpid
 
 int	ft_shell(t_parser *parser, t_path path)
 {
-	int	i;
-	int	status;
 	int	pid_2;
 
-	i = 0;
 	pid_2 = 0;
 	path.first[0] = 0;
 	path.pipe_in = -1;

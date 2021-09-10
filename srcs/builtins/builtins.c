@@ -17,6 +17,7 @@
 void		ft_exit(t_pipes *pipes)
 {
 	ft_putstr_fd("daw", 2);
+	ft_free_pipe(pipes);
 	exit(EXIT_SUCCESS);
 }
 
@@ -49,7 +50,7 @@ char	**new_env_del(char **env, char *to_delete, int size, int check)
 		j = 0;
 		while (env[x][j] != '=')
         	j++;
-		//printf("%s\n", &env[x][j]);
+		printf("%s\n", &env[x][j]);
 		if (ft_strncmp(to_delete, env[x], j) != 0)
 		{
 			//printf("check");
@@ -73,7 +74,6 @@ void	env_delete(char **env, char  *var) // recreer env avec un en -
 	int		i;
   	int		j;
 	int		new;
-	char  **env2;
 
   	i = -1;
 	new = 0;
@@ -99,7 +99,13 @@ void	env_delete(char **env, char  *var) // recreer env avec un en -
 
 void    env_add(char **env, char  *var) // recreer env avec un en +
 {
-
+	int i;
+		i = -1;
+	while (env[++i] != NULL)
+	{
+		printf("accompletter:%s\n", env[i]);
+	}
+	printf("accompletter:%s\n", var);
 }
 
 int    ft_export(t_pipes *pipes, char **env)
@@ -111,9 +117,9 @@ int    ft_export(t_pipes *pipes, char **env)
 
 int    ft_unset(t_pipes *pipes, char **env)
 {
-	int		i;
+//	int		i;
 
-	i = 0;
+//	i = 0;
 	if (pipes->command[1] != NULL)
     	env_delete(env, pipes->command[1]);
 	/*while (env[++i] != NULL)
@@ -125,9 +131,6 @@ int    ft_unset(t_pipes *pipes, char **env)
 
 char		*check_builtins(t_pipes	*pipes, char **env)
 {
-	int		ret;
-
-	ret = 0;
 	if (ft_strncmp(pipes->command[0], "exit", 4) == 0)
 		ft_exit(pipes);
 	if (ft_strncmp(pipes->command[0], "env", 4) == 0)
@@ -135,7 +138,7 @@ char		*check_builtins(t_pipes	*pipes, char **env)
 	if (ft_strncmp(pipes->command[0], "pwd", 3) == 0)
 		ft_pwd(env);
 	if (ft_strncmp(pipes->command[0], "echo", 3) == 0)
-		ft_echo(pipes, env);
+		ft_echo(pipes);
   	if (ft_strncmp(pipes->command[0], "export", 6) == 0)
 		ft_export(pipes, env);
 	if (ft_strncmp(pipes->command[0], "unset", 5) == 0)
@@ -144,4 +147,5 @@ char		*check_builtins(t_pipes	*pipes, char **env)
 		ft_cd(pipes->command[1], env);*/
 	/*if (ft_strncmp(pipes->command[0], "cd", 2) == 0)
 		ft_cd(pipes);*/
+		return NULL;
 }

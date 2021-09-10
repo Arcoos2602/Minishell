@@ -68,7 +68,7 @@ int	exit_ft_parser(pid_t pid, t_parser *parser, t_path *path)
 	waitpid(pid, NULL, 0);
 	free_parser(parser);
 	free_paths(path);
-	get_next_line(-1, NULL);
+	rl_clear_history();
 	wait(NULL);
 	exit(EXIT_SUCCESS);
 }
@@ -80,7 +80,7 @@ int	exit_ft_pipe(pid_t pid, t_pipes *pipes, t_path *path)
 	waitpid(pid, NULL, 0);
 	ft_free(pipes, path);
 	free_paths(path);
-	get_next_line(-1, NULL);
+	rl_clear_history();
 	wait(NULL);
 	exit(EXIT_SUCCESS);
 }

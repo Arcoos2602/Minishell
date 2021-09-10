@@ -14,7 +14,6 @@
 # include "../libft/include/libft.h"
 # define BUFFER_SIZE 50000
 # include "parser.h"
-# include "get_next_line.h"
 # include "builtins.h"
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -34,7 +33,7 @@ typedef struct	s_path
 }				t_path;
 
 int				not_handled(char *str);
-char			**tokenization(char *str, char **path);
+char			**tokenization(char *str);
 void			free_token(char	**token);
 void			cpt2(char *str, int *i, int *cpt);
 void			count_quote(char *str, int *i, int *cpt);

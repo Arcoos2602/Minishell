@@ -3,9 +3,6 @@
 
 int	separators(char c)
 {
-	int		i;
-
-	i = 0;
 	if (c == '|' || c == '>' || c == '<' || c == ' ' || c == ';')
 		return (1);
 	return (0);
@@ -13,9 +10,6 @@ int	separators(char c)
 
 int	check_char(char c)
 {
-	int	i;
-
-	i = 0;
 	if (c >= 33 && c <= 126 && separators(c) == 0 && c != '"' && c != 39)
 		return (1);
 	return (0);

@@ -55,9 +55,6 @@ int	search_env(char **tab, char *str, int *x, char **path, int *i)
 
 void	fill_tab2(char **tab, char *str, int *i, int *x)
 {
-	int		size_line;
-	int		tmp;
-
 	while (ft_iswhitespace(str[*i]) && str[*i] != '\0')
 		++*i;
 	if (str[*i] == '"' || str[*i] == 39)
@@ -83,7 +80,7 @@ void	fill_tab2(char **tab, char *str, int *i, int *x)
 	}
 }
 
-int	fill_tab(char **tab, char *str, char **path)
+int	fill_tab(char **tab, char *str)
 {
 	int	x;
 	int	i;
@@ -137,14 +134,10 @@ void	print_tab(char **tab)
 	}
 }
 
-char	**tokenization(char *str, char **path)
+char	**tokenization(char *str)
 {
 	char	**tab;
-	int		x;
-	int		y;
 
-	x = 0;
-	y = 0;
 	tab = NULL;
 	if (str == NULL)
 		return (NULL);
@@ -161,6 +154,6 @@ char	**tokenization(char *str, char **path)
 	tab = malloc(sizeof(char *) * (cpt(str) + 1));
 	if (str == NULL || tab == NULL)
 		return (0);
-	fill_tab(tab, str, path);
+	fill_tab(tab, str);
 	return (tab);
 }

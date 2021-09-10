@@ -38,8 +38,11 @@ char	*copy(char *c, char *buffer, int size)
 
 int		ft_line(char *c)
 {
+	int a;
+
+	a = ft_strlen(c);
 	if (c != 0)
-		if (ft_buffer_size_char(c) == ft_strlen(c))
+		if (ft_buffer_size_char(c) == a)
 			return (2);
 	return (1);
 }

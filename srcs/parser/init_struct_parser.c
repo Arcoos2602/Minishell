@@ -39,10 +39,9 @@ t_parser	*parser_new(char **lexer, int *i)
 	return (parser);
 }
 
-static int	init_variable_p(char **lexer,int *nbr, t_parser *parser, int *i)
+static int	init_variable_p(char **lexer,int *nbr, int *i)
 {
 	*i = 0;
-	parser = NULL;
 	if (lexer == NULL)
 		return (0);
 	*nbr = nbr_command_line(lexer);
@@ -54,7 +53,8 @@ t_parser	*init_parser(char **lexer, int *i)
 	int			nbr;
 	t_parser	*parser;
 
-	if (init_variable_p(lexer, &nbr, parser, i) == 0)
+	parser = NULL;
+	if (0 == init_variable_p(lexer, &nbr, i))
 		return (NULL);
 	while (nbr != 0)
 	{

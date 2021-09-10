@@ -14,7 +14,7 @@
 #include "../../includes/minishell.h"
 #include "../../includes/builtins.h"
 
-void		ft_echo(t_pipes *pipes, char **path)
+void		ft_echo(t_pipes *pipes)
 {
 	int		i;
 
