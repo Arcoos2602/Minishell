@@ -73,6 +73,21 @@ int	redirect_out(char *put, t_redi *redi, int *pipe_out)
 			return (0);
 		}
 	}
+	if (redi->type == 2)
+	{
+		*put = 1;
+		*pipe_out = open(redi->put,
+				O_APPEND | O_CREAT | O_RDWR, 0664);
+		if (*pipe_out == -1)
+		{
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd(redi->put, 2);
+			ft_putstr_fd(": ", 2);
+			ft_putstr_fd(strerror(errno), 2);
+			ft_putchar_fd('\n', 2);
+			return (0);
+		}
+	}
 	if (redi->next != NULL)
 	{
 		redirect_out(put, redi->next, pipe_out);
@@ -80,8 +95,23 @@ int	redirect_out(char *put, t_redi *redi, int *pipe_out)
 	return (1);
 }
 
+char *add_newline(char *line)
+	{
+		char *new_line;
+
+		new_line = malloc(ft_strlen(line) + 2);
+		ft_strlcpy(new_line ,line, ft_strlen(line) + 1);
+		new_line[ft_strlen(line)] = '\n';
+		new_line[ft_strlen(line) + 1] = '\0';
+		free(line);
+		return (new_line);
+	}
+
 int	redirect_in(char *command, char *put, t_redi *redi, int *pipe_in)
 {
+	char *line;
+
+	line = NULL;
 	if (redi->type == 0)
 	{
 		*pipe_in = open(redi->put, O_RDONLY);
@@ -94,6 +124,22 @@ int	redirect_in(char *command, char *put, t_redi *redi, int *pipe_in)
 			ft_putchar_fd('\n', 2);
 			return (0);
 		}
+		redi->type = -1;
+		*put = 1;
+	}
+	else if(redi->type == 10)
+	{
+		ft_putstr_fd("start", 2);
+		*pipe_in = open(".test", O_APPEND | O_CREAT | O_RDWR | O_TRUNC, 0664);
+		ft_putstr_fd(">", 2);
+		while (get_next_line(1, &line) != 0 && !(ft_strncmp(redi->put, line, ft_strlen(redi->put)) == 0 && ft_strlen(redi->put) == ft_strlen(line)))
+		{
+						ft_putstr_fd(">", 2);
+						line = add_newline(line);
+						ft_putstr_fd(line, *pipe_in);
+		}
+		ft_putstr_fd("finish", 2);
+		*pipe_in = open(redi->put, O_RDONLY);
 		redi->type = -1;
 		*put = 1;
 	}

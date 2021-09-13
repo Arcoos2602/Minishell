@@ -89,7 +89,7 @@ void	free_paths(t_path *path)
 	int	i;
 
 	i = 0;
-	if(path != NULL)
+	if(path != NULL && path->exec_path != NULL)
 	{
 	while (path->exec_path[i] != NULL)
 		free(path->exec_path[i++]);
@@ -104,8 +104,6 @@ int	main(int argc, char **argv, char **path)
 	t_path		paths;
 	t_parser	*parser;
 	char		**token;
-//	char		**exec_path;
-//	int			status;
 
 	global = 0;
 	printf("argc = %d et argv = %s\n", argc, argv[0]);

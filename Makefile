@@ -21,7 +21,9 @@ SRCS =  srcs/lexer/lexer.c \
 		srcs/father.c \
 		srcs/child.c \
 		srcs/free_general.c \
-		srcs/redirect.c
+		srcs/redirect.c \
+		srcs/get_next_line.c \
+		srcs/get_next_line_utils.c
 
 OBJS = $(SRCS:.c=.o)
 

@@ -12,6 +12,7 @@
 # include <sys/types.h>
 # include <fcntl.h>
 # include "../libft/include/libft.h"
+# include "get_next_line.h"
 # define BUFFER_SIZE 50000
 # include "parser.h"
 # include "builtins.h"
@@ -61,5 +62,6 @@ int				exit_ft_pipe(pid_t pid, t_pipes *pipes, t_path *path);
 int				init_redi(t_pipes *pipes, int buf[2]);
 int				init_fd(t_pipes *pipes, int buf[2], int pipe_fd[2], t_path *path);
 int				exit_ft_parser(pid_t pid, t_parser *parser, t_path *path);
+int		get_next_line(int fd, char **line);
 
 #endif

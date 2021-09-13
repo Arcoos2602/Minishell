@@ -72,6 +72,7 @@ pid_t	father(t_pipes *pipes, int pipe_fd[2], t_path *path)
 {
 	pid_t	pid;
 
+	waitpid(0,NULL,0); // modification
 	if (pipes->next != NULL || pipes->put[1] == 1)
 	{
 		if (pipe_fd[0] >= 0)
