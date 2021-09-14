@@ -13,19 +13,50 @@
 #include "../../libft/include/libft.h"
 #include "../../includes/minishell.h"
 
+char *add_newline(char *line)
+	{
+		char *new_line;
+
+		new_line = malloc(ft_strlen(line) + 2);
+		ft_strlcpy(new_line ,line, ft_strlen(line) + 1);
+		new_line[ft_strlen(line)] = '\n';
+		new_line[ft_strlen(line) + 1] = '\0';
+		free(line);
+		return (new_line);
+	}
+
+int ft_free_redi_double(t_redi *redi)
+{
+	int fd;
+	char *line;
+
+	line = NULL;
+
+		fd = open(".test", O_APPEND | O_CREAT | O_RDWR | O_TRUNC, 0664);
+		ft_putstr_fd(">", 2);
+		while (get_next_line(1, &line) != 0 && !(ft_strncmp(redi->put, line, ft_strlen(redi->put)) == 0 && ft_strlen(redi->put) == ft_strlen(line)))
+		{
+						ft_putstr_fd(">", 2);
+						line = add_newline(line);
+						ft_putstr_fd(line, fd);
+		}
+		close(fd);
+		return 	(10);
+}
+
 t_redi	*init_new_redi(t_redi *redi, char **lexer)
 {
 	if (lexer[0][0] == '<')
 	{
+			redi->put = ft_strdup(lexer[1]);
 		redi->type = 0;
 		if (lexer[0][1] == '<')
-			redi->type = 10;
+			redi->type = ft_free_redi_double(redi);
 	}
 	else if (lexer[0][1] == '\0')
 		redi->type = 1;
 	else
 		redi->type = 2;
-	redi->put = ft_strdup(lexer[1]);
 	return (redi);
 }
 
@@ -96,9 +127,32 @@ t_pipes	*add_pipe(t_pipes *pipe, t_pipes *next)
 	return (next);
 }
 
+int ft_check_builtin_parser(char *command)
+{
+	if (ft_strncmp(command, "exit", 4) == 0)
+		return (1);
+	else if (ft_strncmp(command, "env", 4) == 0)
+		return (1);
+	else if (ft_strncmp(command, "pwd", 3) == 0)
+		return (1);
+	else if (ft_strncmp(command, "echo", 3) == 0)
+		return (1);
+  	else if (ft_strncmp(command, "export", 6) == 0)
+		return (1);
+	else if (ft_strncmp(command, "unset", 5) == 0)
+	{
+		return (1);
+	}
+	else if (ft_strncmp(command, "cd", 2) == 0)
+		return (1);;
+	return (0);
+}
+
 t_pipes	*init_new(t_pipes *new, char **lexer, int *i)
 {
 	new->command = init_command_pipe(new->command, lexer, i);
+	if (new->command != NULL && new->command[0] != NULL)
+		new->builtin = ft_check_builtin_parser(new->command[0]);
 	if (0 != nbr_redi(&lexer[*i]))
 	{
 		new->redi = init_put(new->redi, lexer, i);
@@ -115,6 +169,7 @@ t_pipes	*pipe_new(char **lexer, int *i)
 	new = malloc(sizeof(t_pipes));
 	if (0 == new)
 		return (NULL);
+	new->builtin = 0;
 	new->next = NULL;
 	new->redi = NULL;
 	return (init_new(new, lexer, i));

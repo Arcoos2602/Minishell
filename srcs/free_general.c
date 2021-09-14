@@ -67,23 +67,47 @@ void	ft_free_paths(char **paths)
 int	exit_ft_parser(pid_t pid, t_parser *parser, t_path *path)
 {
 	if (pid != 0)
-		waitpid(pid, NULL, 0);
-	waitpid(pid, NULL, 0);
+	{
+		waitpid(pid, &g_global, 0);
+			ft_putstr_fd("g_global3 =",2);
+	ft_putnbr_fd(g_global,2);
+	ft_putstr_fd("\n",2);
+	}
+	waitpid(pid, &g_global, 0);
+			ft_putstr_fd("g_global4 =",2);
+	ft_putnbr_fd(g_global,2);
+	ft_putstr_fd("\n",2);
 	free_parser(parser);
 	free_paths(path);
 	//rl_clear_history();
-	wait(NULL);
+	wait(&g_global);
+				ft_putstr_fd("g_global8 =",2);
+	ft_putnbr_fd(g_global,2);
+	ft_putstr_fd("\n",2);
+	ft_putstr_fd("-1-",2);
 	exit(EXIT_SUCCESS);
 }
 
 int	exit_ft_pipe(pid_t pid, t_pipes *pipes, t_path *path)
 {
 	if (pid != 0)
-		waitpid(pid, NULL, 0);
-	waitpid(pid, NULL, 0);
+	{
+		waitpid(pid, &g_global, 0);
+		ft_putstr_fd("g_global5 =",2);
+		ft_putnbr_fd(g_global,2);
+		ft_putstr_fd("\n",2);
+	}
+	waitpid(pid,&g_global, 0);
+	ft_putstr_fd("g_global6 =",2);
+	ft_putnbr_fd(g_global,2);
+	ft_putstr_fd("\n",2);
 	ft_free(pipes, path);
 	free_paths(path);
 	//rl_clear_history();
-	wait(NULL);
+	wait(&g_global);
+	ft_putstr_fd("g_global7 =",2);
+	ft_putnbr_fd(g_global,2);
+	ft_putstr_fd("\n",2);
+	ft_putstr_fd("-2-",2);
 	exit(EXIT_SUCCESS);
 }

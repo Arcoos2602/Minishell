@@ -109,12 +109,10 @@ int		get_next_line(int fd, char **line)
 		return (-1);
   	while (check_read == 2)
 	{
-		ft_putstr_fd("start", 2);
 		if (c != 0 && 1 >= (ft_line(c)))
 			return (ft_line_copy(1, &(*line), &c, buffer));
 		else if (0 <= (check_read = read(fd, buffer, BUFFER_SIZE)))
 		{
-			ft_putstr_fd("START", 2);
       	if (check_read == 0)
 		    return (0);
 		c = copy(c, buffer, check_read);

@@ -15,17 +15,7 @@
 
 void	ft_pwd(char **path)
 {
-	int		i;
+	char chemin[1000];
 
-	i = 0;
-	while (path[i] != NULL)
-	{
-		if (ft_strncmp(path[i], "PWD=", 4) == 0)
-		{
-			ft_putstr_fd(&path[i][4], 1);
-			ft_putchar_fd('\n', 1);
-		}	
-		i++;
-	}
-	exit(EXIT_SUCCESS);
+	printf("(%s)%c\n", getcwd(chemin,1000), path[0][0]);
 }

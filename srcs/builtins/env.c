@@ -24,5 +24,4 @@ void		ft_env(char **path)
 		ft_putstr_fd(path[i], 1);
 		ft_putchar_fd('\n', 1);
 	}
-	exit(EXIT_SUCCESS);
 }

@@ -51,6 +51,8 @@ int	ft_pipe(t_pipes *pipe, t_pipes *pipes, t_path *path, pid_t *pid_2)
 	pipes->error = init_redi(pipes, buf);
 	init_fd(pipes, buf, pipe_fd, path);
 	pid[0] = fork();
+//	if (pipes->redi != NULL && *pid_2 != 0)
+//	waitpid(0, NULL, 0); // modification
 	if (pid[0] != 0)
 	{
 		ft_free_pipe(pipe);
@@ -62,7 +64,10 @@ int	ft_pipe(t_pipes *pipe, t_pipes *pipes, t_path *path, pid_t *pid_2)
 	else
 	{
 		child(pipes, path, pipe_fd, pid_2);
-		waitpid(pid[0], NULL, 0);
+		waitpid(pid[0], &g_global, 0);
+		ft_putstr_fd("g_global1 =",2);
+		ft_putnbr_fd(g_global,2);
+		ft_putstr_fd("\n",2);
 		close(path->pipe_in);
 	}
 	return (1);
@@ -70,26 +75,32 @@ int	ft_pipe(t_pipes *pipe, t_pipes *pipes, t_path *path, pid_t *pid_2)
 
 int	line_command(t_pipes *parser, t_path *path, pid_t *pid_2) // getpid
 {
-	ft_pipe(NULL, parser, path, pid_2);
+	if (parser->next != NULL || parser->builtin == 0)
+		ft_pipe(NULL, parser, path, pid_2);
+	else
+		check_builtins(parser, path , path->path);
 	return (1);
 }
 
-int	ft_shell(t_parser *parser, t_path path)
+int	ft_shell(t_parser *parser, t_path *path)
 {
 	int	pid_2;
 
 	pid_2 = 0;
-	path.first[0] = 0;
-	path.pipe_in = -1;
-	path.pipe_out = -1;
-	line_command(parser->pipe, &path, &pid_2);
+	path->first[0] = 0;
+	path->pipe_in = -1;
+	path->pipe_out = -1;
+	line_command(parser->pipe, path, &pid_2);
 	if (pid_2 != 0)
 	{
 		//printf("FILS\n");
-		exit_ft_parser(0, parser, &path);
+		exit_ft_parser(0, parser, path);
 	}
 	printf("PERE\n");
-	wait(NULL);
+	wait(&g_global);
+			ft_putstr_fd("g_global3 =",2);
+		ft_putnbr_fd(g_global,2);
+		ft_putstr_fd("\n",2);
 	dup2(0, STDOUT_FILENO);
 	dup2(1, STDIN_FILENO);
 	//wait(NULL);

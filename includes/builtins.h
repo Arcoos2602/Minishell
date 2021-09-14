@@ -12,9 +12,10 @@
 
 #ifndef BUILTINS_H
 
-char		*check_builtins(t_pipes	*pipes, char **path);
+
 void		ft_env(char **path);
 void		ft_pwd(char **path);
 void		ft_echo(t_pipes *pipes);
+char 	*ft_getenv(char **paths, char *var);
 
 #endif
