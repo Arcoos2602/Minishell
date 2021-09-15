@@ -135,7 +135,7 @@ void	print_tab(char **tab)
 	}
 }
 
-char	**tokenization(char *str)
+char	**tokenization(char *str) // needs a parse errror function for < > etc
 {
 	char	**tab;
 

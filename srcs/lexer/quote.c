@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 11:39:10 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/09 19:23:31 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/14 17:00:52 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,6 @@ void	fill_quote(char **tab, char *str, int *i, int *x)
 	++*x;
 }
 
-void	check_double(char *str, int *i, int *first, int *second)
-{
-	if (str[*i] == '"')
-	{
-		++*first;
-		++*i;
-		while (str[*i] != '"' && str[*i] != '\0')
-			++*i;
-		if (str[*i] != '\0')
-			++*second;
-	}
-}
-
 int	check_end(char *str)
 {
 	if (separators(str[ft_strlen(str) - 1])
@@ -66,31 +53,46 @@ int	check_end(char *str)
 	return (1);
 }
 
+int	check_quotes(char *str, int *i)
+{
+	if (str[*i] == '\'')
+	{
+		++*i;
+		while (str[*i] != '\0' && str[*i] != '\'')
+			++*i;
+		if (str[*i] == '\0')
+			return (0);
+	}
+	if (str[*i] == '"')
+	{
+		++*i;
+		while (str[*i] != '\0' && str[*i] != '"')
+			++*i;
+		if (str[*i] == '\0')
+			return (0);
+	}
+	return (1);
+}
+
 int	check_multi(char *str)
 {
 	int		i;
-	int		first;
-	int		second;
 
-	first = 0;
-	second = 0;
 	i = 0;
+	printf("str %s\n", str);
 	while (str[i])
 	{
-		if (str[i] == 39)
+		if (str[i] == '|')
 		{
-			first++;
 			i++;
-			while (str[i] != 39 && str[i] != '\0')
-				i++;
-			if (str[i] != '\0')
-				second++;
+			while (ft_iswhitespace(str[i]))
+				++i;
+			if (str[i] == '\0')
+				return (-1);
 		}
-		check_double(str, &i, &first, &second);
+		if (!(check_quotes(str, &i)))
+			return (-1);
 		i++;
 	}
-	if (first == second && check_end(str) == 1)
-		return (1);
-	else
-		return (-1);
+	return (1);
 }
