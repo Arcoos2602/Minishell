@@ -21,6 +21,7 @@ typedef struct s_redi
 
 typedef struct s_pipes
 {
+	int 			builtin;
 	char			put[2];
 	char			**command;
 	int				error;

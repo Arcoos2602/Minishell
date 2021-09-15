@@ -52,20 +52,21 @@ void	father_2(t_pipes *pipes, t_path *path)
 	}
 	if (ft_compare_c_to_s('/', pipes->command[0]))
 		execve(pipes->command[0], &pipes->command[0], NULL);
-	if (pipes->command[0] != NULL && pipes->command[0][0] != '$')
+	if (pipes->command[0] != NULL && pipes->command[0][0] != '$' && 0 == check_builtins(pipes, path ,path->path))
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(pipes->command[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
+		exit(127);
 	}
 	ft_free(pipes, path);
-	exit(0);
+	exit(EXIT_SUCCESS);
 }
 
 void	ft_father_error(t_pipes *pipes, t_path *path)
 {
 	ft_free(pipes, path);
-	exit(0);
+	exit(EXIT_FAILURE);
 }
 
 pid_t	father(t_pipes *pipes, int pipe_fd[2], t_path *path)

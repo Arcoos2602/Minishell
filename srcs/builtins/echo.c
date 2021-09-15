@@ -17,9 +17,8 @@
 void		ft_echo(t_pipes *pipes)
 {
 	int		i;
-
 	i = 1;
-	if (ft_strncmp(pipes->command[1], "-n", ft_strlen(pipes->command[1])) == 0)
+	if (pipes->command[1] != NULL && ft_strncmp(pipes->command[1], "-n", ft_strlen(pipes->command[1])) == 0)
 	{
 		i++;
 		while (pipes->command[i] != NULL)
@@ -41,5 +40,4 @@ void		ft_echo(t_pipes *pipes)
 		}
 		ft_putchar_fd('\n', 1);
 	}
-	exit(EXIT_SUCCESS);
 }

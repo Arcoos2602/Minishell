@@ -73,6 +73,21 @@ int	redirect_out(char *put, t_redi *redi, int *pipe_out)
 			return (0);
 		}
 	}
+	if (redi->type == 2)
+	{
+		*put = 1;
+		*pipe_out = open(redi->put,
+				O_APPEND | O_CREAT | O_RDWR, 0664);
+		if (*pipe_out == -1)
+		{
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd(redi->put, 2);
+			ft_putstr_fd(": ", 2);
+			ft_putstr_fd(strerror(errno), 2);
+			ft_putchar_fd('\n', 2);
+			return (0);
+		}
+	}
 	if (redi->next != NULL)
 	{
 		redirect_out(put, redi->next, pipe_out);
@@ -94,6 +109,12 @@ int	redirect_in(char *command, char *put, t_redi *redi, int *pipe_in)
 			ft_putchar_fd('\n', 2);
 			return (0);
 		}
+		redi->type = -1;
+		*put = 1;
+	}
+	else if(redi->type == 10)
+	{
+		*pipe_in = open(".test", O_RDONLY);
 		redi->type = -1;
 		*put = 1;
 	}

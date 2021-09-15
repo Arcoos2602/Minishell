@@ -108,21 +108,20 @@ int		get_next_line(int fd, char **line)
 		|| line == 0)
 		return (-1);
   	while (check_read == 2)
+	{
 		if (c != 0 && 1 >= (ft_line(c)))
 			return (ft_line_copy(1, &(*line), &c, buffer));
 		else if (0 <= (check_read = read(fd, buffer, BUFFER_SIZE)))
 		{
       	if (check_read == 0)
-     	 {
-        	ft_putstr_fd(" exit\n", 1);
-		    exit(EXIT_SUCCESS);
-      	}
+		    return (0);
 		c = copy(c, buffer, check_read);
 		if ((c != 0) && (check_read <= 0 || BUFFER_SIZE > check_read))
 			return (ft_line_copy(0, &(*line), &c, buffer));
 		else if ((c != 0) && 1 == (check_read = ft_line(c)))
 			return (ft_line_copy(1, &(*line), &c, buffer));
 		}
+	}
 	free(buffer);
 	if (c != 0)
 		free(c);
