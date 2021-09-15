@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/09 19:00:12 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/15 18:02:07 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,7 @@ static char	**env_malloc(char **path, char **env)
 	i = 0;
 	n = -1;
 	while (env[++n] != NULL)
-	{
-			printf("a\n");
 			path[i++] = ft_strdup(env[n]);
-	}
 	path[i]= NULL;
 	return (path);
 }
@@ -147,7 +144,7 @@ int	main(int argc, char **argv, char **path)
 				exit(0);	
 			if (line != NULL)
 			{
-				token = tokenization(line);
+				token = tokenization(line, paths.path);
 				free(line);
 			}
 			if (token != NULL && token[0] != NULL)

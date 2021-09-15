@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:30:52 by user42            #+#    #+#             */
-/*   Updated: 2021/09/15 16:34:16 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/15 17:39:43 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char    **ft_unset(t_pipes *pipes, char **env)
         else
         {
             ft_putstr_fd("ERROR\n",2);
-            g_gloabe = 1;
+            g_global = 1;
         }
     }
 	return (env);

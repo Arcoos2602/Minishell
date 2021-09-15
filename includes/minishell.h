@@ -34,7 +34,7 @@ typedef struct	s_path
 }				t_path;
 
 int				not_handled(char *str);
-char			**tokenization(char *str);
+char			**tokenization(char *str, char **paths);
 void			free_token(char	**token);
 void			cpt2(char *str, int *i, int *cpt);
 void			count_quote(char *str, int *i, int *cpt);
@@ -62,7 +62,7 @@ int				exit_ft_pipe(pid_t pid, t_pipes *pipes, t_path *path);
 int				init_redi(t_pipes *pipes, int buf[2]);
 int				init_fd(t_pipes *pipes, int buf[2], int pipe_fd[2], t_path *path);
 int				exit_ft_parser(pid_t pid, t_parser *parser, t_path *path);
-int		get_next_line(int fd, char **line);
+int				get_next_line(int fd, char **line);
 int         check_builtins(t_pipes	*pipes, t_path *path, char **env);
 
 #endif

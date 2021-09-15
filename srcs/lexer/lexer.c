@@ -53,64 +53,72 @@ int	search_env(char **tab, char *str, int *x, char **path, int *i)
 	return (0);
 }
 
-void	fill_tab2(char **tab, char *str, int *i, int *x)
+void	fill_var(char **tab, char *str,  int len[2], char **paths)
 {
-	while (ft_iswhitespace(str[*i]) && str[*i] != '\0')
-		++*i;
-	if (str[*i] == '"' || str[*i] == 39)
-		fill_quote(tab, str, i, x);
-	if (str[*i] == '>' && str[*i + 1] == '>')
+	len[1]++;
+	printf("%s\n", &str[len[1]]);
+	tab[len[0]] = ft_strdup(ft_getenv(paths, &str[len[1]]));
+	printf("%s\n", tab[len[0]]);
+}
+
+void	fill_tab2(char **tab, char *str, int len[2], char **paths)
+{
+	while (ft_iswhitespace(str[len[1]]) && str[len[1]] != '\0')
+		++len[1];
+	if (str[len[1]] == '"' || str[len[1]] == 39)
+		fill_quote(tab, str, &len[1], &len[0]); // gerer $ dans les quotes
+	if (str[len[1]] == '>' && str[len[1] + 1] == '>')
 	{
-		tab[*x] = ft_strndup(&str[*i], 2);
-		*i += 2;
-		++*x;
+		tab[len[0]] = ft_strndup(&str[len[1]], 2);
+		len[1] += 2;
+		len[0]++;
 	}
-	if (str[*i] == '<' && str[*i + 1] == '<')
+	if (str[len[1]] == '<' && str[len[1] + 1] == '<')
 	{
-		printf("check double in\n");
-		tab[*x] = ft_strndup(&str[*i], 2);
-		*i += 2;
-		++*x;
+		tab[len[0]] = ft_strndup(&str[len[1]], 2);
+		len[1] += 2;
+		len[0]++;
 	}
-	if (separators(str[*i]) == 1
-		&& ft_iswhitespace(str[*i]) == 0)
+	if (str[len[1]] == '$')
+		fill_var(tab, str, len, paths);
+	if (separators(str[len[1]]) == 1
+		&& ft_iswhitespace(str[len[1]]) == 0)
 	{
-		tab[*x] = ft_strndup(&str[*i], 1);
-		++*i;
-		++*x;
+		tab[len[0]] = ft_strndup(&str[len[1]], 1);
+		len[1]++;
+		len[0]++;
 	}
 }
 
-int	fill_tab(char **tab, char *str)
+int	fill_tab(char **tab, char *str, char **paths)
 {
-	int	x;
-	int	i;
+	int	len[2];
 	int	size_line;
 	int	tmp;
 	int	size;
 
 	tmp = 0;
-	x = 0;
-	i = 0;
+	len[0] = 0;
+	len[1] = 0;
 	size = cpt(str);
-	while (x < size)
+	while (len[0] < size)
 	{
-		fill_tab2(tab, str, &i, &x);
-		if (check_char(str[i]) && str[i] != '\0')
+		fill_tab2(tab, str, len, paths);
+		if (check_char(str[len[1]]) && str[len[1]] != '\0')
 		{
-			tmp = i;
+			tmp = len[1];
 			size_line = 0;
-			while (check_char(str[i]) && str[i] != '\0')
+			while (check_char(str[len[1]]) && str[len[1]] != '\0')
 			{
 				size_line++;
-				++i;
+				++len[1];
 			}
 			if (size_line != 0)
-				tab[x] = ft_strndup(&str[tmp], size_line);
-			++x;
+				tab[len[0]] = ft_strndup(&str[tmp], size_line);
+			++len[0];
 		}
 	}
-	tab[x] = NULL;
+	tab[len[0]] = NULL;
 	return (1);
 }
 
@@ -135,7 +143,7 @@ void	print_tab(char **tab)
 	}
 }
 
-char	**tokenization(char *str) // needs a parse errror function for < > etc
+char	**tokenization(char *str, char **paths)
 {
 	char	**tab;
 
@@ -147,6 +155,7 @@ char	**tokenization(char *str) // needs a parse errror function for < > etc
 		ft_putstr_fd("Multilines not handled\n", 1);
 		return (NULL);
 	}
+	// parser errror des redirections
 	if (not_handled(str) == 1)
 	{
 		ft_putstr_fd("This token does not exist in this shell\n", 1);
@@ -155,6 +164,6 @@ char	**tokenization(char *str) // needs a parse errror function for < > etc
 	tab = malloc(sizeof(char *) * (cpt(str) + 1));
 	if (str == NULL || tab == NULL)
 		return (0);
-	fill_tab(tab, str);
+	fill_tab(tab, str, paths);
 	return (tab);
 }

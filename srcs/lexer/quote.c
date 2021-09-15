@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 11:39:10 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/14 17:00:52 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/15 17:50:20 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	count_quote(char *str, int *i, int *cpt)
 	++*cpt;
 }
 
-void	fill_quote(char **tab, char *str, int *i, int *x)
+void	fill_quote(char **tab, char *str, int *i, int *x) // si $ "" interpreter si '' j'interprete pas
 {
 	int		size_line;
 	int		tmp;
