@@ -17,13 +17,17 @@ SRCS =  srcs/lexer/lexer.c \
 		srcs/builtins/env.c \
 		srcs/builtins/pwd.c \
 		srcs/builtins/echo.c \
+		srcs/builtins/unset.c \
+		srcs/builtins/export.c \
+		srcs/builtins/exit.c \
+		srcs/builtins/cd.c \
 		srcs/parser/free_parser.c \
 		srcs/father.c \
 		srcs/child.c \
 		srcs/free_general.c \
 		srcs/redirect.c \
 		srcs/get_next_line.c \
-		srcs/get_next_line_utils.c
+		srcs/get_next_line_utils.c 
 
 OBJS = $(SRCS:.c=.o)
 

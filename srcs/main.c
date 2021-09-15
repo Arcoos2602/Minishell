@@ -74,14 +74,15 @@ char	**init_path(char **path)
 static void	int_handler(int signum)// ctrl '\'
 {
 	printf("signum=%d\n", signum);
-	ft_putstr_fd("\n[minishell]$", 2);
-	g_global++;
+	rl_on_new_line();
+	g_global = 130;
 }
 
 static void	quit_handler(int signum)// ctrl '\'
 {
 	printf("signum=%d\n", signum);
-	exit(0);
+	g_global = 131;
+	//exit(0);
 }
 
 void	free_paths(t_path *path)
@@ -132,20 +133,18 @@ int	main(int argc, char **argv, char **path)
 	printf("argc = %d et argv = %s\n", argc, argv[0]);
 	path = env_malloc(paths.path, path);
 	paths.path = path;
+	paths.exit_status = 0;
 	line = NULL;
-	g_global = 1;
-	while (g_global >= 0)
+	while (1)
 	{
 		paths.exec_path = ft_split(ft_getenv(paths.path,"PATH"), ':');
-		g_global = 1;
 		signal(SIGINT, int_handler);
 		signal(SIGQUIT, quit_handler);
-		if (g_global != 2)
-		{	
-			line = readline("[minishell]$");
-			add_history(line);
-			if (line == NULL)
-				exit(0);
+		line = readline("[minishell]$");
+		printf("valeur retour = %d\n", g_global);
+		add_history(line);
+		if (line == NULL)
+				exit(0);	
 			if (line != NULL)
 			{
 				token = tokenization(line);
@@ -158,9 +157,11 @@ int	main(int argc, char **argv, char **path)
 				ft_shell(parser, &paths);
 				free_parser(parser);
 			}
-			free_paths(&paths);
-			printf("%d\n", g_global);
-		}
+			else
+				g_global = 0;
+		free_paths(&paths);
+		printf("valeur retour = %d\n", g_global);
+		g_global = 0;
 	}
 	rl_clear_history();
 	return (1);

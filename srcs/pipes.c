@@ -64,10 +64,10 @@ int	ft_pipe(t_pipes *pipe, t_pipes *pipes, t_path *path, pid_t *pid_2)
 	else
 	{
 		child(pipes, path, pipe_fd, pid_2);
-		waitpid(pid[0], &g_global, 0);
-		ft_putstr_fd("g_global1 =",2);
-		ft_putnbr_fd(g_global,2);
-		ft_putstr_fd("\n",2);
+		waitpid(pid[0], NULL, 0);
+	//	ft_putstr_fd("g_global1 =",2);
+	//	ft_putnbr_fd(g_global,2);
+	//	ft_putstr_fd("\n",2);
 		close(path->pipe_in);
 	}
 	return (1);
@@ -98,8 +98,9 @@ int	ft_shell(t_parser *parser, t_path *path)
 	}
 	printf("PERE\n");
 	wait(&g_global);
-			ft_putstr_fd("g_global3 =",2);
-		ft_putnbr_fd(g_global,2);
+	g_global %= 255;
+			ft_putstr_fd("g_global =",2);
+		ft_putnbr_fd(g_global, 2);
 		ft_putstr_fd("\n",2);
 	dup2(0, STDOUT_FILENO);
 	dup2(1, STDIN_FILENO);

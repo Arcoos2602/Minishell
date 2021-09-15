@@ -57,6 +57,7 @@ void	father_2(t_pipes *pipes, t_path *path)
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(pipes->command[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
+		exit(127);
 	}
 	ft_free(pipes, path);
 	exit(EXIT_SUCCESS);
@@ -85,11 +86,7 @@ pid_t	father(t_pipes *pipes, int pipe_fd[2], t_path *path)
 			ft_father_error(pipes, path);
 		father_2(pipes, path);
 	}
-	wait(&g_global);
-	printf("%d errno", errno);
-	ft_putstr_fd("g_global2 =",2);
-	ft_putnbr_fd(g_global,2);
-	ft_putstr_fd("\n",2);
+	wait(NULL);
 	if (pipes->next != NULL)
 	{
 		if (pipe_fd[1] >= 0)
