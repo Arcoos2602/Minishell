@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/15 18:02:07 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/21 11:29:32 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ int	main(int argc, char **argv, char **path)
 		signal(SIGINT, int_handler);
 		signal(SIGQUIT, quit_handler);
 		line = readline("[minishell]$");
-		printf("valeur retour = %d\n", g_global);
+		printf("valeur retour = %d\n", paths.exit_status);
 		add_history(line);
 		if (line == NULL)
 				exit(0);	
@@ -157,7 +157,7 @@ int	main(int argc, char **argv, char **path)
 			else
 				g_global = 0;
 		free_paths(&paths);
-		printf("valeur retour = %d\n", g_global);
+		printf("valeur retour = %d\n",  paths.exit_status);
 		g_global = 0;
 	}
 	rl_clear_history();

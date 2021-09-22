@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct_pipe.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 18:35:25 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/09 18:50:07 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/22 21:11:24 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ t_pipes	*add_pipe(t_pipes *pipe, t_pipes *next)
 		add_pipe(pipe->next, next);
 	pipe->put[1] = -1;
 	pipe->put[0] = -1;
+	pipe->error =  0;
+	pipe->exe = 0;
 	return (next);
 }
 

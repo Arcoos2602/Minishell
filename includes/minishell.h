@@ -26,10 +26,13 @@ typedef struct	s_path
 	char 		**path;
 	char 		**exec_path;
 	int			first[1];
-  int     start;
-  int     exit;
+	int     	start;
+	int			exit;
 	int			pipe_out;
 	int 		pipe_in;
+	int			starting;
+	int 		dont;
+	int 		exec;
   int     exit_status;
 }				t_path;
 
@@ -47,7 +50,7 @@ int				get_next_line(int fd, char **line);
 int				init_inouput_back(char **lexer, char *inout);
 int				ft_shell(t_parser *parser, t_path *path);
 void			display_total(t_parser *parser);
-int				ft_pipe(t_pipes *pipe, t_pipes *pipes, t_path *path, pid_t *pid_2);
+int				ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2);
 void			ft_free_redi(t_redi *redi);
 void			ft_free(t_pipes *pipe, t_path *path);
 int				redirect_out(char *put, t_redi *redi, int *pipe_out);

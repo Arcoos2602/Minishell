@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 09:39:46 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/06/08 16:32:28 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/22 22:04:19 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_pipes
 	char			put[2];
 	char			**command;
 	int				error;
+	int				exe;
 	struct	s_redi	*redi;
 	struct	s_pipes	*next;
 }	t_pipes;

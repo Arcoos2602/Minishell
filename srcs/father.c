@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   father.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:02:22 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/09 15:02:15 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/23 00:59:58 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,7 @@ pid_t	father(t_pipes *pipes, int pipe_fd[2], t_path *path)
 {
 	pid_t	pid;
 
-	if (pipes->next != NULL || pipes->put[1] == 1)
-	{
-		if (pipe_fd[0] >= 0)
-			close(pipe_fd[0]);
-		dup2(pipe_fd[1], STDOUT_FILENO);
-	}
+	pipe_fd[1] = pipe_fd[1];
 	pid = fork();
 	if (pid == 0)
 	{
@@ -86,12 +81,9 @@ pid_t	father(t_pipes *pipes, int pipe_fd[2], t_path *path)
 			ft_father_error(pipes, path);
 		father_2(pipes, path);
 	}
-	wait(NULL);
-	if (pipes->next != NULL)
-	{
-		if (pipe_fd[1] >= 0)
-			close(pipe_fd[1]);
-	}
+	waitpid(pid, &path->exit_status, 0);
+
+
 	return (pid);
 }
 
@@ -99,13 +91,11 @@ pid_t	father_0(t_pipes *pipes, t_path *path,
 				int pipe_fd[2])
 {
 	pid_t	pid_3;
-
 	if (pipes->put[0] == 1)
 		pid_3 = 0;
 	else
 		pid_3 = father(pipes, pipe_fd, path);
-	dup2(0, STDOUT_FILENO);
-	dup2(1, STDIN_FILENO);
-	ft_close(pipe_fd[0], pipe_fd[1], path->pipe_in, path->pipe_out);
+	ft_close(-1, -1, path->pipe_in, path->pipe_out);
+	path->exec = 1;
 	return (pid_3);
 }
