@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 14:19:34 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/09 15:00:57 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/23 15:07:57 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,14 @@ int	init_redi(t_pipes *pipes, int buf[2])
 	pipes->put[1] = -1;
 	if (pipes->redi == NULL)
 		return (1);
-	if (redirect_in(pipes->command[0], &pipes->put[0],
-			pipes->redi, &buf[0]) == 0)
+	if (redirect_in(pipes->command[0], &pipes->put[0], pipes->redi, &buf[0]) == 0)
 		return (0);
-	if (pipes->put[0] == -1)
-		if (redirect_out(&pipes->put[1], pipes->redi, &buf[1]) == 0)
-			return (0);
+	if (redirect_out(&pipes->put[1], pipes->redi, &buf[1]) == 0)
+		return (0);
 	return (1);
 }
 
+/*
 int	init_fd(t_pipes *pipes, int buf[2], int pipe_fd[2], t_path *path)
 {
 	if (pipes->next != NULL || pipes->redi != NULL || pipes->put[0] == 1)
@@ -48,14 +47,10 @@ int	init_fd(t_pipes *pipes, int buf[2], int pipe_fd[2], t_path *path)
 		pipe_fd[0] = -1;
 		pipe_fd[1] = -1;
 	}
-	if (pipes->put[0] == 1)
-		pipe_fd[0] = buf[0];
-	else if (pipes->put[1] == 1)
-		pipe_fd[1] = buf[1];
 	path->pipe_in = pipe_fd[0];
 	return (0);
 }
-
+*/
 int	redirect_out(char *put, t_redi *redi, int *pipe_out)
 {
 	if (redi->type == 1)

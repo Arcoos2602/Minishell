@@ -33,6 +33,9 @@ typedef struct	s_path
 	int			starting;
 	int 		dont;
 	int 		exec;
+	int			father;
+	int			in_fd;
+	int			out_fd;
   int     exit_status;
 }				t_path;
 
@@ -56,8 +59,8 @@ void			ft_free(t_pipes *pipe, t_path *path);
 int				redirect_out(char *put, t_redi *redi, int *pipe_out);
 int				redirect_in(char *command, char *put, t_redi *redi, int *pipe_in);
 void 			free_paths(t_path *path);
-pid_t			father_0(t_pipes *pipes, t_path *path, int pipe_fd[2]);
-void			child(t_pipes *pipes, t_path *path, int pipe_fd[2], pid_t *pid_2);
+pid_t			father_0(t_pipes *pipes, t_path *path, int buf[2]);
+void			child(t_pipes *pipes, t_path *path, pid_t *pid_2);
 void			ft_free_pipe(t_pipes *pipe);
 void			ft_free_paths(char **paths);
 void			ft_close(int pipe_1, int pipe_2, int pipe_3, int pipe_4);

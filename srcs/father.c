@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:02:22 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/23 00:59:58 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/24 01:39:57 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,10 @@ void	ft_father_error(t_pipes *pipes, t_path *path)
 	exit(EXIT_FAILURE);
 }
 
-pid_t	father(t_pipes *pipes, int pipe_fd[2], t_path *path)
+pid_t	father(t_pipes *pipes, t_path *path)
 {
 	pid_t	pid;
-
-	pipe_fd[1] = pipe_fd[1];
+	
 	pid = fork();
 	if (pid == 0)
 	{
@@ -87,15 +86,26 @@ pid_t	father(t_pipes *pipes, int pipe_fd[2], t_path *path)
 	return (pid);
 }
 
-pid_t	father_0(t_pipes *pipes, t_path *path,
-				int pipe_fd[2])
+pid_t	father_0(t_pipes *pipes, t_path *path, int buf[2])
 {
 	pid_t	pid_3;
-	if (pipes->put[0] == 1)
-		pid_3 = 0;
-	else
-		pid_3 = father(pipes, pipe_fd, path);
-	ft_close(-1, -1, path->pipe_in, path->pipe_out);
+
+		if (pipes->put[0] == 1)
+		{
+		dup2(buf[0], STDIN_FILENO);	
+		}
+		if (pipes->put[1] == 1)
+		{
+			ft_putnbr_fd(path->pipe_out,2);
+			dup2(buf[1],STDOUT_FILENO);	
+		}
+
+		pid_3 = father(pipes, path);
+
+
+//	ft_close(buf[1], buf[0], path->pipe_in, path->pipe_out);
+//	dup2(path->out_fd, 1);
+//	dup2(path->in_fd, 0);
 	path->exec = 1;
 	return (pid_3);
 }

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 18:35:25 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/22 21:11:24 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/23 15:07:21 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ int ft_free_redi_double(t_redi *redi)
 
 t_redi	*init_new_redi(t_redi *redi, char **lexer)
 {
+			redi->put = ft_strdup(lexer[1]);
 	if (lexer[0][0] == '<')
 	{
-			redi->put = ft_strdup(lexer[1]);
 		redi->type = 0;
 		if (lexer[0][1] == '<')
 			redi->type = ft_free_redi_double(redi);

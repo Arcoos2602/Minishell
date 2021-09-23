@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/21 11:29:32 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/24 00:34:44 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,8 @@ int	main(int argc, char **argv, char **path)
 	path = env_malloc(paths.path, path);
 	paths.path = path;
 	paths.exit_status = 0;
+	paths.in_fd = dup(0);
+	paths.out_fd = dup(1);
 	line = NULL;
 	while (1)
 	{
@@ -138,7 +140,7 @@ int	main(int argc, char **argv, char **path)
 		signal(SIGINT, int_handler);
 		signal(SIGQUIT, quit_handler);
 		line = readline("[minishell]$");
-		printf("valeur retour = %d\n", paths.exit_status);
+//		printf("valeur retour = %d\n", paths.exit_status);
 		add_history(line);
 		if (line == NULL)
 				exit(0);	
@@ -157,7 +159,7 @@ int	main(int argc, char **argv, char **path)
 			else
 				g_global = 0;
 		free_paths(&paths);
-		printf("valeur retour = %d\n",  paths.exit_status);
+//		printf("valeur retour = %d\n",  paths.exit_status);
 		g_global = 0;
 	}
 	rl_clear_history();
