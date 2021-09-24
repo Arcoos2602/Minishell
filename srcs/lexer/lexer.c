@@ -1,5 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/24 12:13:04 by user42            #+#    #+#             */
+/*   Updated: 2021/09/24 20:18:51 by user42           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../libft/include/libft.h"
 #include "../../includes/minishell.h"
+
+int	elem(char *str, int *cpt, int *i)
+{
+	while (str[*i] != '\0' && !ft_iswhitespace(str[*i]) && !token(str[*i]))
+	{
+		if (count_quote(str, i) == -1)
+			return (-1);
+		++*i;
+	}
+	++*cpt;
+	return (1);
+}
 
 int	cpt(char *str)
 {
@@ -10,47 +34,108 @@ int	cpt(char *str)
 	cpt = 0;
 	while (str[i])
 	{
-		while (ft_iswhitespace(str[i]) && str[i] != '\0')
+		while (str[i] != '\0' && ft_iswhitespace(str[i]))
 			i++;
-		if (str[i] == '"' || str[i] == 39)
-			count_quote(str, &i, &cpt);
-		if (check_char(str[i]) && str[i] != '\0')
+		if (str[i] == '\0')
+			return (cpt);
+		if (str[i] != '\0' && !ft_iswhitespace(str[i]) && !token(str[i]))
 		{
-			while (check_char(str[i]) && str[i] != '\0')
-				i++;
-			cpt++;
+			if (elem(str, &cpt, &i) == -1)
+				return (-1);
 		}
-		cpt2(str, &i, &cpt);
-		if (str[i] != '\0')
-			i++;
+		if (token(str[i]))
+		{
+			if (check_error(str, &i, &cpt) == -1)
+				return (-1);
+		}
 	}
 	return (cpt);
 }
 
-int	search_env(char **tab, char *str, int *x, char **path, int *i)
+void	fill_quotes(char **tab, char *str, int *i, int *j) // pour "" handle $
 {
-	int		k;
-	int		j;
+	int	len;
+	int	start;
 
-	k = 0;
-	if (str[*i] == '$')
+	len = 0;
+	while (str[*i] != '\0' && !ft_iswhitespace(str[*i]) && !token(str[*i]))
 	{
-		while (path[++k] != NULL)
+		start = *i;
+		if (str[*i] == '"')
 		{
-			j = 0;
-			while (path[k][++j] != '=')
-				;
-			if (ft_strncmp(&str[1], path[k], j) == 0)
-			{
-				tab[*x] = ft_strdup(&path[k][j + 1]);
-				*i += j + 1;
-				while (ft_iswhitespace(str[*i]))
-					++*i;
-				return (1);
-			}
+			while (str[++*i] != '"')
+				len++;
+			printf("%d\n", len);
+			tab[*j] = ft_substr(str, start, len + 2);
+			printf("%s\n", tab[*j]);
+			++*j;
 		}
+		++*i;
 	}
-	return (0);
+}
+
+void	fill_token(char **tab, char *str, int *i, int *j)
+{
+	if (token(str[*i + 1]))
+	{
+		tab[*j] = ft_strndup(&str[*i], 2);
+		*i += 2;
+		++*j;
+	}
+	else
+	{
+		tab[*j] = ft_strndup(&str[*i], 2);
+		++*j;
+		++*i;
+	}
+}
+
+/*void	handle_dollar(char **tab, char *str, int *i)
+{
+	int	len;
+	char	*env_var;
+
+	while (str[*i] != '\0' && !token(str[*i]) && !ft_iswhitespace(str[*i]) && str[*i] != '$')
+	{
+		++*i;
+		len++;
+	}
+	ft_getenv();
+}*/
+
+void	fill_tab(char **tab, char *str, char **paths)
+{
+	int	i;
+	int	j;
+	int	start;
+	int	len;
+
+	(void)paths;
+	start = 0;
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		len = 0;
+		while (str[i] != '\0' && ft_iswhitespace(str[i]))
+			i++;
+		//fill_quotes(tab, str, &i, &j);
+		start = i;
+		while (str[i] != '\0' && !token(str[i]) && !ft_iswhitespace(str[i++]))
+			len++;
+		/*if (str[i] == '$')
+			handle_dollar(tab, str, &i);*/
+		tab[j] = ft_substr(str, start, len);
+		j++;
+		if (token(str[i]))
+			fill_token(tab, str, &i, &j);
+	}
+	tab[j] = NULL;
+	j = 0;
+	while (tab[j] != NULL)
+	{
+		printf("%s\n", tab[j++]);
+	}
 }
 
 void	fill_var(char **tab, char *str,  int len[2], char **paths)
@@ -59,67 +144,6 @@ void	fill_var(char **tab, char *str,  int len[2], char **paths)
 	printf("%s\n", &str[len[1]]);
 	tab[len[0]] = ft_strdup(ft_getenv(paths, &str[len[1]]));
 	printf("%s\n", tab[len[0]]);
-}
-
-void	fill_tab2(char **tab, char *str, int len[2], char **paths)
-{
-	while (ft_iswhitespace(str[len[1]]) && str[len[1]] != '\0')
-		++len[1];
-	if (str[len[1]] == '"' || str[len[1]] == 39)
-		fill_quote(tab, str, &len[1], &len[0]); // gerer $ dans les quotes
-	if (str[len[1]] == '>' && str[len[1] + 1] == '>')
-	{
-		tab[len[0]] = ft_strndup(&str[len[1]], 2);
-		len[1] += 2;
-		len[0]++;
-	}
-	if (str[len[1]] == '<' && str[len[1] + 1] == '<')
-	{
-		tab[len[0]] = ft_strndup(&str[len[1]], 2);
-		len[1] += 2;
-		len[0]++;
-	}
-	if (str[len[1]] == '$')
-		fill_var(tab, str, len, paths);
-	if (separators(str[len[1]]) == 1
-		&& ft_iswhitespace(str[len[1]]) == 0)
-	{
-		tab[len[0]] = ft_strndup(&str[len[1]], 1);
-		len[1]++;
-		len[0]++;
-	}
-}
-
-int	fill_tab(char **tab, char *str, char **paths)
-{
-	int	len[2];
-	int	size_line;
-	int	tmp;
-	int	size;
-
-	tmp = 0;
-	len[0] = 0;
-	len[1] = 0;
-	size = cpt(str);
-	while (len[0] < size)
-	{
-		fill_tab2(tab, str, len, paths);
-		if (check_char(str[len[1]]) && str[len[1]] != '\0')
-		{
-			tmp = len[1];
-			size_line = 0;
-			while (check_char(str[len[1]]) && str[len[1]] != '\0')
-			{
-				size_line++;
-				++len[1];
-			}
-			if (size_line != 0)
-				tab[len[0]] = ft_strndup(&str[tmp], size_line);
-			++len[0];
-		}
-	}
-	tab[len[0]] = NULL;
-	return (1);
 }
 
 void	print_tab(char **tab)
@@ -146,24 +170,21 @@ void	print_tab(char **tab)
 char	**tokenization(char *str, char **paths)
 {
 	char	**tab;
+	int		cpt_l;
 
+	(void)paths;
 	tab = NULL;
 	if (str == NULL)
 		return (NULL);
-	if (check_multi(str) == -1)
-	{
-		ft_putstr_fd("Multilines not handled\n", 1);
+	cpt_l = cpt(str);
+	if (cpt_l < 0)
 		return (NULL);
-	}
-	// parser errror des redirections
-	if (not_handled(str) == 1)
-	{
-		ft_putstr_fd("This token does not exist in this shell\n", 1);
+	tab = malloc(sizeof(char *) * (cpt_l + 1));
+	if (tab == NULL)
 		return (NULL);
-	}
-	tab = malloc(sizeof(char *) * (cpt(str) + 1));
-	if (str == NULL || tab == NULL)
-		return (0);
+	printf("cpt : %d\n", cpt_l);
 	fill_tab(tab, str, paths);
+	//print_tab(tab);
+	//exit (EXIT_SUCCESS);
 	return (tab);
 }
