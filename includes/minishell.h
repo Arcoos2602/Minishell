@@ -36,6 +36,7 @@ typedef struct	s_path
 	int			father;
 	int			in_fd;
 	int			out_fd;
+	t_parser	*parser;
   int     exit_status;
 }				t_path;
 
@@ -55,7 +56,7 @@ int				ft_shell(t_parser *parser, t_path *path);
 void			display_total(t_parser *parser);
 int				ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2);
 void			ft_free_redi(t_redi *redi);
-void			ft_free(t_pipes *pipe, t_path *path);
+void			ft_free(t_parser *parser, t_path *path);
 int				redirect_out(char *put, t_redi *redi, int *pipe_out);
 int				redirect_in(char *command, char *put, t_redi *redi, int *pipe_in);
 void 			free_paths(t_path *path);
@@ -70,5 +71,6 @@ int				init_fd(t_pipes *pipes, int buf[2], int pipe_fd[2], t_path *path);
 int				exit_ft_parser(pid_t pid, t_parser *parser, t_path *path);
 int				get_next_line(int fd, char **line);
 int         check_builtins(t_pipes	*pipes, t_path *path, char **env);
+void		ft_exit(t_path *path, t_pipes *pipes);
 
 #endif

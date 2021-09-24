@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:03:19 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/24 11:54:00 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/24 21:31:03 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,8 @@ int	ft_shell(t_parser *parser, t_path *path)
 	}
 	if (path->dont != 0)
 	{	path->exit_status %= 255;
-		ft_free_pipe(parser->pipe);
+		ft_free(path->parser, path);
+		get_next_line(1, NULL);
 		exit(path->exit_status);
 	}
 	waitpid(0, &status, 0);

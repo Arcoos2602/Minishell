@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/24 11:53:24 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/24 21:10:48 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,15 +133,17 @@ int	main(int argc, char **argv, char **path)
 	paths.exit_status = 0;
 	paths.in_fd = dup(0);
 	paths.out_fd = dup(1);
-	line = NULL;
+//	line = NULL;
 	while (1)
 	{
 		paths.exec_path = ft_split(ft_getenv(paths.path,"PATH"), ':');
 		signal(SIGINT, int_handler);
 		signal(SIGQUIT, quit_handler);
-		line = readline("[minishell]$");
+		ft_putstr_fd("{minihsell}",2);
+		 get_next_line(0, &line);
 //		printf("valeur retour = %d\n", paths.exit_status);
-		add_history(line);
+	//	add_history(line);
+		//get_next_line(1, NULL);
 		if (line == NULL)
 				exit(0);	
 			if (line != NULL)
@@ -153,6 +155,7 @@ int	main(int argc, char **argv, char **path)
 			{
 				parser = init_parser(token, &i);
 				free_token(token);
+				paths.parser = parser;
 				ft_shell(parser, &paths);
 				free_parser(parser);
 			}

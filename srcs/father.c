@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:02:22 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/24 11:52:25 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/24 22:54:46 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,15 @@ int	ft_execve(char *s1, char *s2, char **command, char **env)
 void	father_2(t_pipes *pipes, t_path *path)
 {
 	int		i;
+	DIR		*test;
 
 	i = 0;
+	if (pipes->builtin == 1)
+	{
+		check_builtins(pipes, path, path->path);
+		ft_free(path->parser, path);
+		exit(EXIT_SUCCESS);
+	}
 	while (pipes->command[0] != NULL && path->exec_path[i++] != NULL
 		&& ft_compare_c_to_s('/', pipes->command[0]) == 0)
 	{
@@ -52,29 +59,45 @@ void	father_2(t_pipes *pipes, t_path *path)
 	}
 	if (ft_compare_c_to_s('/', pipes->command[0]))
 	{
+		test = opendir(pipes->command[0]);
+		if (test != NULL)
+		{
+		
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd(pipes->command[0], 2);
+			ft_putstr_fd(": est un dosier\n", 2);
+			closedir(test);
+			ft_free(path->parser, path);
+			exit(126);
+		}
 		execve(pipes->command[0], &pipes->command[0], path->path);
 				ft_putstr_fd("minishell: ", 2);
-				ft_putnbr_fd(errno, 2);
+				ft_putstr_fd(pipes->command[0], 2);
+				ft_putstr_fd(" : ", 2);
 				ft_putstr_fd(strerror(errno), 2);
-		ft_putstr_fd(pipes->command[0], 2);
-		ft_putstr_fd(": permision denied\n", 2);
-	ft_free(pipes, path);
+				ft_putstr_fd("\n", 2);
+				ft_putnbr_fd(errno,2);
+		get_next_line(1, NULL);
+		ft_free(path->parser, path);
+	if (errno == 2)
+		exit(127);
 	exit(126);
 	}
-	if (pipes->command[0] != NULL && pipes->command[0][0] != '$' && 0 == check_builtins(pipes, path ,path->path))
+	if (pipes->command[0] != NULL && pipes->command[0][0] != '$')
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(pipes->command[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
+		ft_free(path->parser, path);
 		exit(127);
 	}
-	ft_free(pipes, path);
+	ft_free(path->parser, path);
 	exit(EXIT_SUCCESS);
 }
 
-void	ft_father_error(t_pipes *pipes, t_path *path)
+void	ft_father_error(t_path *path)
 {
-	ft_free(pipes, path);
+		ft_free(path->parser, path);
 	exit(EXIT_FAILURE);
 }
 
@@ -86,7 +109,7 @@ pid_t	father(t_pipes *pipes, t_path *path)
 	if (pid == 0)
 	{
 		if (pipes->error == 0)
-			ft_father_error(pipes, path);
+			ft_father_error(path);
 		father_2(pipes, path);
 	}
 	waitpid(pid, &path->exit_status, 0);
@@ -107,7 +130,6 @@ pid_t	father_0(t_pipes *pipes, t_path *path, int buf[2])
 		{
 			dup2(buf[1],STDOUT_FILENO);	
 		}
-
 		pid_3 = father(pipes, path);
 
 

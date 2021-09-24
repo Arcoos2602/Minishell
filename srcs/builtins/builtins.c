@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 11:30:04 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/15 16:04:31 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/24 22:21:52 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char 	*ft_getenv(char **paths, char *var)
 int		check_builtins(t_pipes	*pipes, t_path *path, char **env)
 {
 	if (ft_strncmp(pipes->command[0], "exit", 4) == 0)
-		ft_exit(pipes);
+		ft_exit(path,pipes);
 	else if (ft_strncmp(pipes->command[0], "env", 4) == 0)
 		ft_env(env);
 	else if (ft_strncmp(pipes->command[0], "pwd", 3) == 0)

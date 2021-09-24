@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 15:47:34 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/09 18:46:54 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/24 20:39:59 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,5 @@ void	free_parser(t_parser *parser)
 	if (parser->next != NULL)
 		free_parser(parser->next);
 	free(parser);
+	parser = NULL;
 }

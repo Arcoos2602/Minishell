@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thomas <thomas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 14:53:59 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/04/08 17:05:28 by thomas           ###   ########.fr       */
+/*   Updated: 2021/09/24 20:24:21 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,12 @@ int		get_next_line(int fd, char **line)
 	int			check_read;
 	char		*buffer;
 
-	if (line == 0 && c != 0)
+	if (line == 0 && 0 != fd)
+	{
 		free(c);
+		return 0;
+		buffer = NULL;
+	}
 	check_read = 2;
 	if (fd < 0 || BUFFER_SIZE <= 0 || !(buffer = ft_calloc(BUFFER_SIZE + 1, 1))
 		|| line == 0)
