@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 18:35:25 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/23 15:07:21 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/24 20:03:48 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_redi	*init_new_redi(t_redi *redi, char **lexer)
 	{
 		redi->type = 0;
 		if (lexer[0][1] == '<')
-			redi->type = ft_free_redi_double(redi);
+			redi->type = 10;//ft_free_redi_double(redi);
 	}
 	else if (lexer[0][1] == '\0')
 		redi->type = 1;

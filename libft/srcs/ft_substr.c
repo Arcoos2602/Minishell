@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 19:53:48 by gbabeau           #+#    #+#             */
-/*   Updated: 2019/10/16 12:58:28 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/24 18:20:19 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		tail(char const *s, unsigned int start, size_t len)
+static int		ft_size(char const *s, unsigned int start, size_t len)
 {
 	int		i;
 
@@ -24,31 +24,29 @@ static int		tail(char const *s, unsigned int start, size_t len)
 	return (i + 1);
 }
 
-char			*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*dst;
+	char	*result;
 	int		i;
 
-	i = -1;
 	if (!s)
-		return (0);
+		return (NULL);
+	i = -1;
 	while (i++ != (int)start)
 		if (s[i] == '\0')
 		{
-			if (!(dst = ft_calloc(1, 1)))
+			if (!(result = ft_calloc(1, 1)))
 				return (0);
-			return (dst);
+			return (result);
 		}
-	if (!(dst = malloc(tail(s, start, len))))
-		return (0);
+	if (!(result = malloc(sizeof(char) * ft_size(s, start, len))))
+		return (NULL);
 	i = 0;
-	while (s[start + i] != '\0' && i < (int)len)
+	while (i < (int)len && s[start + i] != '\0')
 	{
-		dst[i] = s[start + i];
+		result[i] = s[start + i];
 		i++;
 	}
-	if (s[start + i] == '\0' && i >= (int)len)
-		i++;
-	dst[i] = '\0';
-	return (dst);
+	result[i] = '\0';
+	return (result);
 }

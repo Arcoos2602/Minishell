@@ -1,55 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/24 12:14:20 by user42            #+#    #+#             */
+/*   Updated: 2021/09/24 15:33:25 by user42           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../libft/include/libft.h"
 #include "../../includes/minishell.h"
 
-int	separators(char c)
+int	token(char c)
 {
-	if (c == '|' || c == '>' || c == '<' || c == ' ' || c == ';')
+	if (c == '|' || c == '>' || c == '<' || c == ';')
 		return (1);
-	return (0);
-}
-
-int	check_char(char c)
-{
-	if (c >= 33 && c <= 126 && separators(c) == 0 && c != '"' && c != 39)
-		return (1);
-	return (0);
-}
-
-int	not_handled(char *str)
-{
-	int		i;
-	int		tmp;
-
-	i = 0;
-	while (str[i])
-	{
-		tmp = i;
-		if (str[tmp] == '|')
-		{
-			while (ft_iswhitespace(str[++tmp]))
-				;
-			if (str[tmp] == '|')
-				return (1);
-			tmp = i;
-		}
-		if (str[tmp] == '>')
-		{
-			while (ft_iswhitespace(str[++tmp]))
-				;
-			if (str[tmp] == '<')
-				return (1);
-			tmp = i;
-		}
-		if (str[tmp] == '<' || str[tmp] == '>')
-		{
-			while (ft_iswhitespace(str[++tmp]))
-				;
-			if (str[tmp] == '|')
-				return (1);
-			tmp = i;
-		}
-		i++;
-	}
 	return (0);
 }
 
@@ -60,7 +27,7 @@ void	cpt2(char *str, int *i, int *cpt)
 	tmp = *i;
 	while (ft_iswhitespace(str[tmp]) && str[tmp] != '\0')
 		tmp++;
-	if (separators(str[tmp]))
+	if (token(str[tmp]))
 	{
 		*i = tmp;
 		++*cpt;

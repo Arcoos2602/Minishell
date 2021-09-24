@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 14:19:34 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/24 11:04:16 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/24 20:08:11 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	init_fd(t_pipes *pipes, int buf[2], int pipe_fd[2], t_path *path)
 	return (0);
 }
 */
+
 int	redirect_out(char *put, t_redi *redi, int *pipe_out)
 {
 	if (redi->type == 1)

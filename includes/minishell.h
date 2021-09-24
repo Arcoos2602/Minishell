@@ -43,11 +43,12 @@ int				not_handled(char *str);
 char			**tokenization(char *str, char **paths);
 void			free_token(char	**token);
 void			cpt2(char *str, int *i, int *cpt);
-void			count_quote(char *str, int *i, int *cpt);
+int				count_quote(char *str, int *i);
 void			fill_quote(char **tab, char *str, int *i, int *x);
-int				check_multi(char *str);
-int				check_char(char c);
-int				separators(char	c);
+int				ft_error(char *str, int *i, char c);
+int				ft_error2(char *str, int *i);
+int				check_error(char *str, int *i , int *cpt);
+int				token(char	c);
 int				quote(char *str);
 int				get_next_line(int fd, char **line);
 int				init_inouput_back(char **lexer, char *inout);
@@ -69,6 +70,7 @@ int				init_redi(t_pipes *pipes, int buf[2]);
 int				init_fd(t_pipes *pipes, int buf[2], int pipe_fd[2], t_path *path);
 int				exit_ft_parser(pid_t pid, t_parser *parser, t_path *path);
 int				get_next_line(int fd, char **line);
-int         check_builtins(t_pipes	*pipes, t_path *path, char **env);
+int				check_builtins(t_pipes	*pipes, t_path *path, char **env);
+char			*add_newline(char *line);
 
 #endif

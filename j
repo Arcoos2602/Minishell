@@ -1,0 +1,13 @@
+|
+a
+dwadwadwadwadwadwadwa
+includes
+j
+libft
+Makefile
+minishell
+out
+README.md
+srcs
+SSSSSSSSSS
+wa

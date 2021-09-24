@@ -6,22 +6,30 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 11:39:10 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/23 21:23:44 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/24 15:05:59 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft/include/libft.h"
 #include "../../includes/minishell.h"
 
-void	count_quote(char *str, int *i, int *cpt)
+int	count_quote(char *str, int *i)
 {
 	if (str[*i] == '"')
-		while (str[++*i] != '"')
+	{
+		while (str[*i] != '\0' && str[++*i] != '"')
 			;
-	else
-		while (str[++*i] != 39)
+	if (str[*i] == '\0')
+		return (-1);
+	}
+	else if (str[*i] == '\'')
+	{
+		while (str[*i] != '\0' && str[++*i] != '\'')
 			;
-	++*cpt;
+		if (str[*i] == '\0')
+			return (-1);
+	}
+	return (1);
 }
 
 void	fill_quote(char **tab, char *str, int *i, int *x) // si $ "" interpreter si '' j'interprete pas
@@ -46,7 +54,7 @@ void	fill_quote(char **tab, char *str, int *i, int *x) // si $ "" interpreter si
 
 int	check_end(char *str)
 {
-	if (separators(str[ft_strlen(str) - 1])
+	if (token(str[ft_strlen(str) - 1])
 		&& ft_iswhitespace(str[ft_strlen(str) - 1]) == 0
 		&& str[ft_strlen(str) - 1] != ';')
 		return (-1);
