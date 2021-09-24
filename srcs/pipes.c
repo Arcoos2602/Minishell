@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:03:19 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/24 01:51:08 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/24 11:54:00 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int ft_fork(t_path *path)
 	pid = fork();
 	if (pid == 0)
 	{
+			close(path->pipe_in);
 			close(pipe_fd[1]);
 			dup2(pipe_fd[0], 0);
 			path->pipe_in = pipe_fd[0];
@@ -60,6 +61,7 @@ int ft_fork(t_path *path)
 	}
 	else
 	{
+		close(path->pipe_out);
 		close(pipe_fd[0]);
 		dup2(pipe_fd[1], 1);
 		path->pipe_out = pipe_fd[1];
@@ -140,17 +142,18 @@ int	ft_shell(t_parser *parser, t_path *path)
 	dup2(1, STDIN_FILENO);
 	waitpid(-1, &status, 0);
 	status = WEXITSTATUS(status);
-	if (path->father == 1)
+	if (path->father == 1 && parser->pipe->next != NULL)
 	{
 		path->exit_status = status;
 	}
 	if (path->dont != 0)
 	{	path->exit_status %= 255;
+		ft_free_pipe(parser->pipe);
 		exit(path->exit_status);
 	}
 	waitpid(0, &status, 0);
 	path->exit_status %= 255;
-	printf("%d\n", path->exit_status);
+	printf("value sortie:%d\n", path->exit_status);
 	if (parser->next != NULL)
 		ft_shell(parser->next, path);
 	return (1);

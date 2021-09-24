@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:02:22 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/24 01:39:57 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/24 11:52:25 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,16 @@ void	father_2(t_pipes *pipes, t_path *path)
 				pipes->command, path->path);
 	}
 	if (ft_compare_c_to_s('/', pipes->command[0]))
-		execve(pipes->command[0], &pipes->command[0], NULL);
+	{
+		execve(pipes->command[0], &pipes->command[0], path->path);
+				ft_putstr_fd("minishell: ", 2);
+				ft_putnbr_fd(errno, 2);
+				ft_putstr_fd(strerror(errno), 2);
+		ft_putstr_fd(pipes->command[0], 2);
+		ft_putstr_fd(": permision denied\n", 2);
+	ft_free(pipes, path);
+	exit(126);
+	}
 	if (pipes->command[0] != NULL && pipes->command[0][0] != '$' && 0 == check_builtins(pipes, path ,path->path))
 	{
 		ft_putstr_fd("minishell: ", 2);
@@ -92,20 +101,17 @@ pid_t	father_0(t_pipes *pipes, t_path *path, int buf[2])
 
 		if (pipes->put[0] == 1)
 		{
-		dup2(buf[0], STDIN_FILENO);	
+			dup2(buf[0], STDIN_FILENO);	
 		}
 		if (pipes->put[1] == 1)
 		{
-			ft_putnbr_fd(path->pipe_out,2);
 			dup2(buf[1],STDOUT_FILENO);	
 		}
 
 		pid_3 = father(pipes, path);
 
 
-//	ft_close(buf[1], buf[0], path->pipe_in, path->pipe_out);
-//	dup2(path->out_fd, 1);
-//	dup2(path->in_fd, 0);
+	ft_close(buf[1], buf[0], path->pipe_in, path->pipe_out);
 	path->exec = 1;
 	return (pid_3);
 }

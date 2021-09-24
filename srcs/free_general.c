@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_general.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:10:16 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/09 15:01:55 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/24 11:27:13 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,16 +81,3 @@ int	exit_ft_parser(pid_t pid, t_parser *parser, t_path *path)
 	exit(EXIT_SUCCESS);
 }
 
-int	exit_ft_pipe(pid_t pid, t_pipes *pipes, t_path *path)
-{
-	if (pid != 0)
-	{
-		waitpid(pid, NULL, 0);
-	}
-	waitpid(pid, NULL, 0);
-	ft_free(pipes, path);
-	free_paths(path);
-	//rl_clear_history();
-	wait(NULL);
-	exit(EXIT_SUCCESS);
-}
