@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 12:13:04 by user42            #+#    #+#             */
-/*   Updated: 2021/09/25 14:00:06 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/25 19:55:50 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,11 +114,6 @@ void	fill_tab(char **tab, char *str, int cpt_l)
 		if (token(str[i]))
 			fill_token(tab, str, &i, &j);
 	}
-	j = 0;
-	while (tab[j] != NULL)
-	{
-		printf("|%s|\n", tab[j++]);
-	}
 }
 
 void	print_tab(char **tab)
@@ -142,7 +137,7 @@ void	print_tab(char **tab)
 	}
 }
 
-char	**tokenization(char *str, char **paths)
+char	**tokenization(char *str, t_path *paths)
 {
 	char	**tab;
 	int		cpt_l;
@@ -154,8 +149,10 @@ char	**tokenization(char *str, char **paths)
 		return (NULL);
 	cpt_l = cpt(str);
 	if (cpt_l < 0)
+	{
+		paths->exit_status = 2;
 		return (NULL);
-	//exit (EXIT_SUCCESS);
+	}
 	tab = malloc(sizeof(char *) * (cpt_l + 1));
 	if (tab == NULL)
 		return (NULL);

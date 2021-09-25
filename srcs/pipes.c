@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:03:19 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/24 21:31:03 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/25 19:59:02 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,16 @@ int ft_fork(t_path *path)
 	pid = fork();
 	if (pid == 0)
 	{
-			close(path->pipe_in);
-			close(pipe_fd[1]);
-			dup2(pipe_fd[0], 0);
-			path->pipe_in = pipe_fd[0];
-					path->dont = 1;
-					path->father = 0;
+		ft_close(-1, -1, path->pipe_in, pipe_fd[1]);
+		dup2(pipe_fd[0], 0);
+		path->pipe_in = pipe_fd[0];
+		path->dont = 1;
+		path->father = 0;
 		return (pid);
 	}
 	else
 	{
-		close(path->pipe_out);
-		close(pipe_fd[0]);
+		ft_close(-1, -1, path->pipe_out, pipe_fd[0]);
 		dup2(pipe_fd[1], 1);
 		path->pipe_out = pipe_fd[1];
 		path->father = 1;
@@ -134,8 +132,7 @@ int	ft_shell(t_parser *parser, t_path *path)
 	path->exec = 0;
 	path->father = 1;
 	line_command(parser->pipe, path, &pid_2);
-	close(path->pipe_out);
-	close(path->pipe_in);
+	ft_close(-1, -1, path->pipe_out, path->pipe_in);
 	dup2(path->out_fd, 1);
 	dup2(path->in_fd, 0);
 	dup2(0, STDOUT_FILENO);

@@ -6,13 +6,13 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 12:25:01 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/25 17:18:24 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/25 19:16:25 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	int		tail1;
 	int		tail2;
@@ -42,5 +42,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		tail2++;
 	}
 	dst[tail1 + tail2] = '\0';
+	if (s1 != NULL)
+		free(s1);
 	return (dst);
 }

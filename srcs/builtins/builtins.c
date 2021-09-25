@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 11:30:04 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/25 17:33:02 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/25 18:17:54 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char 	*ft_getenv(char **paths, char *var)
 			return (&paths[x][j+1]);
 		x++;
 	}
-	return (" ");
+	return (NULL);
 }
 
 int		check_builtins(t_pipes	*pipes, t_path *path, char **env)

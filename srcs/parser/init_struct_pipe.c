@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 18:35:25 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/25 15:40:05 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/25 19:59:20 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int ft_free_redi_double(t_redi *redi)
 						line = add_newline(line);
 						ft_putstr_fd(line, fd);
 		}
-		close(fd);
+		if (fd > 0)
+			close(fd);
 		return 	(10);
 }
 
@@ -169,7 +170,7 @@ t_pipes	*pipe_new(char **lexer, int *i, t_path *paths)
 	t_pipes	*new;
 
 	new = malloc(sizeof(t_pipes));
-	if (0 == new)
+	if (NULL == new)
 		return (NULL);
 	new->builtin = 0;
 	new->next = NULL;

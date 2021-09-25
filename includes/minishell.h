@@ -37,11 +37,10 @@ typedef struct	s_path
 	int			in_fd;
 	int			out_fd;
 	t_parser	*parser;
-  int     exit_status;
+	int			exit_status;
 }				t_path;
 
-int				not_handled(char *str);
-char			**tokenization(char *str, char **paths);
+char			**tokenization(char *str, t_path *paths);
 void			free_token(char	**token);
 void			cpt2(char *str, int *i, int *cpt);
 int				count_quote(char *str, int *i);
@@ -70,15 +69,15 @@ int				init_redi(t_pipes *pipes, int buf[2]);
 int				init_fd(t_pipes *pipes, int buf[2], int pipe_fd[2], t_path *path);
 int				exit_ft_parser(pid_t pid, t_parser *parser, t_path *path);
 int				get_next_line(int fd, char **line);
-int         check_builtins(t_pipes	*pipes, t_path *path, char **env);
-void		ft_exit(t_path *path, t_pipes *pipes);
-t_pipes		*init_pipes(char **lexer, int *i, t_path *paths);
-t_parser	*init_parser(char **lexer, int *i, t_path *paths);
-t_parser	*parser_new(char **lexer, int *i, t_path *paths);
-t_pipes		*pipe_new(char **lexer, int *i, t_path *paths);
-t_pipes		*init_new(t_pipes *t_new, char **lexer, int *i, t_path *path);
-char		**init_command_pipe(char **command, char **lexer, int *i, t_path *paths);
-t_redi		*init_put(t_redi *t_new, char **lexer, int *i, t_path *paths);
-char	*parse(char *str, t_path *path);
+int				check_builtins(t_pipes	*pipes, t_path *path, char **env);
+void			ft_exit(t_path *path, t_pipes *pipes);
+t_pipes			*init_pipes(char **lexer, int *i, t_path *paths);
+t_parser		*init_parser(char **lexer, int *i, t_path *paths);
+t_parser		*parser_new(char **lexer, int *i, t_path *paths);
+t_pipes			*pipe_new(char **lexer, int *i, t_path *paths);
+t_pipes			*init_new(t_pipes *t_new, char **lexer, int *i, t_path *path);
+char			**init_command_pipe(char **command, char **lexer, int *i, t_path *paths);
+t_redi			*init_put(t_redi *t_new, char **lexer, int *i, t_path *paths);
+char			*parse(char *str, t_path *path);
 
 #endif

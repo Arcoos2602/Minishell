@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/25 15:28:42 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/25 21:15:59 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,61 @@ static char	**env_malloc(char **path, char **env)
 	return (path);
 }
 
+int	ft_size(char **buf, char *str, int n)
+{
+	int		i;
+	int		size;
+
+	i = 0;
+	while (buf[i] != NULL)
+	{
+		j = 0;
+		size += ft_strlen(buf[i]);
+	}
+	size += ft_strlen(str);
+	return (size);
+}
+
+char add_env_line(char *str, int *i, t_path *path)
+{
+	char	**buf;
+	char	*dest;
+
+	buf = ft_split(str, ' ');
+	dest = malloc(sizeof(char *) * ft_size(buf, str, *i));
+	return (str);
+}
+
+char *line_env(char *str, t_path *path)
+{
+	int i;
+	i = 0
+
+	while (str[i] != '\0')
+	{
+		
+		if (ft_compare_c_to_s(str[i], "'\"") == 1)
+		{
+			if (str[i] == '"')
+			{	
+				while (str[i] != '\0' && str[i++] != '"')
+					;
+			}
+			else if (str[i] == '\'')
+			{
+				while (str[i] != '\0' && str[i++] != '\'')
+					;
+		}
+		else if (str[i] == '$')
+		{
+			str = add_env_line(str, &i, path);
+		} 
+		else
+			i++;
+	}
+	return (str);
+}
+
 int	main(int argc, char **argv, char **path)
 {
 	char		*line;
@@ -140,27 +195,28 @@ int	main(int argc, char **argv, char **path)
 		signal(SIGINT, int_handler);
 		signal(SIGQUIT, quit_handler);
 		ft_putstr_fd("{minihsell}",2);
-		 get_next_line(0, &line);
+		get_next_line(0, &line);
 //		printf("valeur retour = %d\n", paths.exit_status);
 	//	add_history(line);
 		//get_next_line(1, NULL);
 		if (line == NULL)
-				exit(0);	
-			if (line != NULL)
-			{
-				token = tokenization(line, paths.path);
-				free(line);
-			}
-			if (token != NULL && token[0] != NULL)
-			{
-				parser = init_parser(token, &i, &paths);
-				free_token(token);
-				paths.parser = parser;
-				ft_shell(parser, &paths);
-				free_parser(parser);
-			}
-			else
-				g_global = 0;
+			exit(0);	
+		if (line != NULL)
+		{
+			line = line_env(line, &path);
+			token = tokenization(line, &paths);
+			free(line);
+		}
+		if (token != NULL && token[0] != NULL)
+		{
+			parser = init_parser(token, &i, &paths);
+			free_token(token);
+			paths.parser = parser;
+			ft_shell(parser, &paths);
+			free_parser(parser);
+		}
+		else
+			g_global = 0;
 		free_paths(&paths);
 //		printf("valeur retour = %d\n",  paths.exit_status);
 		g_global = 0;

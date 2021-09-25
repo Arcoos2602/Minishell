@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 14:04:46 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/25 18:00:29 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/25 19:56:03 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ char	*ft_dol(char *str, int *i, t_path *path)
 	int		cpt;
 
 	cpt = ft_count(str, i,"'$ \" | > <");
-	env = ft_substr(str, *i - cpt, cpt); // env = null
-		printf("%s\n", env);
+	env = ft_substr(str, *i - cpt, cpt);
 	buff = ft_getenv(path->path, env);
 	free(env);
 	return (buff);
@@ -49,14 +48,12 @@ char	*double_quotes(char *str, int *i, t_path *path)
 
 
 	dst = NULL;
-	while (str[*i] != '"')
+	while (str[*i] != '\0' && str[*i] != '"')
 	{
 		if (str[*i] == '$')
 		{ 
 			++*i;
 			dst = ft_strjoin(dst, ft_dol(str, i, path));
-			free(env);
-			//free(buff);
 		}
 		else
 		{
@@ -65,7 +62,14 @@ char	*double_quotes(char *str, int *i, t_path *path)
 			dst = ft_strjoin(dst, buff);
 			free(buff); 
 		}
-		++*i;
+	}
+	if (dst == NULL)
+	{
+		dst = malloc(1);
+		if (dst == NULL)
+			return (NULL);
+		dst[0] = '\0';
+		return (dst);
 	}
 	return (dst);
 }
@@ -87,9 +91,7 @@ char	*parse(char *str, t_path *path)
 		if (cpt != 0)
 		{
 			buff = ft_substr(str, i - cpt, cpt);
-			printf("%s\n", buff);
 			dest = ft_strjoin(dest, buff);
-			printf("%s\n", dest);
 			free(buff);
 		}
 		if (str[i] == '"')
@@ -110,12 +112,15 @@ char	*parse(char *str, t_path *path)
 		else if (str[i] == '$')
 		{
 			++i;
+			if (str[i] == '?')
+			{
+				buff = ft_itoa(path->exit_status);
+				dest = ft_strjoin(dest, buff);
+				free(buff);
+			}
 			dest = ft_strjoin(dest, ft_dol(str, &i, path));
-		//	free(buff);
 		}
-		printf("AAAAAa\n");
 	}
-	printf("%s\n", dest);
 	return (dest);
 }
 
@@ -131,6 +136,8 @@ static char	**comand_malloc(char **command, char **lexer, t_path *paths)
 		if (1 != (ft_compare_c_to_s(lexer[n][0], "><")))
 		{
 			command[i++] = parse(lexer[n], paths);
+			if (command[i - 1] == NULL)
+				i--;
 		}
 		else
 			n++;
