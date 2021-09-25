@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct_parser.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 10:26:51 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/09 19:02:04 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/25 15:18:27 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_parser	*add_parser(t_parser *parser, t_parser *next)
 	return (next);
 }
 
-t_parser	*parser_new(char **lexer, int *i)
+t_parser	*parser_new(char **lexer, int *i, t_path *paths)
 {
 	t_parser	*parser;
 
@@ -33,7 +33,7 @@ t_parser	*parser_new(char **lexer, int *i)
 		return (NULL);
 	parser->pipe = NULL;
 	parser->next = NULL;
-	parser->pipe = init_pipes(lexer, i);
+	parser->pipe = init_pipes(lexer, i, paths);
 	if (parser->pipe == NULL)
 		return (NULL);
 	return (parser);
@@ -48,7 +48,7 @@ static int	init_variable_p(char **lexer,int *nbr, int *i)
 	return (1);
 }
 
-t_parser	*init_parser(char **lexer, int *i)
+t_parser	*init_parser(char **lexer, int *i, t_path *paths)
 {
 	int			nbr;
 	t_parser	*parser;
@@ -60,11 +60,11 @@ t_parser	*init_parser(char **lexer, int *i)
 	{
 		if (parser == NULL)
 		{
-			parser = parser_new(lexer, i);
+			parser = parser_new(lexer, i, paths);
 			if (0 == parser)
 				return (NULL);
 		}
-		else if (0 == add_parser(parser, parser_new(lexer, i)))
+		else if (0 == add_parser(parser, parser_new(lexer, i, paths)))
 			return (NULL);
 		nbr--;
 		if (nbr != 0)

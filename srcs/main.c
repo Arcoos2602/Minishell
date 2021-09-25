@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/24 21:10:48 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/25 15:28:42 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ int	main(int argc, char **argv, char **path)
 			}
 			if (token != NULL && token[0] != NULL)
 			{
-				parser = init_parser(token, &i);
+				parser = init_parser(token, &i, &paths);
 				free_token(token);
 				paths.parser = parser;
 				ft_shell(parser, &paths);

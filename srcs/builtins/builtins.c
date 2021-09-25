@@ -6,15 +6,13 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 11:30:04 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/24 22:21:52 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/25 17:33:02 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft/include/libft.h"
 #include "../../includes/minishell.h"
 #include "../../includes/builtins.h"
-
-
 
 char 	*ft_getenv(char **paths, char *var)
 {
