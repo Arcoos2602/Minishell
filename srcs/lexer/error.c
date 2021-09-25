@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 15:47:20 by user42            #+#    #+#             */
-/*   Updated: 2021/09/24 20:17:23 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/25 14:08:03 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 int	display_error_token(char c)
 {
+	printf("check\n");
 	ft_putstr_fd("bash: syntax error near unexpected token '", 2);
 	if (c == '\0')
 		ft_putstr_fd("newline'\n", 2);
@@ -28,6 +29,7 @@ int	display_error_token(char c)
 
 int	ft_error(char *str, int *i, char c)
 {
+	printf("%c %c\n", str[*i], c);
 	if (ft_iswhitespace(str[*i]))
 	{
 		while (ft_iswhitespace(str[*i]))
@@ -40,7 +42,8 @@ int	ft_error(char *str, int *i, char c)
 	{
 		if (token(str[*i]) && str[*i] != c)
 			return (display_error_token(str[*i]));
-		++*i;
+		if (str[*i] == c)
+			++*i;
 		while (ft_iswhitespace(str[*i]))
 			++*i;
 		if (token(str[*i]) || str[*i] == '\0')
@@ -50,43 +53,57 @@ int	ft_error(char *str, int *i, char c)
 	return (display_error_token(str[*i]));
 }
 
-int	ft_error2(char *str, int *i)
+int	ft_error2(char *str, int *i, char c)
 {
+	int	tmp;
+
+	tmp = *i - 1;
 	if (ft_iswhitespace(str[*i]))
 	{
+		while (--tmp >= 0 && ft_iswhitespace(str[tmp]))
+			;
+		if (tmp < 0)
+			return (display_error_token(c));
 		while (ft_iswhitespace(str[*i]))
 			++*i;
 		if (str[*i] == '|' || str[*i] == '\0')
-		{
-			ft_putstr_fd("Error4\n", 2);
-			return (-1);
-		}
+			return (display_error_token(str[*i]));
 		return (1);
 	}
 	else if (str[*i] != '\0')
 	{
+		while (--tmp >= 0 && ft_iswhitespace(str[tmp]))
+			;
+		if (tmp < 0)
+			return (display_error_token(c)); 
 		if (str[*i] == '|')
 		{
-			ft_putstr_fd("This token: || is not in this minishell\n", 2); // a modif
+			if (c == '>')
+				ft_putstr_fd("Error 1\n", 2);
+			if (c == '<')
+				ft_putstr_fd("Error 2\n", 2);
+			else
+				ft_putstr_fd("This token: || is not in this minishell\n", 2); // a modif
 			return (-1);	
 		}
 		return (1);
 	}
-	ft_putstr_fd("Error5\n", 2);
-	return (-1);
+	return (display_error_token(str[*i]));
 }
 
 int		check_error(char *str, int *i, int *cpt)
 {
 	++*cpt;
-	if(str[++*i] != '|')
+	if(str[*i] != '|')
 	{
+		 ++*i;
 		if (ft_error(str, i, str[*i - 1]) < 0)
 			return (-1);
 	} 
 	else 
 	{
-		if (ft_error2(str, i) < 0)
+		++*i;
+		if (ft_error2(str, i, str[*i - 1]) < 0)
 			return (-1);
 	}
 	return (1);

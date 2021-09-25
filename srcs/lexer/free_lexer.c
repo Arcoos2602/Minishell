@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_lexer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:47:59 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/09 19:22:32 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/25 10:33:23 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,14 @@ void	free_token(char	**token)
 	int	i;
 
 	i = 0;
-	while (token[i] != NULL)
+	if (token != NULL)
 	{
-		free(token[i]);
-		i++;
+		while (token[i] != NULL)
+		{
+			free(token[i]);
+			i++;
+		}
+		free(token);
 	}
-	free(token);
+	token = NULL;
 }

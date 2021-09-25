@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 12:13:04 by user42            #+#    #+#             */
-/*   Updated: 2021/09/24 20:18:51 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/25 14:00:06 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,31 +52,9 @@ int	cpt(char *str)
 	return (cpt);
 }
 
-void	fill_quotes(char **tab, char *str, int *i, int *j) // pour "" handle $
-{
-	int	len;
-	int	start;
-
-	len = 0;
-	while (str[*i] != '\0' && !ft_iswhitespace(str[*i]) && !token(str[*i]))
-	{
-		start = *i;
-		if (str[*i] == '"')
-		{
-			while (str[++*i] != '"')
-				len++;
-			printf("%d\n", len);
-			tab[*j] = ft_substr(str, start, len + 2);
-			printf("%s\n", tab[*j]);
-			++*j;
-		}
-		++*i;
-	}
-}
-
 void	fill_token(char **tab, char *str, int *i, int *j)
 {
-	if (token(str[*i + 1]))
+	if (str[*i] == str[*i + 1])
 	{
 		tab[*j] = ft_strndup(&str[*i], 2);
 		*i += 2;
@@ -84,66 +62,63 @@ void	fill_token(char **tab, char *str, int *i, int *j)
 	}
 	else
 	{
-		tab[*j] = ft_strndup(&str[*i], 2);
+		tab[*j] = ft_strndup(&str[*i], 1);
 		++*j;
 		++*i;
 	}
 }
 
-/*void	handle_dollar(char **tab, char *str, int *i)
+void	quotes(char *str, int *i, int *len)
 {
-	int	len;
-	char	*env_var;
-
-	while (str[*i] != '\0' && !token(str[*i]) && !ft_iswhitespace(str[*i]) && str[*i] != '$')
+	if (str[*i] == '"')
 	{
-		++*i;
-		len++;
+		while (str[*i] != '\0' && str[++*i] != '"')
+			++*len;
+		++*len;
 	}
-	ft_getenv();
-}*/
+	else if (str[*i] == '\'')
+	{
+		while (str[*i] != '\0' && str[++*i] != '\'')
+			++*len;
+		++*len;
+	}
+}
 
-void	fill_tab(char **tab, char *str, char **paths)
+void	fill_tab(char **tab, char *str, int cpt_l)
 {
 	int	i;
 	int	j;
 	int	start;
 	int	len;
 
-	(void)paths;
 	start = 0;
 	i = 0;
 	j = 0;
-	while (str[i])
+	len = 0;
+	while (str[i] != '\0' && j < cpt_l)
 	{
 		len = 0;
 		while (str[i] != '\0' && ft_iswhitespace(str[i]))
 			i++;
-		//fill_quotes(tab, str, &i, &j);
 		start = i;
-		while (str[i] != '\0' && !token(str[i]) && !ft_iswhitespace(str[i++]))
+		while (str[i] != '\0' && !token(str[i]) && !ft_iswhitespace(str[i]))
+		{
+			quotes(str, &i, &len);
 			len++;
-		/*if (str[i] == '$')
-			handle_dollar(tab, str, &i);*/
-		tab[j] = ft_substr(str, start, len);
-		j++;
+			i++;
+		}
+		if (len != 0&& (str[i] == '\0' || token(str[i]) || ft_iswhitespace(str[i])))
+				tab[j++] = ft_substr(str, start, len);
+		while (str[i] != '\0' && ft_iswhitespace(str[i]))
+			i++;
 		if (token(str[i]))
 			fill_token(tab, str, &i, &j);
 	}
-	tab[j] = NULL;
 	j = 0;
 	while (tab[j] != NULL)
 	{
-		printf("%s\n", tab[j++]);
+		printf("|%s|\n", tab[j++]);
 	}
-}
-
-void	fill_var(char **tab, char *str,  int len[2], char **paths)
-{
-	len[1]++;
-	printf("%s\n", &str[len[1]]);
-	tab[len[0]] = ft_strdup(ft_getenv(paths, &str[len[1]]));
-	printf("%s\n", tab[len[0]]);
 }
 
 void	print_tab(char **tab)
@@ -173,17 +148,20 @@ char	**tokenization(char *str, char **paths)
 	int		cpt_l;
 
 	(void)paths;
+	printf("%s\n", str);
 	tab = NULL;
 	if (str == NULL)
 		return (NULL);
 	cpt_l = cpt(str);
 	if (cpt_l < 0)
 		return (NULL);
+	//exit (EXIT_SUCCESS);
 	tab = malloc(sizeof(char *) * (cpt_l + 1));
 	if (tab == NULL)
 		return (NULL);
+	tab[cpt_l] = NULL;
 	printf("cpt : %d\n", cpt_l);
-	fill_tab(tab, str, paths);
+	fill_tab(tab, str, cpt_l);
 	//print_tab(tab);
 	//exit (EXIT_SUCCESS);
 	return (tab);
