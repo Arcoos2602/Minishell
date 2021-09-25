@@ -40,6 +40,7 @@ int	ft_error(char *str, int *i, char c)
 	{
 		if (token(str[*i]) && str[*i] != c)
 			return (display_error_token(str[*i]));
+		++*i;
 		while (ft_iswhitespace(str[*i]))
 			++*i;
 		if (token(str[*i]) || str[*i] == '\0')
@@ -78,7 +79,7 @@ int	ft_error2(char *str, int *i)
 int		check_error(char *str, int *i, int *cpt)
 {
 	++*cpt;
-	if(str[++*i] != '|') // <
+	if(str[++*i] != '|')
 	{
 		if (ft_error(str, i, str[*i - 1]) < 0)
 			return (-1);
