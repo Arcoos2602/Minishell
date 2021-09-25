@@ -40,6 +40,7 @@ typedef struct	s_path
 	int			exit_status;
 }				t_path;
 
+char			*ft_dol(char *str, int *i, t_path *path);
 char			**tokenization(char *str, t_path *paths);
 void			free_token(char	**token);
 void			cpt2(char *str, int *i, int *cpt);

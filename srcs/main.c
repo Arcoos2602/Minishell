@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/25 21:15:59 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/25 21:51:54 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,36 +115,41 @@ static char	**env_malloc(char **path, char **env)
 	return (path);
 }
 
-int	ft_size(char **buf, char *str, int n)
-{
-	int		i;
-	int		size;
 
-	i = 0;
-	while (buf[i] != NULL)
-	{
-		j = 0;
-		size += ft_strlen(buf[i]);
-	}
-	size += ft_strlen(str);
-	return (size);
-}
-
-char add_env_line(char *str, int *i, t_path *path)
+char *add_env_line(char *str, int *i, t_path *path)
 {
 	char	**buf;
 	char	*dest;
+	char 	*fin;
+	int		 tmp;
+	int		nbr;
 
-	buf = ft_split(str, ' ');
-	dest = malloc(sizeof(char *) * ft_size(buf, str, *i));
-	return (str);
+	tmp = *i;
+	buf = ft_split(ft_dol(str, i, path), ' ');
+	dest = ft_strndup(str, tmp - 1);
+	while (buf[nbr] != NULL)
+	{
+		dest = ft_strjoin(dest, " '");
+		dest = ft_strjoin(dest , buf[nbr]);
+		dest = ft_strjoin(dest, "'");
+		free(buf[nbr]);
+		nbr++;
+	}
+	if (buf[nbr] == NULL)
+
+	fin = ft_strndup(&str[*i], ft_strlen(&str[*i]));
+	dest = ft_strjoin(dest ,fin);
+	free(fin);
+	free(str);
+	free(buf);
+	return (dest);
 }
 
 char *line_env(char *str, t_path *path)
 {
 	int i;
-	i = 0
-
+	
+	i = 0;
 	while (str[i] != '\0')
 	{
 		
@@ -159,6 +164,7 @@ char *line_env(char *str, t_path *path)
 			{
 				while (str[i] != '\0' && str[i++] != '\'')
 					;
+				}
 		}
 		else if (str[i] == '$')
 		{
@@ -167,6 +173,8 @@ char *line_env(char *str, t_path *path)
 		else
 			i++;
 	}
+	printf("%s\n",str);
+	exit(1);
 	return (str);
 }
 
@@ -203,7 +211,7 @@ int	main(int argc, char **argv, char **path)
 			exit(0);	
 		if (line != NULL)
 		{
-			line = line_env(line, &path);
+			line = line_env(line, &paths);
 			token = tokenization(line, &paths);
 			free(line);
 		}
