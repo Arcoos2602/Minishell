@@ -125,21 +125,26 @@ char *add_env_line(char *str, int *i, t_path *path)
 	int		nbr;
 
 	tmp = *i;
+	++*i;
+	nbr = 0;
+	dest = NULL;
+	buf = NULL;
+
 	buf = ft_split(ft_dol(str, i, path), ' ');
+	if (buf == NULL || buf[0] == NULL)
+		return str;
 	dest = ft_strndup(str, tmp - 1);
+
 	while (buf[nbr] != NULL)
 	{
 		dest = ft_strjoin(dest, " '");
 		dest = ft_strjoin(dest , buf[nbr]);
 		dest = ft_strjoin(dest, "'");
-		free(buf[nbr]);
 		nbr++;
 	}
-	if (buf[nbr] == NULL)
 
 	fin = ft_strndup(&str[*i], ft_strlen(&str[*i]));
-	dest = ft_strjoin(dest ,fin);
-	free(fin);
+	dest = ft_strjoin(dest, fin);
 	free(str);
 	free(buf);
 	return (dest);
@@ -168,13 +173,15 @@ char *line_env(char *str, t_path *path)
 		}
 		else if (str[i] == '$')
 		{
+			printf("%s\n",str);
 			str = add_env_line(str, &i, path);
+			printf("%s\n",str);
 		} 
 		else
 			i++;
+			printf("%s\n",str);	
 	}
 	printf("%s\n",str);
-	exit(1);
 	return (str);
 }
 
