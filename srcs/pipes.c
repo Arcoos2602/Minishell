@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:03:19 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/25 19:59:02 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/26 17:07:35 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2)
         buf[0] = -1;
 		buf[1] = -1;
 
-	pipes->error = init_redi(pipes, buf);
+	pipes->error = init_redi(path ,pipes, buf);
 	pid[0] = 0;
 	 if (test_fork(path))
 		pid[0] = ft_fork(path);

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:02:22 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/24 22:54:46 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/26 18:54:19 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,38 +50,38 @@ void	father_2(t_pipes *pipes, t_path *path)
 		ft_free(path->parser, path);
 		exit(EXIT_SUCCESS);
 	}
-	while (pipes->command[0] != NULL && path->exec_path[i++] != NULL
+	while (pipes->command[0] != NULL && path->exec_path && path->exec_path[i] != NULL
 		&& ft_compare_c_to_s('/', pipes->command[0]) == 0)
 	{
+
 		if (path->exec_path[i] != NULL)
-			ft_execve(path->exec_path[i], pipes->command[0],
+			ft_execve(path->exec_path[i++], pipes->command[0],
 				pipes->command, path->path);
 	}
-	if (ft_compare_c_to_s('/', pipes->command[0]))
+	if (pipes->command != NULL && pipes->command[0] != NULL && ft_compare_c_to_s('/', pipes->command[0]))
 	{
 		test = opendir(pipes->command[0]);
 		if (test != NULL)
 		{
-		
 			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd(pipes->command[0], 2);
-			ft_putstr_fd(": est un dosier\n", 2);
+			ft_putstr_fd(": est un dossier\n", 2);
 			closedir(test);
 			ft_free(path->parser, path);
 			exit(126);
 		}
 		execve(pipes->command[0], &pipes->command[0], path->path);
-				ft_putstr_fd("minishell: ", 2);
-				ft_putstr_fd(pipes->command[0], 2);
-				ft_putstr_fd(" : ", 2);
-				ft_putstr_fd(strerror(errno), 2);
-				ft_putstr_fd("\n", 2);
-				ft_putnbr_fd(errno,2);
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(pipes->command[0], 2);
+		ft_putstr_fd(" : ", 2);
+		ft_putstr_fd(strerror(errno), 2);
+		ft_putstr_fd("\n", 2);
+		ft_putnbr_fd(errno,2);
 		get_next_line(1, NULL);
 		ft_free(path->parser, path);
-	if (errno == 2)
-		exit(127);
-	exit(126);
+		if (errno == 2)
+			exit(127);
+		exit(126);
 	}
 	if (pipes->command[0] != NULL && pipes->command[0][0] != '$')
 	{
@@ -97,7 +97,7 @@ void	father_2(t_pipes *pipes, t_path *path)
 
 void	ft_father_error(t_path *path)
 {
-		ft_free(path->parser, path);
+	ft_free(path->parser, path);
 	exit(EXIT_FAILURE);
 }
 
@@ -113,8 +113,6 @@ pid_t	father(t_pipes *pipes, t_path *path)
 		father_2(pipes, path);
 	}
 	waitpid(pid, &path->exit_status, 0);
-
-
 	return (pid);
 }
 

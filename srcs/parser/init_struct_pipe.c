@@ -6,43 +6,80 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 18:35:25 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/26 16:13:00 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/26 19:29:32 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft/include/libft.h"
 #include "../../includes/minishell.h"
 
-char *add_newline(char *line)
+char *ft_replace(char *line, t_path *path)
+{
+	char *dest;
+	char *buff;
+	int	i;
+	int cpt;
+	char *env;
+
+	i = 0;
+	dest = NULL;
+	while(line != NULL && line[i] != '\0' && line[i] != '$')
+		i++;
+	if (line == NULL || line[i] == '\0')
+		return (line);
+		i++;
+	cpt = ft_count(line, &i,"'$ \" | > <\n");
+	env = ft_substr(line, i - cpt, cpt);
+	buff = ft_getenv(path->path, env);
+	if (buff != NULL)
 	{
+	dest = malloc(ft_strlen(line) +  cpt + 2 + ft_strlen(buff));
+	ft_strlcpy(dest, line, i - cpt);
+	ft_strlcpy(&dest[i - cpt - 1], buff, ft_strlen(buff) + 1);
+	ft_strlcpy(&dest[i + ft_strlen(buff) - cpt - 1], &line[i], ft_strlen(&line[i]) + 1);
+	}
+	else
+	{
+		dest = malloc(ft_strlen(line) + cpt + 1);
+		ft_strlcpy(dest, line, i - cpt);
+		ft_strlcpy(&dest[i - cpt - 1], &line[i], ft_strlen(&line[i]) + 1);
+	}
+	free(env);
+	free(line);
+	return ft_replace(dest, path);
+}	
+
+
+char *add_newline(char *line, t_path *path)
+{
 		char *new_line;
 
 		new_line = malloc(ft_strlen(line) + 2);
 		ft_strlcpy(new_line ,line, ft_strlen(line) + 1);
 		new_line[ft_strlen(line)] = '\n';
 		new_line[ft_strlen(line) + 1] = '\0';
+		new_line = ft_replace(new_line, path);
 		free(line);
 		return (new_line);
-	}
+}
 
-int ft_free_redi_double(t_redi *redi)
+int ft_free_redi_double(t_redi *redi, t_path *path)
 {
 	int fd;
 	char *line;
 
 	line = NULL;
-
-		fd = open(".test", O_APPEND | O_CREAT | O_RDWR | O_TRUNC, 0664);
+	fd = open(".test", O_APPEND | O_CREAT | O_RDWR | O_TRUNC, 0664);
+	ft_putstr_fd(">", 2);
+	while (get_next_line(1, &line) != 0 && !(ft_strncmp(redi->put, line, ft_strlen(redi->put)) == 0 && ft_strlen(redi->put) == ft_strlen(line)))
+	{
 		ft_putstr_fd(">", 2);
-		while (get_next_line(1, &line) != 0 && !(ft_strncmp(redi->put, line, ft_strlen(redi->put)) == 0 && ft_strlen(redi->put) == ft_strlen(line)))
-		{
-						ft_putstr_fd(">", 2);
-						line = add_newline(line);
-						ft_putstr_fd(line, fd);
-		}
-		if (fd > 0)
-			close(fd);
-		return 	(10);
+		line = add_newline(line, path);
+		ft_putstr_fd(line, fd);
+	}
+	if (fd > 0)
+		close(fd);
+	return (10);
 }
 
 t_redi	*init_new_redi(t_redi *redi, char **lexer, t_path *paths)
@@ -52,7 +89,7 @@ t_redi	*init_new_redi(t_redi *redi, char **lexer, t_path *paths)
 	{
 		redi->type = 0;
 		if (lexer[0][1] == '<')
-			redi->type = 10;//ft_free_redi_double(redi);
+			redi->type = 10;
 	}
 	else if (lexer[0][1] == '\0')
 		redi->type = 1;
