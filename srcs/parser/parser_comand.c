@@ -35,11 +35,14 @@ char	*ft_dol(char *str, int *i, t_path *path)
 	cpt = ft_count(str, i,"'$ \" | > <?");
 	env = ft_substr(str, *i - cpt, cpt);
 	buff = ft_getenv(path->path, env);
-	if (buff == NULL && cpt == 0 && str[*i] == '?')
+/*	if (buff == NULL && cpt == 0 && str[*i] == '?')
 	{
 		buff = ft_itoa(path->exit_status);
 		++*i;
-	}
+
+		free(env);
+		return (buff);
+	}*/
 	free(env);
 	return (buff);
 }
@@ -57,7 +60,16 @@ char	*double_quotes(char *str, int *i, t_path *path)
 		if (str[*i] == '$')
 		{ 
 			++*i;
-			dst = ft_strjoin(dst, ft_dol(str, i, path));
+			buff = ft_dol(str, i, path);
+			if (buff == NULL && str[*i] == '?' && str[*i - 1] == '$')
+			{
+				buff = ft_itoa(path->exit_status);
+				dst = ft_strjoin(dst, buff);
+				++*i;
+				free(buff);
+			}
+			else
+				dst = ft_strjoin(dst, buff);
 		}
 		else
 		{
@@ -114,6 +126,7 @@ char	*parse(char *str, t_path *path)
 			buff = ft_substr(str, i - cpt, cpt);
 	//		printf("buff\" = %s\n", buff);
 			dest = ft_strjoin(dest, buff);
+			printf("dest=%s\n",dest);
 			i++;
 			free(buff);
 		}
@@ -129,6 +142,7 @@ char	*parse(char *str, t_path *path)
 			dest = ft_strjoin(dest, ft_dol(str, &i, path));
 		}
 	}
+		printf("dest=%s\n",dest);
 	return (dest);
 }
 

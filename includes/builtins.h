@@ -14,7 +14,7 @@
 
 
 void		ft_env(char **path);
-void		ft_pwd(char **path);
+void		ft_pwd();
 void		ft_echo(t_pipes *pipes);
 char 	    *ft_getenv(char **paths, char *var);
 void        ft_cd(t_pipes *pipes, char **env);

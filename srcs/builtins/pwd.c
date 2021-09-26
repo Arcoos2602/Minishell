@@ -13,9 +13,10 @@
 #include "../../libft/include/libft.h"
 #include "../../includes/minishell.h"
 
-void	ft_pwd(char **path)
+void	ft_pwd()
 {
-	char chemin[1000];
+	char chemin[PATH_MAX];
 
-	printf("(%s)%c\n", getcwd(chemin,1000), path[0][0]);
+	ft_putstr_fd(getcwd(chemin,PATH_MAX), 1);
+	ft_putstr_fd("\n", 1);
 }

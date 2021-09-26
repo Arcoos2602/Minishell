@@ -166,8 +166,16 @@ char *add_env_line(char *str, int *i, t_path *path)
 	nbr = 0;
 	dest = NULL;
 	buf = NULL;
-
-	buf = ft_split(ft_dol(str, i, path), ' ');
+	if (str[*i] == '?')
+	{
+		printf("AAAAA\n");
+		buf = malloc(sizeof(char*) * 2);
+		buf[0] = ft_itoa(path->exit_status);
+		buf[1] = NULL;
+		++*i;
+	}
+	else
+		buf = ft_split(ft_dol(str, i, path), ' ');
 	if (buf == NULL || buf[0] == NULL)
 		return str;
 	dest = ft_strndup(str, tmp);
@@ -177,10 +185,10 @@ char *add_env_line(char *str, int *i, t_path *path)
 		buf[nbr] = ft_special(buf[nbr]);
 		dest = ft_strjoin(dest, "'");
 		dest = ft_strjoin(dest , buf[nbr]);
+		free(buf[nbr]);
 		nbr++;
 		if (buf[nbr] != NULL)
 			dest = ft_strjoin(dest, "' ");
-		
 	}
 	dest = ft_strjoin(dest, "'");
 
@@ -188,6 +196,7 @@ char *add_env_line(char *str, int *i, t_path *path)
 	dest = ft_strjoin(dest, fin);
 	free(str);
 	free(buf);
+	free(fin);
 	return (dest);
 }
 
@@ -210,7 +219,7 @@ char *line_env(char *str, t_path *path)
 			{
 				while (str[i] != '\0' && str[++i] != '\'')
 					;
-				}
+			}
 		}
 		else if (str[i] == '$')
 		{
@@ -260,14 +269,17 @@ int	main(int argc, char **argv, char **path)
 		if (line != NULL)
 		{
 			line = line_env(line, &paths);
+			printf("%s\n",line);
 			printf("line = %s\n", line);
 			token = tokenization(line, &paths);
+			printf("token= %s\n", token[0]);
 	//		printf("token = %s\n", token[0]);
 			free(line);
 		}
 		if (token != NULL && token[0] != NULL)
 		{
 			parser = init_parser(token, &i, &paths);
+			printf("premier=%s\n",parser->pipe->command[0]);
 			free_token(token);
 			paths.parser = parser;
 			ft_shell(parser, &paths);

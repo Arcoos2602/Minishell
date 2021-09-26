@@ -83,7 +83,7 @@ void	father_2(t_pipes *pipes, t_path *path)
 			exit(127);
 		exit(126);
 	}
-	if (pipes->command[0] != NULL && pipes->command[0][0] != '$')
+	if (pipes->command[0] != NULL)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(pipes->command[0], 2);

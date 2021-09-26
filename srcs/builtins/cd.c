@@ -43,13 +43,15 @@ char	*ft_strjoin_cd(char const *s1, char const *s2)
 
 void ft_cd(t_pipes *pipes, char **env)
 {
-	int a;
+	int 	a;
 	int		x;
 	int		j;
 	char	*buff;
-	char 	late[1000];
+	char 	late[PATH_MAX];
 
- if ( pipes->command[1] == NULL || pipes->command[2] == NULL)
+	
+
+ if (pipes->command[1] == NULL || pipes->command[2] == NULL)
 	{
 		if (pipes->command[1] == NULL)
 		{
@@ -63,12 +65,13 @@ void ft_cd(t_pipes *pipes, char **env)
 				printf("%d et %s\n",a,buff);
 		}
 		else
-			a = chdir(pipes->command[1]);
+			a = chdir(pipes->command[2]);
 	
 		if (a == -1)
 		{
 			ft_putstr_fd(strerror(errno), 2);
 			ft_putchar_fd('\n', 1);
+			return;
 		}
 		else
 		{
@@ -81,7 +84,10 @@ void ft_cd(t_pipes *pipes, char **env)
 				if (ft_strncmp("PWD=", env[x], j) == 0)
 				{
 					free(env[x]);
-					env[x] = ft_strjoin_cd("PWD=", getcwd(late,1000));
+					printf("%d\n",PATH_MAX);
+					getcwd(late, 100);
+					
+					env[x] = ft_strjoin_cd("PWD=", late);
 				}
 				x++;
 			}
@@ -89,6 +95,5 @@ void ft_cd(t_pipes *pipes, char **env)
 	}
 	else
 		ft_putstr_fd("bash : cd: too much arguments\n", 2);
-	getcwd(env[0], 555);
 	printf("%s\n", env[0]);
 }

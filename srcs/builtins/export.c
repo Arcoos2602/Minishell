@@ -34,6 +34,24 @@ char	**new_env_exp(char **env, char *to_add, int size)
 	return (new);
 }
 
+int ft_test_new_env(char *var)
+{
+	int a;
+
+	a = 0;
+	while(var[a] != '\0' && var[a] != '=')
+	{
+		if (ft_compare_c_to_s(var[a++],"\"'?$|<>"))
+		{
+			ft_putstr_fd("ERROR:",2);
+			ft_putstr_fd(var,2);
+			ft_putstr_fd("\n",2);
+			return (1);
+		}
+	}
+	return (0);
+}
+
 char   **env_add(char **env, char  *var, t_path *path) // recreer env avec un en +
 {
 	int i;
@@ -42,11 +60,14 @@ char   **env_add(char **env, char  *var, t_path *path) // recreer env avec un en
 
 		x = 0;
 		i = -1;
+		if (ft_test_new_env(var))
+			return (env);
 	if (ft_getenv(path->path, var) == NULL && ft_compare_c_to_s('=', var))
 	{
-	while (env[++i] != NULL)
-	;
+		while (env[++i] != NULL)
+		;
 		env = new_env_exp(env, var, i);
+		
 	}
 	else if (ft_getenv(path->path, var) != NULL && ft_compare_c_to_s('=', var))
 	{
@@ -101,9 +122,9 @@ void ft_print_env_3(char *str)
 
 	n = ft_compte_env(str) ;
 	write(1,"export " ,7);
-	write(1,str,n);
+	write(1,str,n+1);
 	write(1,"\"",1);
-	write(1, &str[n], ft_strlen(&str[n]));
+	write(1, &str[n+1], ft_strlen(&str[n+1]));
 	write(1,"\"\n", 2);
 }
 
@@ -114,9 +135,9 @@ void ft_print_env_alp(char **env)
 	int nbr;
 
 	i = 0;
+	nbr = 0;
 	while (env[i] != NULL)
 	{
-
 		while (env[nbr] != NULL)
 		{
 			if (ft_print_env_2(env, env[nbr] ,i))
