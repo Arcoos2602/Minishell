@@ -87,7 +87,7 @@ void	father_2(t_pipes *pipes, t_path *path)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(pipes->command[0], 2);
-		ft_putstr_fd(": command not found\n", 2);
+		ft_putstr_fd(" : command not found\n", 2);
 		ft_free(path->parser, path);
 		exit(127);
 	}

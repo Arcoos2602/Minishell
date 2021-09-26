@@ -203,18 +203,18 @@ char *line_env(char *str, t_path *path)
 		{
 			if (str[i] == '"')
 			{	
-				while (str[i] != '\0' && str[i++] != '"')
+				while (str[i] != '\0' && str[++i] != '"')
 					;
 			}
 			else if (str[i] == '\'')
 			{
-				while (str[i] != '\0' && str[i++] != '\'')
+				while (str[i] != '\0' && str[++i] != '\'')
 					;
 				}
 		}
 		else if (str[i] == '$')
 		{
-	//		printf("%s\n",str);
+			printf("%i\n",i);
 			str = add_env_line(str, &i, path);
 //			printf("%s\n",str);
 		} 
@@ -260,7 +260,7 @@ int	main(int argc, char **argv, char **path)
 		if (line != NULL)
 		{
 			line = line_env(line, &paths);
-	//		printf("line = %s\n", line);
+			printf("line = %s\n", line);
 			token = tokenization(line, &paths);
 	//		printf("token = %s\n", token[0]);
 			free(line);
