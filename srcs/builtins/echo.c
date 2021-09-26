@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 10:24:14 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/18 14:02:14 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/26 13:35:44 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,42 @@
 #include "../../includes/minishell.h"
 #include "../../includes/builtins.h"
 
-void		ft_echo(t_pipes *pipes)
+void	ft_echo2(t_pipes *pipes, int i, int option)
+{
+	while (pipes->command[i] != NULL)
+	{
+		ft_putstr_fd(pipes->command[i], 1);
+		i++;
+		if (pipes->command[i] != NULL)
+			ft_putchar_fd(' ', 1);
+	}
+	if (option == 0)
+		ft_putchar_fd('\n', 1);
+}
+
+void	ft_echo(t_pipes *pipes)
 {
 	int		i;
+	int		option;
+	int		j;
+	int 	finish;
+
 	i = 1;
-	if (pipes->command[1] != NULL && ft_strncmp(pipes->command[1], "-n", ft_strlen(pipes->command[1])) == 0)
+	finish = 0;
+	option = 0;
+	j = 0;
+	while (pipes->command[i] != NULL && finish == 0 && pipes->command[i][j] == '-')
 	{
-		i++;
-		while (pipes->command[i] != NULL)
+		j = 0;
+		while (pipes->command[i][j] && pipes->command[i][++j] == 'n')
+			;
+		if (pipes->command[i][j] == '\0')
 		{
-			ft_putstr_fd(pipes->command[i], 1);
+			option = 1;
 			i++;
-			if (pipes->command[i] != NULL)
-				ft_putchar_fd(' ', 1);
 		}
+		else
+			finish = 1;
 	}
-	else
-	{
-		while (pipes->command[i] != NULL)
-		{
-			ft_putstr_fd(pipes->command[i], 1);
-			i++;
-			if (pipes->command[i] != NULL)
-				ft_putchar_fd(' ', 1);
-		}
-		ft_putchar_fd('\n', 1);
-	}
+	ft_echo2(pipes, i, option);
 }
