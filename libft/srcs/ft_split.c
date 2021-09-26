@@ -59,12 +59,11 @@ static int	initalisation(char **end, char const *str, char charset)
 	return (1);
 }
 
-static void	init_var(int *a, int *b, int *i, char **end)
+static void	init_var(int *a, int *b, int *i)
 {
 	*a = 0;
 	*i = 0;
 	*b = 0;
-	end = 0;
 }
 
 char	**ft_split(char const *str, char charset)
@@ -74,7 +73,7 @@ char	**ft_split(char const *str, char charset)
 	int		a;
 	int		b;
 
-	init_var(a, b, i, end);
+	init_var(&a, &b, &i);
 	if (!str)
 		return (0);
 	end = malloc(sizeof(char *) * (cpt(str, charset) + 1));

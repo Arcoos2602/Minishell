@@ -49,7 +49,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	dst = malloc(tail1 + tail2 + 1);
 	if (!dst)
 		return (0);
-	t_join_copy(dst, s1, s2);
+	ft_join_copy(dst, s1, s2);
 	if (s1 != NULL)
 		free(s1);
 	return (dst);
