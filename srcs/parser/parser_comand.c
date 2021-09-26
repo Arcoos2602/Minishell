@@ -6,14 +6,14 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 14:04:46 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/25 19:56:03 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/26 18:00:50 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft/include/libft.h"
 #include "../../includes/minishell.h"
 
-static int	ft_count(char *str, int *i, char *test)
+int	ft_count(char *str, int *i, char *test)
 {
 	int cpt;
 
@@ -32,9 +32,14 @@ char	*ft_dol(char *str, int *i, t_path *path)
 	char	*buff;
 	int		cpt;
 
-	cpt = ft_count(str, i,"'$ \" | > <");
+	cpt = ft_count(str, i,"'$ \" | > <?");
 	env = ft_substr(str, *i - cpt, cpt);
 	buff = ft_getenv(path->path, env);
+	if (buff == NULL && cpt == 0 && str[*i] == '?')
+	{
+		buff = ft_itoa(path->exit_status);
+		++*i;
+	}
 	free(env);
 	return (buff);
 }
