@@ -87,7 +87,7 @@ char	*parse(char *str, t_path *path)
 	while (str[i])
 	{
 		cpt = ft_count(str, &i, "'$\"");
-		printf("cpt : %d i : %d\n", cpt, i);
+//		printf("cpt : %d i : %d\n", cpt, i);
 		if (cpt != 0)
 		{
 			buff = ft_substr(str, i - cpt, cpt);
@@ -98,7 +98,9 @@ char	*parse(char *str, t_path *path)
 		{
 			++i;
 			buff = double_quotes(str, &i, path);
+	//		printf("buff' = %s\n", buff);
 			dest = ft_strjoin(dest, buff);
+			i++;
 			free(buff);
 		}
 		else if(str[i] == '\'')
@@ -106,7 +108,9 @@ char	*parse(char *str, t_path *path)
 			++i;
 			cpt = ft_count(str, &i, "'");
 			buff = ft_substr(str, i - cpt, cpt);
+	//		printf("buff\" = %s\n", buff);
 			dest = ft_strjoin(dest, buff);
+			i++;
 			free(buff);
 		}
 		else if (str[i] == '$')

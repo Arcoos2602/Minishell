@@ -116,6 +116,43 @@ static char	**env_malloc(char **path, char **env)
 }
 
 
+char *ft_special(char *buf)
+{
+	int i;
+	int cpt;
+	char *dest;
+
+	cpt = 0;
+	i = 0;
+	while (buf[i] != '\0')
+	{
+		if (buf[i++] == '\'')
+			cpt++;
+	}
+	if (cpt == 0)
+		return (buf);
+	dest = malloc(i + (4 * cpt) + 1);
+	if (dest == NULL)
+		return (NULL);
+	i = 0;
+	cpt = 0;
+	while (buf[i] != '\0')
+	{
+		dest[i + cpt] =  buf[i];
+		if (buf[i] == '\'')
+		{	dest[i] =  '\'';
+			dest[i+ ++cpt] =  '"';
+			dest[i + ++cpt] =  '\'';
+			dest[i + ++cpt] =  '"';
+			dest[i + ++cpt] =  '\'';
+		}
+		i++;
+	}
+	dest[i + cpt] =  '\0';
+	free(buf);
+	return dest;
+}
+
 char *add_env_line(char *str, int *i, t_path *path)
 {
 	char	**buf;
@@ -133,15 +170,19 @@ char *add_env_line(char *str, int *i, t_path *path)
 	buf = ft_split(ft_dol(str, i, path), ' ');
 	if (buf == NULL || buf[0] == NULL)
 		return str;
-	dest = ft_strndup(str, tmp - 1);
+	dest = ft_strndup(str, tmp);
 
 	while (buf[nbr] != NULL)
 	{
-		dest = ft_strjoin(dest, " '");
-		dest = ft_strjoin(dest , buf[nbr]);
+		buf[nbr] = ft_special(buf[nbr]);
 		dest = ft_strjoin(dest, "'");
+		dest = ft_strjoin(dest , buf[nbr]);
 		nbr++;
+		if (buf[nbr] != NULL)
+			dest = ft_strjoin(dest, "' ");
+		
 	}
+	dest = ft_strjoin(dest, "'");
 
 	fin = ft_strndup(&str[*i], ft_strlen(&str[*i]));
 	dest = ft_strjoin(dest, fin);
@@ -173,15 +214,15 @@ char *line_env(char *str, t_path *path)
 		}
 		else if (str[i] == '$')
 		{
-			printf("%s\n",str);
+	//		printf("%s\n",str);
 			str = add_env_line(str, &i, path);
-			printf("%s\n",str);
+//			printf("%s\n",str);
 		} 
 		else
 			i++;
-			printf("%s\n",str);	
+		//	printf("%s\n",str);	
 	}
-	printf("%s\n",str);
+//	printf("%s\n",str);
 	return (str);
 }
 
@@ -219,7 +260,9 @@ int	main(int argc, char **argv, char **path)
 		if (line != NULL)
 		{
 			line = line_env(line, &paths);
+	//		printf("line = %s\n", line);
 			token = tokenization(line, &paths);
+	//		printf("token = %s\n", token[0]);
 			free(line);
 		}
 		if (token != NULL && token[0] != NULL)

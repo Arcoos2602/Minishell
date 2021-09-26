@@ -143,7 +143,7 @@ char	**tokenization(char *str, t_path *paths)
 	int		cpt_l;
 
 	(void)paths;
-	printf("%s\n", str);
+//	printf("%s\n", str);
 	tab = NULL;
 	if (str == NULL)
 		return (NULL);
