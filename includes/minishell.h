@@ -81,6 +81,7 @@ t_pipes			*init_new(t_pipes *t_new, char **lexer, int *i, t_path *path);
 char			**init_command_pipe(char **command, char **lexer, int *i, t_path *paths);
 t_redi			*init_put(t_redi *t_new, char **lexer, int *i, t_path *paths);
 char			*parse(char *str, t_path *path);
+char			**ft_export(t_pipes *pipes, char **env, t_path *path);
 int				ft_count(char *str, int *i, char *test);
 void			ft_dup_redi(t_pipes *pipes ,int buf[2]);
 #endif

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 11:30:04 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/26 16:11:25 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/26 20:18:00 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		check_builtins(t_pipes	*pipes, t_path *path, char **env)
 	else if (ft_strncmp(pipes->command[0], "unset", 6) == 0)
 		env = ft_unset(pipes, env);
 	else if (ft_strncmp(pipes->command[0], "cd", 3) == 0)
-		ft_cd(pipes->command[1], env);
+		ft_cd(pipes, env);
 	else 
 		return (0);
 	path->path = env;

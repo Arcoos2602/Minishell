@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 10:10:07 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/15 16:04:42 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/26 20:49:09 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,37 +41,54 @@ char	*ft_strjoin_cd(char const *s1, char const *s2)
 	return (dst);
 }
 
-void ft_cd(char *str, char **env)
+void ft_cd(t_pipes *pipes, char **env)
 {
 	int a;
 	int		x;
 	int		j;
-	char late[1000];
+	char	*buff;
+	char 	late[1000];
 
-
-	a = chdir(str);
-	if ( a == -1)
+ if ( pipes->command[1] == NULL || pipes->command[2] == NULL)
 	{
-		ft_putstr_fd(strerror(errno), 2);
-		ft_putchar_fd('\n', 1);
+		if (pipes->command[1] == NULL)
+		{
+			buff = ft_getenv(env, "HOME");
+			if (buff == NULL)
+			{
+				ft_putstr_fd("bash : cd: \"HOME\" is not set\n", 2);
+				return;
+			}
+				a = chdir(buff);
+				printf("%d et %s\n",a,buff);
+		}
+		else
+			a = chdir(pipes->command[1]);
+	
+		if (a == -1)
+		{
+			ft_putstr_fd(strerror(errno), 2);
+			ft_putchar_fd('\n', 1);
+		}
+		else
+		{
+			x = 0;
+			while (env[x] != NULL)
+			{
+				j = 0;
+				while (env[x][j] != '=')
+        			j++;
+				if (ft_strncmp("PWD=", env[x], j) == 0)
+				{
+					free(env[x]);
+					env[x] = ft_strjoin_cd("PWD=", getcwd(late,1000));
+				}
+				x++;
+			}
+		}
 	}
 	else
-	{
-	x = 0;
-	while (env[x] != NULL)
-	{
-		j = 0;
-		while (env[x][j] != '=')
-        	j++;
-		if (ft_strncmp("PWD=", env[x], j) == 0)
-		{
-			free(env[x]);
-			env[x] = ft_strjoin_cd("PWD=", getcwd(late,1000));
-		}
-		x++;
-	}
-	}
+		ft_putstr_fd("bash : cd: too much arguments\n", 2);
 	getcwd(env[0], 555);
 	printf("%s\n", env[0]);
-	//exit(EXIT_SUCCESS);
 }
