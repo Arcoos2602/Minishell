@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:03:19 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/26 17:07:35 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/26 19:53:42 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,17 @@ int	ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2)
 	int		buf[2];
 	pid_t	pid[2];
 
-        buf[0] = -1;
-		buf[1] = -1;
+    buf[0] = -1;
+	buf[1] = -1;
 
 	pipes->error = init_redi(path ,pipes, buf);
+	if (path->starting == 1 && pipes->next == NULL && pipes->builtin == 1)
+	{
+		ft_dup_redi(pipes, buf);
+		check_builtins(pipes, path, path->path);
+		ft_close(buf[1], buf[0], path->pipe_in, path->pipe_out);
+		return (5);
+	}
 	pid[0] = 0;
 	 if (test_fork(path))
 		pid[0] = ft_fork(path);
@@ -108,12 +115,9 @@ int	ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2)
 	return (3);
 }
 
-int	line_command(t_pipes *parser, t_path *path, pid_t *pid_2) // getpid
+int	line_command(t_pipes *parser, t_path *path, pid_t *pid_2)
 {
-	if (parser->next != NULL || parser->builtin == 0)
 		return (ft_pipe(parser, path, pid_2));
-	else
-		check_builtins(parser, path , path->path);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:02:22 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/26 18:54:19 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/26 19:52:19 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,8 @@ pid_t	father(t_pipes *pipes, t_path *path)
 	return (pid);
 }
 
-pid_t	father_0(t_pipes *pipes, t_path *path, int buf[2])
+void ft_dup_redi(t_pipes *pipes , int buf[2])
 {
-	pid_t	pid_3;
-
 		if (pipes->put[0] == 1)
 		{
 			dup2(buf[0], STDIN_FILENO);	
@@ -128,9 +126,14 @@ pid_t	father_0(t_pipes *pipes, t_path *path, int buf[2])
 		{
 			dup2(buf[1],STDOUT_FILENO);	
 		}
+}
+
+pid_t	father_0(t_pipes *pipes, t_path *path, int buf[2])
+{
+	pid_t	pid_3;
+
+		ft_dup_redi(pipes, buf);
 		pid_3 = father(pipes, path);
-
-
 	ft_close(buf[1], buf[0], path->pipe_in, path->pipe_out);
 	path->exec = 1;
 	return (pid_3);
