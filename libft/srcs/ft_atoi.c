@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 10:55:56 by gbabeau           #+#    #+#             */
-/*   Updated: 2020/10/08 13:25:12 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/27 00:55:48 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		signe(char *str, int *nb)
+static int	signe(char *str, int *nb)
 {
 	int	i;
 	int	a;
@@ -31,7 +31,7 @@ static int		signe(char *str, int *nb)
 	return (i);
 }
 
-int				ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	int	nb;
 	int	i;
@@ -39,7 +39,7 @@ int				ft_atoi(const char *str)
 	int	nombre;
 
 	nb = 0;
-	i = signe((char*)str, &nb);
+	i = signe((char *)str, &nb);
 	nombre = 0;
 	renvoie = 0;
 	while ('0' <= str[nb] && '9' >= str[nb])

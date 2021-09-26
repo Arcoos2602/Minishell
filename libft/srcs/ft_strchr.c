@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 11:41:46 by gbabeau           #+#    #+#             */
-/*   Updated: 2019/10/16 12:34:10 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/27 01:23:50 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_strchr(const char *s, int c)
 	while (*s != '\0' || *s == (char)c)
 	{
 		if (*s == (char)c)
-			return (char*)s;
+			return ((char *)s);
 		s++;
 	}
 	return (0);

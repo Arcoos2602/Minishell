@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 14:11:16 by gbabeau           #+#    #+#             */
-/*   Updated: 2019/10/18 11:32:02 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/27 01:35:25 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		debut(char const *s1, char const *set)
+static int	debut(char const *s1, char const *set)
 {
 	int		i;
 	int		deb;
@@ -30,7 +30,7 @@ static int		debut(char const *s1, char const *set)
 	return (deb);
 }
 
-static int		fin(char const *s1, char const *set)
+static int	fin(char const *s1, char const *set)
 {
 	int		tail;
 	int		i;
@@ -51,7 +51,7 @@ static int		fin(char const *s1, char const *set)
 	return (tail);
 }
 
-char			*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*s;
 	int		d;
@@ -64,12 +64,9 @@ char			*ft_strtrim(char const *s1, char const *set)
 	f = fin(s1, set);
 	d = debut(s1, set);
 	if (f - d < 0)
-	{
-		if (!(s = ft_calloc(1, 1)))
-			return (0);
-		return (s);
-	}
-	if (!(s = malloc(f - d + 2)))
+		return (ft_calloc(1, 1));
+	s = malloc(f - d + 2);
+	if (!s)
 		return (0);
 	while (f - d >= i)
 	{

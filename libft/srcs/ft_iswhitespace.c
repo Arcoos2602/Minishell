@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_iswhitespace.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 14:04:11 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/02/03 14:04:14 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/27 01:04:10 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_iswhitespace(char c)
+int	ft_iswhitespace(char c)
 {
 	if (c == ' ')
 		return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 11:43:56 by gbabeau           #+#    #+#             */
-/*   Updated: 2019/10/18 14:54:22 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/27 01:45:15 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void*), void (*del)(void*))
 	t_list	*new;
 	t_list	*node;
 
-	if (!(new = malloc(sizeof(t_list) && !(f))))
+	new = malloc(sizeof(t_list));
+	if (!(new && !(f)))
 		return (NULL);
 	new = NULL;
 	while (lst)
 	{
-		if (!(node = ft_lstnew(f(lst->content))))
+		node = ft_lstnew(f(lst->content));
+		if (!node)
 		{
 			ft_lstclear(&new, del);
 			return (NULL);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_convert_base.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 21:25:50 by gbabeau           #+#    #+#             */
-/*   Updated: 2020/02/04 15:59:19 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/27 01:00:08 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static unsigned int	verification(char *base)
 		}
 		compt = 0;
 		if ((base[a] < 32 || base[a] > 126
-			|| base[a] == '-' || base[a] == '+') && base[a] != '\0')
+				|| base[a] == '-' || base[a] == '+') && base[a] != '\0')
 			return (0);
 		a++;
 	}
@@ -38,7 +38,7 @@ static unsigned int	verification(char *base)
 	return (0);
 }
 
-static void			ft_putnbr_base(char **s, int nbr, char *base, int taill)
+static void	ft_putnbr_base(char **s, int nbr, char *base, int taill)
 {
 	unsigned int	nb;
 	unsigned int	bs;
@@ -58,8 +58,8 @@ static void			ft_putnbr_base(char **s, int nbr, char *base, int taill)
 	}
 }
 
-static void			ft_rev_char_tab_case(char *tab, unsigned int n,
-						unsigned int size, unsigned int start)
+static void	ft_rev_char_tab_case(char *tab, unsigned int n,
+					unsigned int size, unsigned int start)
 {
 	char	t;
 
@@ -68,7 +68,7 @@ static void			ft_rev_char_tab_case(char *tab, unsigned int n,
 	tab[n] = t;
 }
 
-static void			ft_rev_char_tab(char *tab)
+static void	ft_rev_char_tab(char *tab)
 {
 	unsigned int		size;
 	unsigned int		n;
@@ -79,11 +79,13 @@ static void			ft_rev_char_tab(char *tab)
 	size++;
 	n = 0;
 	if (tab[0] != '-')
+	{
 		while (n < size / 2)
 		{
 			ft_rev_char_tab_case(tab, n, size, 2);
 			n++;
 		}
+	}
 	else
 	{
 		n++;
@@ -95,7 +97,7 @@ static void			ft_rev_char_tab(char *tab)
 	}
 }
 
-char				*ft_convert_base(char *nbr, char *base_from, char *base_to)
+char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
 {
 	char				*s1;
 	unsigned int		a;

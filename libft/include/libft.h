@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 20:04:16 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/25 19:00:50 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/27 00:54:48 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-typedef struct		s_list
+typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
-}					t_list;
+}				t_list;
 
 void				*ft_memset(void *s, int c, size_t n);
 void				ft_bzero(void *s, size_t n);
@@ -73,10 +73,10 @@ char				*ft_convert_base(char *nbr, char *base_from, char *base_to);
 char				*ft_uitoa(unsigned int n);
 char				*ft_ultoa(unsigned long int n);
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void*),
-							void (*del)(void*));
+						void (*del)(void*));
 int					ft_compare_c_to_s(char c, char *str);
 int					ft_compare_s_to_s(char *str_1, char *str_2);
 int					ft_xor(char a, char b);
 int					ft_iswhitespace(char c);
-char	*ft_strndup(const char *src, int n);
+char				*ft_strndup(const char *src, int n);
 #endif

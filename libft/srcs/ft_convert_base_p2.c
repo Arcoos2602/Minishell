@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_convert_base2.c                                 :+:      :+:    :+:   */
+/*   ft_convert_base_p2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 21:32:39 by gbabeau           #+#    #+#             */
-/*   Updated: 2020/01/30 11:50:51 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/27 01:01:43 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-unsigned long int			verification_atoi_p(char *base)
+unsigned long int	verification_atoi_p(char *base)
 {
 	unsigned long int	nb;
 	unsigned long int	compt;
@@ -30,8 +30,8 @@ unsigned long int			verification_atoi_p(char *base)
 		compt = 0;
 		nb++;
 		if (((base[nb] >= 9 && base[nb] <= 13)
-			|| (base[nb] == '-' || base[nb] == '+' || base[nb] == ' '))
-				&& base[nb] != '\0')
+				|| (base[nb] == '-' || base[nb] == '+' || base[nb] == ' '))
+			&& base[nb] != '\0')
 			return (0);
 	}
 	return (nb);
@@ -66,7 +66,7 @@ static unsigned long int	position(char str, char *base)
 	return (bs);
 }
 
-unsigned long int			ft_atoi_base_p(char *str, char *base)
+unsigned long int	ft_atoi_base_p(char *str, char *base)
 {
 	unsigned long int	tail;
 	unsigned long int	i;

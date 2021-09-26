@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_convert_base2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 21:32:39 by gbabeau           #+#    #+#             */
-/*   Updated: 2020/02/01 12:13:18 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/27 01:00:56 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int				verification_atoi(char *base)
+int	verification_atoi(char *base)
 {
 	unsigned int	nb;
 	unsigned int	compt;
@@ -30,14 +30,14 @@ int				verification_atoi(char *base)
 		compt = 0;
 		nb++;
 		if (((base[nb] >= 9 && base[nb] <= 13)
-			|| (base[nb] == '-' || base[nb] == '+' || base[nb] == ' '))
-				&& base[nb] != '\0')
+				|| (base[nb] == '-' || base[nb] == '+' || base[nb] == ' '))
+			&& base[nb] != '\0')
 			return (0);
 	}
 	return (nb);
 }
 
-static int		signe(char *str, unsigned int *nb)
+static int	signe(char *str, unsigned int *nb)
 {
 	unsigned int	i;
 	unsigned int	a;
@@ -56,7 +56,7 @@ static int		signe(char *str, unsigned int *nb)
 	return (i);
 }
 
-static int		position(char str, char *base)
+static int	position(char str, char *base)
 {
 	int	bs;
 

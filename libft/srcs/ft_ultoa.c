@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_uitoa.c                                         :+:      :+:    :+:   */
+/*   ft_ultoa.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 16:19:17 by gbabeau           #+#    #+#             */
-/*   Updated: 2020/01/30 12:54:53 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/27 01:43:16 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static unsigned long int	ft_chifre(unsigned long int n, unsigned long int a,
 	return ((n % 10));
 }
 
-char						*ft_ultoa(unsigned long int n)
+char	*ft_ultoa(unsigned long int n)
 {
 	char					*dest;
 	unsigned long int		i;
@@ -42,7 +42,8 @@ char						*ft_ultoa(unsigned long int n)
 
 	a = 0;
 	i = ft_compt(n, 0);
-	if (!(dest = malloc(i + 1)))
+	dest = malloc(i + 1);
+	if (!dest)
 		return (0);
 	while (a != i)
 	{

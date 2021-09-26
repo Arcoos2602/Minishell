@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 11:57:51 by gbabeau           #+#    #+#             */
-/*   Updated: 2019/10/18 11:14:02 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/27 01:05:17 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_compt(long nb, int i)
+static int	ft_compt(long nb, int i)
 {
 	if (nb < 0)
 	{
@@ -24,7 +24,7 @@ static int		ft_compt(long nb, int i)
 	return (i + 1);
 }
 
-static int		ft_chifre(long n, int a, int i)
+static int	ft_chifre(long n, int a, int i)
 {
 	int	dix;
 
@@ -38,7 +38,7 @@ static int		ft_chifre(long n, int a, int i)
 	return ((n % 10));
 }
 
-char			*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	char	*dest;
 	int		i;
@@ -48,7 +48,8 @@ char			*ft_itoa(int n)
 	nb = (long)n;
 	a = 0;
 	i = ft_compt(n, 0);
-	if (!(dest = malloc(i + 1)))
+	dest = malloc(i + 1);
+	if (dest == NULL)
 		return (0);
 	if (n < 0)
 	{
