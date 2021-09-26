@@ -19,6 +19,5 @@ void		ft_echo(t_pipes *pipes);
 char 	    *ft_getenv(char **paths, char *var);
 void        ft_cd(char	*str, char **env);
 char        **ft_unset(t_pipes *pipes, char **env);
-char        **ft_export(t_pipes *pipes, char **env);
 
 #endif

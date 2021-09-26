@@ -44,7 +44,7 @@ int		check_builtins(t_pipes	*pipes, t_path *path, char **env)
 	else if (ft_strncmp(pipes->command[0], "echo", 3) == 0)
 		ft_echo(pipes);
   	else if (ft_strncmp(pipes->command[0], "export", 6) == 0)
-		env = ft_export(pipes, env);
+		env = ft_export(pipes, env, path);
 	else if (ft_strncmp(pipes->command[0], "unset", 5) == 0)
 		env = ft_unset(pipes, env);
 	else if (ft_strncmp(pipes->command[0], "cd", 2) == 0)
