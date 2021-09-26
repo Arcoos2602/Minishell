@@ -50,7 +50,6 @@ char   **env_add(char **env, char  *var, t_path *path) // recreer env avec un en
 	}
 	else if (ft_getenv(path->path, var) != NULL && ft_compare_c_to_s('=', var))
 	{
-		printf("12\n");
 		while (env[x] != NULL)
 		{
 		j = 0;

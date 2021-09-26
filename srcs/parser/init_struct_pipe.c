@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 18:35:25 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/25 19:59:20 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/26 16:13:00 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,17 +132,17 @@ t_pipes	*add_pipe(t_pipes *pipe, t_pipes *next)
 
 int ft_check_builtin_parser(char *command)
 {
-	if (ft_strncmp(command, "exit", 4) == 0)
+	if (ft_strncmp(command, "exit", 5) == 0)
 		return (1);
 	else if (ft_strncmp(command, "env", 4) == 0)
 		return (1);
-	else if (ft_strncmp(command, "pwd", 3) == 0)
+	else if (ft_strncmp(command, "pwd", 4) == 0)
 		return (1);
-	else if (ft_strncmp(command, "echo", 3) == 0)
+	else if (ft_strncmp(command, "echo", 5) == 0)
 		return (1);
-  	else if (ft_strncmp(command, "export", 6) == 0)
+  	else if (ft_strncmp(command, "export", 7) == 0)
 		return (1);
-	else if (ft_strncmp(command, "unset", 5) == 0)
+	else if (ft_strncmp(command, "unset", 6) == 0)
 	{
 		return (1);
 	}
