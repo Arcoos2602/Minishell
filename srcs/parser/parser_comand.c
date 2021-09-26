@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 14:04:46 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/26 18:00:50 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/26 20:12:51 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ char	*ft_dol(char *str, int *i, t_path *path)
 char	*double_quotes(char *str, int *i, t_path *path)
 {
 	char	*buff;
-	char	*env;
 	int		cpt;
 	char	*dst;
 

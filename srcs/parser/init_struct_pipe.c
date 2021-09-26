@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 18:35:25 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/26 19:29:32 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/26 20:12:24 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char *ft_replace(char *line, t_path *path)
 		i++;
 	if (line == NULL || line[i] == '\0')
 		return (line);
-		i++;
+	i++;
 	cpt = ft_count(line, &i,"'$ \" | > <\n");
 	env = ft_substr(line, i - cpt, cpt);
 	buff = ft_getenv(path->path, env);

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:31:47 by user42            #+#    #+#             */
-/*   Updated: 2021/09/15 15:31:50 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/26 20:13:40 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char   **env_add(char **env, char  *var, t_path *path) // recreer env avec un en
 }
 
 
-int ft_print_env_2(char **env, char *str , int i, int nbr)
+int ft_print_env_2(char **env, char *str , int i)
 {
 	int n;
 	int pos;
@@ -112,18 +112,14 @@ void ft_print_env_alp(char **env)
 {
 	int i;
 	int nbr;
-	int pos;
-	int j;
-
 
 	i = 0;
-	j = 0;
 	while (env[i] != NULL)
 	{
 
 		while (env[nbr] != NULL)
 		{
-			if (ft_print_env_2(env, env[nbr] ,i, nbr))
+			if (ft_print_env_2(env, env[nbr] ,i))
 			ft_print_env_3(env[nbr]);
 		nbr++;
 		}
