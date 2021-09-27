@@ -25,7 +25,6 @@
 # include <sys/types.h>
 # include <fcntl.h>
 # include "../libft/include/libft.h"
-# include "get_next_line.h"
 # define BUFFER_SIZE 50000
 # include "parser.h"
 # include <readline/readline.h>
@@ -63,7 +62,6 @@ int				check_error(char *str, int *i, int *cpt);
 int				token(char c);
 int				ft_free_redi_double(t_redi *redi, t_path *path);
 int				quote(char *str);
-int				get_next_line(int fd, char **line);
 int				init_inouput_back(char **lexer, char *inout);
 int				ft_shell(t_parser *parser, t_path *path);
 void			display_total(t_parser *parser);
@@ -85,7 +83,7 @@ int				init_redi(t_path *path, t_pipes *pipes, int buf[2]);
 int				init_fd(t_pipes *pipes, int buf[2],
 					int pipe_fd[2], t_path *path);
 int				exit_ft_parser(pid_t pid, t_parser *parser, t_path *path);
-int				get_next_line(int fd, char **line);
+int				get_next_line(char **line);
 int				check_builtins(t_pipes	*pipes, t_path *path, char **env);
 void			ft_exit(t_path *path, t_pipes *pipes);
 t_pipes			*init_pipes(char **lexer, int *i, t_path *paths);
@@ -111,5 +109,8 @@ char			*line_env(char *str, t_path *path);
 char			*add_env_line(char *str, int *i, t_path *path);
 void			ft_signal(void);
 void			replace_quotes(char *dest, char *buf, int *i, int *cpt);
+char			**new_env_exp(char **env, char *to_add, int size);
+void			ft_print_env_alp(char **env);
+int				is_valid(char *str);
 
 #endif

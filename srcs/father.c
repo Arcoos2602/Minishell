@@ -59,7 +59,6 @@ void	ft_excve_2(t_pipes *pipes, t_path *path)
 	ft_putstr_fd(strerror(errno), 2);
 	ft_putstr_fd("\n", 2);
 	ft_putnbr_fd(errno, 2);
-	get_next_line(1, NULL);
 	ft_free(path->parser, path);
 	if (errno == 2)
 		exit(127);

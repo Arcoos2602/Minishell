@@ -60,9 +60,9 @@ int	error_pipe(char *str, char c, int *tmp, int *i)
 	if (str[*i] == '|')
 	{
 		if (c == '>')
-			ft_putstr_fd("Error 1\n", 2);
+			display_error_token(str[*i]);
 		if (c == '<')
-			ft_putstr_fd("Error 2\n", 2);
+			display_error_token(str[*i]);
 		else
 			ft_putstr_fd("This token: || is not in this minishell\n", 2);
 		return (-1);

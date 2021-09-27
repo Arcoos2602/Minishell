@@ -28,6 +28,7 @@ void	ft_free(t_parser *parser, t_path *paths)
 			ft_free_paths(paths->path);
 		paths->path = NULL;
 	}
+	rl_clear_history();
 }
 
 void	ft_free_pipe(t_pipes *pipe)

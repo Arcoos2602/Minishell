@@ -16,11 +16,13 @@ SRCS =  srcs/lexer/lexer.c \
 		srcs/parser/parser_comand.c \
 		srcs/builtins/builtins.c \
 		srcs/builtins/env.c \
+		srcs/builtins/export2.c \
 		srcs/builtins/pwd.c \
 		srcs/builtins/echo.c \
 		srcs/builtins/unset.c \
 		srcs/builtins/export.c \
 		srcs/builtins/exit.c \
+		srcs/builtins/exit2.c \
 		srcs/builtins/cd.c \
 		srcs/parser/free_parser.c \
 		srcs/father.c \

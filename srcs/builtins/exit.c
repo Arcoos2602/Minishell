@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:31:31 by user42            #+#    #+#             */
-/*   Updated: 2021/09/27 02:12:06 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/27 15:44:06 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,32 +40,18 @@ void	numeric_argument(char *str, t_path *path)
 	exit(2);
 }
 
-int	is_valid(char *str)
+void	specified_exit(t_pipes *pipes, t_path *path, int *a)
 {
-	int	i;
-	int	size;
-	int	neg;
-
-	neg = 0;
-	i = 0;
-	if (str[i] == '-')
+	if (ft_number(pipes->command[1]) == 1)
 	{
-		neg++;
-		i++;
+		if (is_valid(pipes->command[1]) == -1)
+			numeric_argument(pipes->command[1], path);
+		*a = ft_atoi(pipes->command[1]);
+		ft_free(path->parser, path);
+		exit(*a);
 	}
-	while (str[i] == '0')
-		i++;
-	size = ft_strlen(&str[i]);
-	if (size > 19)
-		return (-1);
-	if (size == 19)
-	{
-		if (neg == 0 && ft_strncmp(&str[i], "9223372036854775808", 19) >= 0)
-			return (-1);
-		if (neg == 1 && ft_strncmp(&str[i], "9223372036854775809", 19) >= 0)
-			return (-1);
-	}
-	return (1);
+	else
+		numeric_argument(pipes->command[1], path);
 }
 
 void	ft_exit(t_path *path, t_pipes *pipes)
@@ -78,18 +64,7 @@ void	ft_exit(t_path *path, t_pipes *pipes)
 		exit(EXIT_SUCCESS);
 	}
 	if (pipes->command[2] == NULL)
-	{
-		if (ft_number(pipes->command[1]) == 1)
-		{
-			if (is_valid(pipes->command[1]) == -1)
-				numeric_argument(pipes->command[1], path);
-			a = ft_atoi(pipes->command[1]);
-			ft_free(path->parser, path);
-			exit(a);
-		}
-		else
-			numeric_argument(pipes->command[1], path);
-	}
+		specified_exit(pipes, path, &a);
 	if (ft_number(pipes->command[1]) == 1)
 	{
 		ft_putstr_fd("minishell : exit: too many arguments\n", 2);

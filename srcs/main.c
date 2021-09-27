@@ -85,10 +85,10 @@ int	main(int argc, char **argv, char **env)
 	{
 		paths.exec_path = ft_split(ft_getenv(paths.path, "PATH"), ':');
 		ft_signal();
-		//ft_putstr_fd("{minishell}", 2);
 		line = readline("{minishell}");
-		//get_next_line(0, &line);
-		//add_history(line);
+		add_history(line);
+		if (line == NULL)
+			ft_putstr_fd("exit\n", 2);
 		begin(line, &paths);
 	}
 	rl_clear_history();

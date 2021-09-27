@@ -123,7 +123,6 @@ int	ft_shell(t_parser *parser, t_path *path)
 	if (path->dont != 0)
 	{	
 		ft_free(path->parser, path);
-		get_next_line(1, NULL);
 		exit(path->exit_status % 255);
 	}
 	waitpid(0, &status, 0);
