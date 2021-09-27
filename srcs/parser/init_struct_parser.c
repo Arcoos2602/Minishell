@@ -6,7 +6,7 @@
 /*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 10:26:51 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/27 09:58:54 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/27 10:35:51 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_parser	*parser_new(char **lexer, int *i, t_path *paths)
 	return (parser);
 }
 
-static int	init_variable_p(char **lexer,int *nbr, int *i)
+static int	init_variable_p(char **lexer, int *nbr, int *i)
 {
 	*i = 0;
 	if (lexer == NULL)
