@@ -12,7 +12,6 @@
 
 #include "../../libft/include/libft.h"
 #include "../../includes/minishell.h"
-#include "../../includes/builtins.h"
 
 char	*ft_getenv(char **paths, char *var)
 {
@@ -39,7 +38,7 @@ int	check_builtins(t_pipes	*pipes, t_path *path, char **env)
 	else if (ft_strncmp(pipes->command[0], "env", 4) == 0)
 		ft_env(env);
 	else if (ft_strncmp(pipes->command[0], "pwd", 4) == 0)
-		ft_pwd(env);
+		ft_pwd();
 	else if (ft_strncmp(pipes->command[0], "echo", 5) == 0)
 		ft_echo(pipes);
 	else if (ft_strncmp(pipes->command[0], "export", 7) == 0)

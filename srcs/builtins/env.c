@@ -12,7 +12,6 @@
 
 #include "../../libft/include/libft.h"
 #include "../../includes/minishell.h"
-#include "../../includes/builtins.h"
 
 void	ft_env(char **path)
 {

@@ -12,7 +12,6 @@
 
 #include "../../libft/include/libft.h"
 #include "../../includes/minishell.h"
-#include "../../includes/builtins.h"
 
 char	**new_env_exp(char **env, char *to_add, int size)
 {

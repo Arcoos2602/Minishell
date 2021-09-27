@@ -12,7 +12,6 @@
 
 #include "../../libft/include/libft.h"
 #include "../../includes/minishell.h"
-#include "../../includes/builtins.h"
 
 void	ft_echo2(t_pipes *pipes, int i, int option)
 {

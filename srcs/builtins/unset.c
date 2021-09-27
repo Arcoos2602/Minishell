@@ -12,7 +12,6 @@
 
 #include "../../libft/include/libft.h"
 #include "../../includes/minishell.h"
-#include "../../includes/builtins.h"
 
 char	**new_env_del(char **env, char *to_delete, int size)
 {
