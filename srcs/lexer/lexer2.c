@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 12:14:20 by user42            #+#    #+#             */
-/*   Updated: 2021/09/27 09:59:57 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/27 10:50:45 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,41 @@ int	token(char c)
 	return (0);
 }
 
-void	cpt2(char *str, int *i, int *cpt)
+int	elem(char *str, int *cpt, int *i)
 {
-	int		tmp;
-
-	tmp = *i;
-	while (ft_iswhitespace(str[tmp]) && str[tmp] != '\0')
-		tmp++;
-	if (token(str[tmp]))
+	while (str[*i] != '\0' && !ft_iswhitespace(str[*i]) && !token(str[*i]))
 	{
-		*i = tmp;
-		++*cpt;
+		if (count_quote(str, i) == -1)
+			return (-1);
+		++*i;
 	}
-	if (str[*i] == '<' && str[*i + 1] == '<')
-		++*i;
-	if (str[*i] == '>' && str[*i + 1] == '>')
-		++*i;
+	++*cpt;
+	return (1);
+}
+
+int	cpt(char *str)
+{
+	int		i;
+	int		cpt;
+
+	i = 0;
+	cpt = 0;
+	while (str[i])
+	{
+		while (str[i] != '\0' && ft_iswhitespace(str[i]))
+			i++;
+		if (str[i] == '\0')
+			return (cpt);
+		if (str[i] != '\0' && !ft_iswhitespace(str[i]) && !token(str[i]))
+		{
+			if (elem(str, &cpt, &i) == -1)
+				return (-1);
+		}
+		if (token(str[i]))
+		{
+			if (check_error(str, &i, &cpt) == -1)
+				return (-1);
+		}
+	}
+	return (cpt);
 }

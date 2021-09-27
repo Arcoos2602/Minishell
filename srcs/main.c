@@ -272,7 +272,7 @@ int	main(int argc, char **argv, char **path)
 			printf("%s\n",line);
 			printf("line = %s\n", line);
 			token = tokenization(line, &paths);
-			printf("token= %s\n", token[0]);
+			//printf("token= %s\n", token[0]);
 	//		printf("token = %s\n", token[0]);
 			free(line);
 		}

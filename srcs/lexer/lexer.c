@@ -3,54 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 12:13:04 by user42            #+#    #+#             */
-/*   Updated: 2021/09/27 10:00:15 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/27 11:08:42 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft/include/libft.h"
 #include "../../includes/minishell.h"
-
-int	elem(char *str, int *cpt, int *i)
-{
-	while (str[*i] != '\0' && !ft_iswhitespace(str[*i]) && !token(str[*i]))
-	{
-		if (count_quote(str, i) == -1)
-			return (-1);
-		++*i;
-	}
-	++*cpt;
-	return (1);
-}
-
-int	cpt(char *str)
-{
-	int		i;
-	int		cpt;
-
-	i = 0;
-	cpt = 0;
-	while (str[i])
-	{
-		while (str[i] != '\0' && ft_iswhitespace(str[i]))
-			i++;
-		if (str[i] == '\0')
-			return (cpt);
-		if (str[i] != '\0' && !ft_iswhitespace(str[i]) && !token(str[i]))
-		{
-			if (elem(str, &cpt, &i) == -1)
-				return (-1);
-		}
-		if (token(str[i]))
-		{
-			if (check_error(str, &i, &cpt) == -1)
-				return (-1);
-		}
-	}
-	return (cpt);
-}
 
 void	fill_token(char **tab, char *str, int *i, int *j)
 {
@@ -84,56 +45,40 @@ void	quotes(char *str, int *i, int *len)
 	}
 }
 
-void	fill_tab(char **tab, char *str, int cpt_l)
+void	init_vars(int *start, int *len, int *i, int *j)
+{
+	*start = 0;
+	*i = 0;
+	*j = 0;
+	*len = 0;
+}
+
+void	fill_tab(char **tab, char *s, int cpt_l)
 {
 	int	i;
 	int	j;
 	int	start;
-	int	len;
+	int	l;
 
-	start = 0;
-	i = 0;
-	j = 0;
-	len = 0;
-	while (str[i] != '\0' && j < cpt_l)
+	init_vars(&start, &l, &i, &j);
+	while (s[i] != '\0' && j < cpt_l)
 	{
-		len = 0;
-		while (str[i] != '\0' && ft_iswhitespace(str[i]))
+		l = 0;
+		while (s[i] != '\0' && ft_iswhitespace(s[i]))
 			i++;
 		start = i;
-		while (str[i] != '\0' && !token(str[i]) && !ft_iswhitespace(str[i]))
+		while (s[i] != '\0' && !token(s[i]) && !ft_iswhitespace(s[i]))
 		{
-			quotes(str, &i, &len);
-			len++;
+			quotes(s, &i, &l);
+			l++;
 			i++;
 		}
-		if (len != 0&& (str[i] == '\0' || token(str[i]) || ft_iswhitespace(str[i])))
-				tab[j++] = ft_substr(str, start, len);
-		while (str[i] != '\0' && ft_iswhitespace(str[i]))
+		if (l != 0 && (s[i] == '\0' || token(s[i]) || ft_iswhitespace(s[i])))
+			tab[j++] = ft_substr(s, start, l);
+		while (s[i] != '\0' && ft_iswhitespace(s[i]))
 			i++;
-		if (token(str[i]))
-			fill_token(tab, str, &i, &j);
-	}
-}
-
-void	print_tab(char **tab)
-{
-	int		x;
-	int		y;
-
-	x = 0;
-	y = 0;
-	while (tab[x] != NULL)
-	{
-		y = 0;
-		ft_putchar_fd('[', 1);
-		while (tab[x][y] != '\0')
-		{
-			ft_putchar_fd(tab[x][y], 1);
-			y++;
-		}
-		ft_putchar_fd(']', 1);
-		x++;
+		if (token(s[i]))
+			fill_token(tab, s, &i, &j);
 	}
 }
 
@@ -142,8 +87,6 @@ char	**tokenization(char *str, t_path *paths)
 	char	**tab;
 	int		cpt_l;
 
-	(void)paths;
-//	printf("%s\n", str);
 	tab = NULL;
 	if (str == NULL)
 		return (NULL);
@@ -157,9 +100,6 @@ char	**tokenization(char *str, t_path *paths)
 	if (tab == NULL)
 		return (NULL);
 	tab[cpt_l] = NULL;
-	printf("cpt : %d\n", cpt_l);
 	fill_tab(tab, str, cpt_l);
-	//print_tab(tab);
-	//exit (EXIT_SUCCESS);
 	return (tab);
 }
