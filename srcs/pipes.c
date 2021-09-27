@@ -94,7 +94,7 @@ int	line_command(t_pipes *parser, t_path *path, pid_t *pid_2)
 
 void	init_path_shell(int *pid_2, t_path *path)
 {
-	pid_2 = 0;
+	*pid_2 = 0;
 	path->first[0] = 0;
 	path->pipe_in = -1;
 	path->pipe_out = -1;

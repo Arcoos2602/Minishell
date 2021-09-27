@@ -70,15 +70,11 @@ char	*double_quote_2(int *i, char *str, char *dst, t_path *path)
 
 char	*double_quotes(char *str, int *i, t_path *path)
 {
-	char	*buff;
-	int		cpt;
 	char	*dst;
 
 	dst = NULL;
 	while (str[*i] != '\0' && str[*i] != '"')
-	{
 		dst = double_quote_2(i, str, dst, path);
-	}
 	if (dst == NULL)
 	{
 		dst = malloc(1);
@@ -100,7 +96,7 @@ char	*parse_1(int *i, char *str, char *dest, int cpt)
 	return (dest);
 }
 
-char	*parse_3(int *i, char *str, char *dest, t_path *path)
+char	*parse_3(int *i, char *str, char *dest)
 {
 	char	*buff;
 	int		cpt;
@@ -111,6 +107,7 @@ char	*parse_3(int *i, char *str, char *dest, t_path *path)
 	dest = ft_strjoin(dest, buff);
 	++*i;
 	free(buff);
+	return (dest);
 }
 
 char	*parse_2(int *i, char *str, char *dest, t_path *path)
@@ -157,7 +154,7 @@ char	*parse(char *str, t_path *path)
 		if (str[i] == '"')
 			dest = parse_2(&i, str, dest, path);
 		else if (str[i] == '\'')
-			dest = parse_3(&i, str, dest, path);
+			dest = parse_3(&i, str, dest);
 		else if (str[i] == '$')
 			dest = parse_4(&i, str, dest, path);
 	}

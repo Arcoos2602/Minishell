@@ -38,7 +38,7 @@ char	*ft_special(char *buf)
 	return (dest);
 }
 
-static void	fill(char **buf, char *dest, int *nbr)
+char	*fill(char **buf, char *dest, int *nbr)
 {
 	buf[*nbr] = ft_special(buf[*nbr]);
 	dest = ft_strjoin(dest, "'");
@@ -47,14 +47,16 @@ static void	fill(char **buf, char *dest, int *nbr)
 	++*nbr;
 	if (buf[*nbr] != NULL)
 		dest = ft_strjoin(dest, "' ");
+	return (dest);
 }
 
-static void	exit_value(char **buf, int *i, t_path *path)
+static char **exit_value(char **buf, int *i, t_path *path)
 {
 	buf = malloc(sizeof(char *) * 2);
 	buf[0] = ft_itoa(path->exit_status);
 	buf[1] = NULL;
 	++*i;
+	return (buf);
 }
 
 void	init_values(int *i, int *tmp, int *nbr)
@@ -76,14 +78,14 @@ char	*add_env_line(char *str, int *i, t_path *path)
 	dest = NULL;
 	buf = NULL;
 	if (str[*i] == '?')
-		exit_value(buf, i, path);
+		buf = exit_value(buf, i, path);
 	else
 		buf = ft_split(ft_dol(str, i, path), ' ');
 	if (buf == NULL || buf[0] == NULL)
 		return (str);
 	dest = ft_strndup(str, tmp);
 	while (buf[nbr] != NULL)
-		fill(buf, dest, &nbr);
+		dest = fill(buf, dest, &nbr);
 	dest = ft_strjoin(dest, "'");
 	fin = ft_strndup(&str[*i], ft_strlen(&str[*i]));
 	dest = ft_strjoin(dest, fin);
