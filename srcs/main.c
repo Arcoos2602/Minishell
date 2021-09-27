@@ -30,21 +30,14 @@ char	**init_path(char **path)
 	return (tab);
 }
 
-static void	init_values(t_path *paths)
+static void	init_values(t_path *paths, char **env)
 {
 	g_global = 0;
-	paths = env_malloc(paths->path, paths);
-	paths->path = paths;
+	env = env_malloc(paths->path, env);
+	paths->path = env;
 	paths->exit_status = 0;
 	paths->in_fd = dup(0);
 	paths->out_fd = dup(1);
-}
-
-static void	init_token(char **token, char *line, t_path *paths)
-{
-	line = line_env(line, &paths);
-	token = tokenization(line, &paths);
-	free(line);
 }
 
 void	parse_and_exec(char **token, t_parser *parser, t_path *paths)
@@ -56,36 +49,45 @@ void	parse_and_exec(char **token, t_parser *parser, t_path *paths)
 	free_parser(parser);
 }
 
-static	void	begin(char **token, char *line, t_path paths)
+static	void	begin(char *line, t_path *paths)
 {
+	char	**token;
+	t_parser	*parser;
+
+	parser = NULL;
 	if (line == NULL)
 		exit(0);
 	if (line != NULL)
-		init_token(token, line, &paths);
+	{
+		line = line_env(line, paths);
+		token = tokenization(line, paths);
+		free(line);
+	}
 	if (token != NULL && token[0] != NULL)
-		parse_and_exec(token, parser, &paths);
-	free_paths(&paths);
+		parse_and_exec(token, parser, paths);
+	free_paths(paths);
 	if (g_global != 0)
-		paths.exit_status = g_global;
+		paths->exit_status = g_global;
 	g_global = 0;
 }
 
-int	main(int argc, char **argv, char **path)
+int	main(int argc, char **argv, char **env)
 {
 	char		*line;
 	t_path		paths;
-	t_parser	*parser;
-	char		**token;
 
-	init_values(&paths);
+	(void)argc;
+	(void)argv;
+	line = NULL;
+	init_values(&paths, env);
 	while (1)
 	{
 		paths.exec_path = ft_split(ft_getenv(paths.path, "PATH"), ':');
 		ft_signal();
 		ft_putstr_fd("{minishell}", 2);
-		//get_next_line(0, &line);
+		get_next_line(0, &line);
 		//add_history(line);
-		begin(token, line, paths);
+		begin(line, &paths);
 	}
 	rl_clear_history();
 	return (1);

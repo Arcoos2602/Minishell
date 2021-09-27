@@ -42,7 +42,7 @@ int		ft_return(char *str, char **line, int ret, int fd)
 {
 	if (ret < 0)
 		return (-1);
-	else if ((ret == 0 && str == NULL) || str == '\0')
+	else if ((ret == 0 && str == NULL))
 	{
 		*line = ft_strdup("");
 		return (0);

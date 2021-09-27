@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft/include/libft.h"
-#include "../../includes/minishell.h"
+#include "../libft/include/libft.h"
+#include "../includes/minishell.h"
 
 char	*ft_special(char *buf)
 {
@@ -38,7 +38,7 @@ char	*ft_special(char *buf)
 	return (dest);
 }
 
-static void	fill(char *buf, char *dest, int *nbr)
+static void	fill(char **buf, char *dest, int *nbr)
 {
 	buf[*nbr] = ft_special(buf[*nbr]);
 	dest = ft_strjoin(dest, "'");
@@ -49,7 +49,7 @@ static void	fill(char *buf, char *dest, int *nbr)
 		dest = ft_strjoin(dest, "' ");
 }
 
-static void	exit_value(char *buf, int *i, t_path *path)
+static void	exit_value(char **buf, int *i, t_path *path)
 {
 	buf = malloc(sizeof(char *) * 2);
 	buf[0] = ft_itoa(path->exit_status);
@@ -59,7 +59,7 @@ static void	exit_value(char *buf, int *i, t_path *path)
 
 void	init_values(int *i, int *tmp, int *nbr)
 {
-	tmp = *i;
+	*tmp = *i;
 	++*i;
 	*nbr = 0;
 }
@@ -72,7 +72,7 @@ char	*add_env_line(char *str, int *i, t_path *path)
 	int		tmp;
 	int		nbr;
 
-	init_values(&i, &tmp, &nbr);
+	init_values(i, &tmp, &nbr);
 	dest = NULL;
 	buf = NULL;
 	if (str[*i] == '?')

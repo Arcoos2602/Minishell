@@ -16,12 +16,14 @@
 static void	int_handler(int signum)
 {
 	rl_on_new_line();
-	g_global = 130;
+	g_global = signum;
+	//g_global = 130;
 }
 
 static void	quit_handler(int signum)
 {
-	g_global = 131;
+	g_global = signum;
+	//g_global = 131;
 	//exit(0);
 }
 

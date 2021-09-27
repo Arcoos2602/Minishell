@@ -30,8 +30,7 @@ SRCS =  srcs/lexer/lexer.c \
 		srcs/signal.c \
 		srcs/free_general.c \
 		srcs/redirect.c \
-		srcs/get_next_line.c \
-		srcs/get_next_line_utils.c 
+		srcs/get_next_line.c
 
 OBJS = $(SRCS:.c=.o)
 

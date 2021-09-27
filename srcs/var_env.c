@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft/include/libft.h"
-#include "../../includes/minishell.h"
+#include "../libft/include/libft.h"
+#include "../includes/minishell.h"
 
-static char	**env_malloc(char **path, char **env)
+char	**env_malloc(char **path, char **env)
 {
 	int	n;
 	int	i;

@@ -102,6 +102,7 @@ int				ft_count(char *str, int *i, char *test);
 void			ft_dup_redi(t_pipes *pipes, int buf[2]);
 void			ft_env(char **path);
 void			ft_pwd(void);
+char			**env_malloc(char **path, char **env);
 void			ft_echo(t_pipes *pipes);
 void			ft_cd(t_pipes *pipes, char **env);
 char			**ft_unset(t_pipes *pipes, char **env);
@@ -109,5 +110,6 @@ char			*ft_getenv(char **paths, char *var);
 char			*line_env(char *str, t_path *path);
 char			*add_env_line(char *str, int *i, t_path *path);
 void			ft_signal(void);
+void			replace_quotes(char *dest, char *buf, int *i, int *cpt);
 
 #endif
