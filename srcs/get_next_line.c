@@ -3,37 +3,53 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+<<<<<<< HEAD
 /*   Created: 2019/10/24 14:53:59 by gbabeau           #+#    #+#             */
 /*   Updated: 2021/09/27 12:33:14 by gbabeau          ###   ########.fr       */
+=======
+/*   Created: 2019/10/21 14:49:55 by tcordonn          #+#    #+#             */
+/*   Updated: 2021/09/27 12:44:28 by tcordonn         ###   ########.fr       */
+>>>>>>> 7b219635d73c71bf978e2acac53470d94453e7c8
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/include/libft.h"
 #include "../includes/minishell.h"
 
-char	*copy(char *c, char *buffer, int size)
+int		ft_struct(char *str, char **line)
 {
-	int		i;
-	char	*line2;
+	char	*tmp;
+	int		len;
 
-	i = size;
-	if (c == 0)
+	len = 0;
+	while (str[len] != '\0' && str[len] != '\n')
+		len++;
+	if (str[len] == '\n')
 	{
+<<<<<<< HEAD
 		line2 = malloc(i + 1);
 		if (!line2)
 			return (NULL);
 		line2[i] = '\0';
 		ft_memcpy(line2, buffer, size);
 		return (line2);
+=======
+		*line = ft_substr(str, 0, len);
+		tmp = ft_strdup(&str[len + 1]);
+		free(str);
+		str = tmp;
+>>>>>>> 7b219635d73c71bf978e2acac53470d94453e7c8
 	}
 	else
 	{
-		line2 = ft_strjoin2(c, buffer, size);
-		free(c);
-		c = 0;
+		*line = ft_substr(str, 0, len);
+		free(str);
+		str = NULL;
+		return (0);
 	}
+<<<<<<< HEAD
 	return (line2);
 }
 
@@ -45,79 +61,43 @@ int	ft_line(char *c)
 	if (c != 0)
 		if (ft_buffer_size_char(c) == a)
 			return (2);
+=======
+>>>>>>> 7b219635d73c71bf978e2acac53470d94453e7c8
 	return (1);
 }
 
-char	*c_finish(char **c)
+int		ft_return(char *str, char **line, int ret, int fd)
 {
-	char	*line2;
-	int		i;
-	int		n;
-
-	line2 = "12";
-	if (*c != 0 && (ft_buffer_size_char(*c) != (n = ft_strlen(*c))))
+	if (ret < 0)
+		return (-1);
+	else if ((ret == 0 && str == NULL))
 	{
-		i = n - ft_buffer_size_char(*c) + 1;
-		if (!(line2 = malloc(i)))
-			return (NULL);
-		line2[--i] = '\0';
-		while (i--)
-			line2[i] = (*c)[n--];
-		free(*c);
-		*c = line2;
+		*line = ft_strdup("");
+		return (0);
 	}
 	else
-	{
-		if (*c != 0)
-			free(*c);
-		*c = 0;
-	}
-	return (line2);
-}
-
-int		ft_line_copy(int a, char **line, char **c, char *buffer)
-{
-	int	i;
-
-	if (*c != 0)
-		i = ft_buffer_size_char(*c) + 1;
-	else
-		i = 1;
-	if (!(*line = malloc(i)))
-		return (-1);
-	(*line)[--i] = '\0';
-	while (i-- != 0)
-		(*line)[i] = (*c)[i];
-	if (0 == c_finish(&(*c)))
-		return (-1);
-	free(buffer);
-	if (a == 1 || *c != 0)
-		return (1);
-	return (0);
+		return (ft_struct(&str[fd], line));
 }
 
 int		get_next_line(int fd, char **line)
 {
-	static char	*c = 0;
-	int			check_read;
-	char		*buffer;
+	int			ret;
+	char		buff[BUFFER_SIZE + 1];
+	static char	*str;
+	char		*tmp;
 
-	if (line == 0 && 0 != fd)
-	{
-		free(c);
-		return 0;
-		buffer = NULL;
-	}
-	check_read = 2;
-	if (fd < 0 || BUFFER_SIZE <= 0 || !(buffer = ft_calloc(BUFFER_SIZE + 1, 1))
-		|| line == 0)
+	if (BUFFER_SIZE <= 0)
 		return (-1);
-  	while (check_read == 2)
+	if (fd < 0 || line == NULL)
+		return (-1);
+	while ((ret = read(fd, buff, BUFFER_SIZE)) > 0)
 	{
-		if (c != 0 && 1 >= (ft_line(c)))
-			return (ft_line_copy(1, &(*line), &c, buffer));
-		else if (0 <= (check_read = read(fd, buffer, BUFFER_SIZE)))
+		buff[ret] = '\0';
+		if (str == NULL)
+			str = ft_strdup(buff);
+		else
 		{
+<<<<<<< HEAD
 	  		if (check_read == 0)
 				return (0);
 			c = copy(c, buffer, check_read);
@@ -125,10 +105,14 @@ int		get_next_line(int fd, char **line)
 				return (ft_line_copy(0, &(*line), &c, buffer));
 			else if ((c != 0) && 1 == (check_read = ft_line(c)))
 				return (ft_line_copy(1, &(*line), &c, buffer));
+=======
+			tmp = ft_strjoin(str, buff);
+			free(str);
+			str = tmp;
+>>>>>>> 7b219635d73c71bf978e2acac53470d94453e7c8
 		}
+		if (ft_strchr(str, '\n'))
+			break ;
 	}
-	free(buffer);
-	if (c != 0)
-		free(c);
-	return (-1);
+	return (ft_return(str, line, ret, fd));
 }

@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 10:02:46 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/27 10:52:26 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/27 13:20:00 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int				get_next_line(int fd, char **line);
 int				check_builtins(t_pipes	*pipes, t_path *path, char **env);
 void			ft_exit(t_path *path, t_pipes *pipes);
 t_pipes			*init_pipes(char **lexer, int *i, t_path *paths);
-t_parser		*init_parser(char **lexer, int *i, t_path *paths);
+t_parser		*init_parser(char **lexer, t_path *paths);
 t_parser		*parser_new(char **lexer, int *i, t_path *paths);
 t_pipes			*pipe_new(char **lexer, int *i, t_path *paths);
 t_pipes			*init_new(t_pipes *t_new, char **lexer, int *i, t_path *path);
@@ -102,8 +102,14 @@ int				ft_count(char *str, int *i, char *test);
 void			ft_dup_redi(t_pipes *pipes, int buf[2]);
 void			ft_env(char **path);
 void			ft_pwd(void);
+char			**env_malloc(char **path, char **env);
 void			ft_echo(t_pipes *pipes);
 void			ft_cd(t_pipes *pipes, char **env);
 char			**ft_unset(t_pipes *pipes, char **env);
 char			*ft_getenv(char **paths, char *var);
+char			*line_env(char *str, t_path *path);
+char			*add_env_line(char *str, int *i, t_path *path);
+void			ft_signal(void);
+void			replace_quotes(char *dest, char *buf, int *i, int *cpt);
+
 #endif

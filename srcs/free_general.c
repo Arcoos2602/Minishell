@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_general.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:10:16 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/27 09:58:01 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/27 13:12:32 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_free(t_parser *parser, t_path *paths)
 	if (paths != NULL && paths->exec_path != NULL)
 	{
 		ft_free_paths(paths->exec_path);
-			paths->exec_path = NULL;
+		paths->exec_path = NULL;
 		if (paths->path != NULL)
 			ft_free_paths(paths->path);
 		paths->path = NULL;
@@ -57,14 +57,26 @@ void	ft_free_paths(char **paths)
 	int	i;
 
 	i = 0;
-	if(paths != NULL)
+	if (paths != NULL)
 	{
-	while (paths[i] != NULL)
-	{
-		free(paths[i]);
-		paths[i++] = NULL;
-	}
-	free(paths);
+		while (paths[i] != NULL)
+		{
+			free(paths[i]);
+			paths[i++] = NULL;
+		}
+		free(paths);
 	}
 }
 
+void	free_paths(t_path *path)
+{
+	int	i;
+
+	i = 0;
+	if (path != NULL && path->exec_path != NULL)
+	{
+		while (path->exec_path[i] != NULL)
+			free(path->exec_path[i++]);
+		free(path->exec_path);
+	}
+}
