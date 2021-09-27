@@ -87,7 +87,7 @@ int	ft_free_redi_double(t_redi *redi, t_path *path)
 	line = NULL;
 	fd = open(".test", O_APPEND | O_CREAT | O_RDWR | O_TRUNC, 0664);
 	ft_putstr_fd(">", 2);
-	while (get_next_line(1, &line) != 0
+	while (get_next_line(&line) != 0
 		&& !(ft_strncmp(redi->put, line, ft_strlen(redi->put)) == 0
 			&& ft_strlen(redi->put) == ft_strlen(line)))
 	{

@@ -13,24 +13,23 @@
 #include "../libft/include/libft.h"
 #include "../includes/minishell.h"
 
-static void	int_handler(int signum)
+static void	handle_signal(int signum)
 {
-	(void)signum;
-	rl_on_new_line();
-	write(1, "\n", 1);
-	g_global = 130;
+	if (signum == SIGINT)
+	{
+		rl_replace_line("", 0);
+		g_global = 130;
+	}
+	if (signum == SIGQUIT)
+	{
+		//rl_replace_line("", 0);
+		g_global = 131;
+	}
 }
-
-static void	quit_handler(int signum)
-{
-	(void)signum;
-	g_global = 131;
-	//exit(0);
-}
-
 
 void ft_signal(void)
 {
-	signal(SIGINT, int_handler);
-	signal(SIGQUIT, quit_handler);
+	
+	signal(SIGINT, handle_signal);
+	signal(SIGQUIT, handle_signal);
 }

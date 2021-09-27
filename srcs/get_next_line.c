@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../libft/include/libft.h"
+#include "../includes/minishell.h"
 
 int ft_gnl_rec(char **line, int index)
 {
