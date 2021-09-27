@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:30:52 by user42            #+#    #+#             */
-/*   Updated: 2021/09/27 02:33:39 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/27 15:57:29 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	compare_var(char *env, char *var, int i)
 	return (0);
 }
 
-char	**env_delete(char **env, char *var) // recreer env avec un en -
+char	**env_delete(char **env, char *var)
 {
 	int	i;
 	int	new;

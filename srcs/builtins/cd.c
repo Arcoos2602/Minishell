@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 10:10:07 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/27 02:08:31 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/27 15:48:41 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,39 @@ char	*ft_strjoin_cd(char const *s1, char const *s2)
 	return (dst);
 }
 
+void	modify_env(char **env)
+{
+	char	late[PATH_MAX];
+	int		x;
+	int		j;
+
+	x = 0;
+	while (env[x] != NULL)
+	{
+		j = 0;
+		while (env[x][j] != '=')
+			j++;
+		if (ft_strncmp("PWD=", env[x], j) == 0)
+		{
+			free(env[x]);
+			getcwd(late, 100);
+			env[x] = ft_strjoin_cd("PWD=", late);
+		}
+		x++;
+	}
+}
+
+void	cd_home(char *buff, char **env, int *a)
+{
+	buff = ft_getenv(env, "HOME");
+	if (buff == NULL)
+	{
+		ft_putstr_fd("bash : cd: \"HOME\" is not set\n", 2);
+		return ;
+	}
+	a = chdir(buff);
+}
+
 void	ft_cd(t_pipes *pipes, char **env)
 {
 	int		a;
@@ -53,16 +86,7 @@ void	ft_cd(t_pipes *pipes, char **env)
 	if (pipes->command[1] == NULL || pipes->command[2] == NULL)
 	{
 		if (pipes->command[1] == NULL)
-		{
-			buff = ft_getenv(env, "HOME");
-			if (buff == NULL)
-			{
-				ft_putstr_fd("bash : cd: \"HOME\" is not set\n", 2);
-				return ;
-			}
-			a = chdir(buff);
-			printf("%d et %s\n", a, buff);
-		}
+			cd_home(buff, env, &a);
 		else
 			a = chdir(pipes->command[2]);
 		if (a == -1)
@@ -72,25 +96,8 @@ void	ft_cd(t_pipes *pipes, char **env)
 			return ;
 		}
 		else
-		{
-			x = 0;
-			while (env[x] != NULL)
-			{
-				j = 0;
-				while (env[x][j] != '=')
-					j++;
-				if (ft_strncmp("PWD=", env[x], j) == 0)
-				{
-					free(env[x]);
-					printf("%d\n", PATH_MAX);
-					getcwd(late, 100);
-					env[x] = ft_strjoin_cd("PWD=", late);
-				}
-				x++;
-			}
-		}
+			modify_env(env);
 	}
 	else
 		ft_putstr_fd("bash : cd: too much arguments\n", 2);
-	printf("%s\n", env[0]);
 }
