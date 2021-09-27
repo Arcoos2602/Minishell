@@ -60,6 +60,7 @@ static	void	begin(char *line, t_path *paths)
 	if (line != NULL)
 	{
 		line = line_env(line, paths);
+		printf("{%s}", line);
 		token = tokenization(line, paths);
 		free(line);
 	}

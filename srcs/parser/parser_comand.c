@@ -55,8 +55,14 @@ char	*double_quote_2(int *i, char *str, char *dst, t_path *path)
 			++*i;
 			free(buff);
 		}
-		else
+		else if (buff != NULL)
 			dst = ft_strjoin(dst, buff);
+		else if (str[*i] != '\0' && str[*i - 1] == '$')
+		{
+			buff = ft_strdup("$");
+			dst = ft_strjoin(dst, buff);
+			free(buff);
+		}
 	}
 	else
 	{
@@ -133,7 +139,12 @@ char	*parse_4(int *i, char *str, char *dest, t_path *path)
 		dest = ft_strjoin(dest, buff);
 		free(buff);
 	}
-	dest = ft_strjoin(dest, ft_dol(str, i, path));
+	else  if (ft_compare_c_to_s(str[*i], "'\" $") || str[*i] == '\0')
+	{
+		dest = ft_strjoin(dest, "$");
+	}
+	else
+		dest = ft_strjoin(dest, ft_dol(str, i, path));
 	return (dest);
 }
 
@@ -150,7 +161,9 @@ char	*parse(char *str, t_path *path)
 	{
 		cpt = ft_count(str, &i, "'$\"");
 		if (cpt != 0)
+		{
 			dest = parse_1(&i, str, dest, cpt);
+		}
 		if (str[i] == '"')
 			dest = parse_2(&i, str, dest, path);
 		else if (str[i] == '\'')
@@ -158,6 +171,37 @@ char	*parse(char *str, t_path *path)
 		else if (str[i] == '$')
 			dest = parse_4(&i, str, dest, path);
 	}
+	return (dest);
+}
+
+char **ft_finish_command(char **command, char **lexer)
+{
+	int i;
+	int cpt;
+	char **dest;
+
+	i = 0;
+	if (command == NULL)
+		return (NULL);
+	while (command[i] != NULL)
+	{
+		if (command[i][0] != '\0' || ft_compare_c_to_s('\"',lexer[i]))
+			cpt++;
+		i++;
+	}
+	dest = malloc(sizeof(char *) * cpt + 1);
+	if (dest == NULL)
+		return (NULL);
+	i = 0;
+	cpt = 0;
+	while (command[i] != NULL)
+	{
+		if (command[i][0] != '\0'  || ft_compare_c_to_s('\"',lexer[i]))
+			dest[cpt++] = strdup(command[i]);
+		i++;
+	}
+	dest[cpt++] = NULL;
+	free(command);
 	return (dest);
 }
 
@@ -179,7 +223,7 @@ static char	**comand_malloc(char **command, char **lexer, t_path *paths)
 		else
 			n++;
 	}
-	return (command);
+	return (ft_finish_command(command, lexer));
 }
 
 static int	command_size(char **lexer)

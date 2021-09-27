@@ -40,13 +40,18 @@ char	*ft_special(char *buf)
 
 char	*fill(char **buf, char *dest, int *nbr)
 {
-	buf[*nbr] = ft_special(buf[*nbr]);
-	dest = ft_strjoin(dest, "'");
-	dest = ft_strjoin(dest, buf[*nbr]);
-	free(buf[*nbr]);
-	++*nbr;
-	if (buf[*nbr] != NULL)
-		dest = ft_strjoin(dest, "' ");
+	if (buf[*nbr][0] != '\0')
+	{
+		buf[*nbr] = ft_special(buf[*nbr]);
+		dest = ft_strjoin(dest, "'");
+		dest = ft_strjoin(dest, buf[*nbr]);
+		free(buf[*nbr]);
+		++*nbr;
+		if (buf[*nbr] != NULL)
+			dest = ft_strjoin(dest, "' ");
+	}
+	else
+		++*nbr;
 	return (dest);
 }
 
@@ -66,6 +71,7 @@ void	init_values(int *i, int *tmp, int *nbr)
 	*nbr = 0;
 }
 
+
 char	*add_env_line(char *str, int *i, t_path *path)
 {
 	char	**buf;
@@ -82,10 +88,13 @@ char	*add_env_line(char *str, int *i, t_path *path)
 	else
 		buf = ft_split(ft_dol(str, i, path), ' ');
 	if (buf == NULL || buf[0] == NULL)
+	{
 		return (str);
+	}
 	dest = ft_strndup(str, tmp);
 	while (buf[nbr] != NULL)
 		dest = fill(buf, dest, &nbr);
+	if (buf[nbr -1][0] != '\0')
 	dest = ft_strjoin(dest, "'");
 	fin = ft_strndup(&str[*i], ft_strlen(&str[*i]));
 	dest = ft_strjoin(dest, fin);

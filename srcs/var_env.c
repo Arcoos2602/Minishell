@@ -73,5 +73,6 @@ char	*line_env(char *str, t_path *path)
 		else
 			i++;
 	}
+	printf("|%s|", str);
 	return (str);
 }
