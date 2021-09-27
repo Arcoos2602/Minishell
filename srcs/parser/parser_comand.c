@@ -183,24 +183,28 @@ char **ft_finish_command(char **command, char **lexer)
 	i = 0;
 	if (command == NULL)
 		return (NULL);
-	while (command[i] != NULL)
+	cpt = 0;
+	while (command[i] != NULL && lexer[i] != NULL)
 	{
-		if (command[i][0] != '\0' || ft_compare_c_to_s('\"',lexer[i]))
+		if (command[i][0] != '\0' || ft_compare_c_to_s('\"', lexer[i]))
 			cpt++;
 		i++;
 	}
-	dest = malloc(sizeof(char *) * cpt + 1);
+	dest = malloc(sizeof(char *) * (cpt + 1));
 	if (dest == NULL)
 		return (NULL);
 	i = 0;
 	cpt = 0;
-	while (command[i] != NULL)
+	while (command[i] != NULL && lexer[i] != NULL)
 	{
 		if (command[i][0] != '\0'  || ft_compare_c_to_s('\"',lexer[i]))
-			dest[cpt++] = strdup(command[i]);
+			dest[cpt++] = ft_strdup(command[i]);
 		i++;
 	}
 	dest[cpt++] = NULL;
+	i = 0;
+	while (command[i] != NULL)
+		free(command[i++]);
 	free(command);
 	return (dest);
 }

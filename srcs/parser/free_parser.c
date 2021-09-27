@@ -18,8 +18,9 @@ void	free_command(char **command)
 	int	i;
 
 	i = 0;
-	while (command[i] != NULL)
+	while (command != NULL && command[i] != NULL)
 		free(command[i++]);
+	if (command != NULL)
 	free(command);
 }
 
