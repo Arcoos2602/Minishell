@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/25 21:51:54 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/27 09:58:18 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	display_total(t_parser *parser)
 		display_parser(parser->pipe);
 	if (parser->next != NULL)
 	{
-      printf("%d\n",i);
+	  printf("%d\n",i);
 		display_total(parser->next);
 	}
 }

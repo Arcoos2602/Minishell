@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 14:53:59 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/24 20:24:21 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/27 09:58:12 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,8 @@ int		get_next_line(int fd, char **line)
 			return (ft_line_copy(1, &(*line), &c, buffer));
 		else if (0 <= (check_read = read(fd, buffer, BUFFER_SIZE)))
 		{
-      	if (check_read == 0)
-		    return (0);
+	  	if (check_read == 0)
+			return (0);
 		c = copy(c, buffer, check_read);
 		if ((c != 0) && (check_read <= 0 || BUFFER_SIZE > check_read))
 			return (ft_line_copy(0, &(*line), &c, buffer));

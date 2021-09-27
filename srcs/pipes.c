@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:03:19 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/26 19:53:42 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/27 09:58:24 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2)
 	int		buf[2];
 	pid_t	pid[2];
 
-    buf[0] = -1;
+	buf[0] = -1;
 	buf[1] = -1;
 
 	pipes->error = init_redi(path ,pipes, buf);
