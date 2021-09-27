@@ -17,6 +17,7 @@ static void	int_handler(int signum)
 {
 	(void)signum;
 	rl_on_new_line();
+	write(1, "\n", 1);
 	g_global = 130;
 }
 
