@@ -25,6 +25,9 @@ SRCS =  srcs/lexer/lexer.c \
 		srcs/parser/free_parser.c \
 		srcs/father.c \
 		srcs/child.c \
+		srcs/var_env.c \
+		srcs/var_env2.c \
+		srcs/signal.c \
 		srcs/free_general.c \
 		srcs/redirect.c \
 		srcs/get_next_line.c \

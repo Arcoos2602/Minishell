@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct_parser.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 10:26:51 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/27 09:58:54 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/27 13:19:50 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,30 +48,31 @@ static int	init_variable_p(char **lexer,int *nbr, int *i)
 	return (1);
 }
 
-t_parser	*init_parser(char **lexer, int *i, t_path *paths)
+t_parser	*init_parser(char **lexer, t_path *paths)
 {
 	int			nbr;
 	t_parser	*parser;
+	int			i;
 
 	parser = NULL;
-	if (0 == init_variable_p(lexer, &nbr, i))
+	if (0 == init_variable_p(lexer, &nbr, &i))
 		return (NULL);
 	while (nbr != 0)
 	{
 		if (parser == NULL)
 		{
-			parser = parser_new(lexer, i, paths);
+			parser = parser_new(lexer, &i, paths);
 			if (0 == parser)
 				return (NULL);
 		}
-		else if (0 == add_parser(parser, parser_new(lexer, i, paths)))
+		else if (0 == add_parser(parser, parser_new(lexer, &i, paths)))
 			return (NULL);
 		nbr--;
 		if (nbr != 0)
 		{
-			while (lexer[*i][0] != ';')
-				*i += 1;
-			*i += 1;
+			while (lexer[i][0] != ';')
+				i += 1;
+			i += 1;
 		}
 	}
 	return (parser);
