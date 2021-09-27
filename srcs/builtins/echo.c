@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 10:24:14 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/26 13:35:44 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/27 02:09:17 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,14 @@ void	ft_echo(t_pipes *pipes)
 	int		i;
 	int		option;
 	int		j;
-	int 	finish;
+	int		finish;
 
 	i = 1;
 	finish = 0;
 	option = 0;
 	j = 0;
-	while (pipes->command[i] != NULL && finish == 0 && pipes->command[i][j] == '-')
+	while (pipes->command[i] != NULL && finish == 0
+		&& pipes->command[i][j] == '-')
 	{
 		j = 0;
 		while (pipes->command[i][j] && pipes->command[i][++j] == 'n')

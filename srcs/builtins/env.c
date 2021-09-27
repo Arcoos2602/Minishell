@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 12:15:05 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/03/15 11:23:18 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/27 02:09:40 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../../includes/minishell.h"
 #include "../../includes/builtins.h"
 
-void		ft_env(char **path)
+void	ft_env(char **path)
 {
 	int		i;
 

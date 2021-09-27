@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:31:31 by user42            #+#    #+#             */
-/*   Updated: 2021/09/26 16:18:35 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/27 02:12:06 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 #include "../../includes/minishell.h"
 #include "../../includes/builtins.h"
 
-int ft_number(char *str)
+int	ft_number(char *str)
 {
-	int i;
-	int  num;
+	int	i;
+	int	num;
 
 	num = 0;
 	i = 0;
 	if (str[0] == '-')
 		i++;
-	while(str[i] != '\0')
+	while (str[i] != '\0')
 	{
 		if (ft_isdigit(str[i++]) != 1)
 			return (0);
@@ -36,7 +36,7 @@ void	numeric_argument(char *str, t_path *path)
 {
 	ft_putstr_fd("minishell: exit: ", 2);
 	ft_putstr_fd(str, 2);
-	ft_putstr_fd(" : numeric argument required\n",2);
+	ft_putstr_fd(" : numeric argument required\n", 2);
 	ft_free(path->parser, path);
 	exit(2);
 }
@@ -69,9 +69,9 @@ int	is_valid(char *str)
 	return (1);
 }
 
-void	ft_exit(t_path *path,t_pipes *pipes)
+void	ft_exit(t_path *path, t_pipes *pipes)
 {
-	int a;
+	int	a;
 
 	if (pipes->command[1] == NULL)
 	{
@@ -93,8 +93,8 @@ void	ft_exit(t_path *path,t_pipes *pipes)
 	}
 	if (ft_number(pipes->command[1]) == 1)
 	{
-		ft_putstr_fd("minishell : exit: too many arguments\n",2);
-		path->exit_status = 127;	
+		ft_putstr_fd("minishell : exit: too many arguments\n", 2);
+		path->exit_status = 127;
 	}
 	else
 		numeric_argument(pipes->command[1], path);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 10:10:07 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/26 20:49:09 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/27 02:08:31 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ char	*ft_strjoin_cd(char const *s1, char const *s2)
 
 	if (s1 == 0 || s2 == 0)
 		return (NULL);
-	tail1 = ft_strlen((char*)s1);
-	tail2 = ft_strlen((char*)s2);
-	if (!(dst = malloc(tail1 + tail2 + 1)))
+	tail1 = ft_strlen((char *)s1);
+	tail2 = ft_strlen((char *)s2);
+	dst = malloc(tail1 + tail2 + 1);
+	if (!(dst))
 		return (0);
 	tail1 = 0;
 	tail2 = 0;
@@ -41,17 +42,15 @@ char	*ft_strjoin_cd(char const *s1, char const *s2)
 	return (dst);
 }
 
-void ft_cd(t_pipes *pipes, char **env)
+void	ft_cd(t_pipes *pipes, char **env)
 {
-	int 	a;
+	int		a;
 	int		x;
 	int		j;
 	char	*buff;
-	char 	late[PATH_MAX];
+	char	late[PATH_MAX];
 
-	
-
- if (pipes->command[1] == NULL || pipes->command[2] == NULL)
+	if (pipes->command[1] == NULL || pipes->command[2] == NULL)
 	{
 		if (pipes->command[1] == NULL)
 		{
@@ -59,19 +58,18 @@ void ft_cd(t_pipes *pipes, char **env)
 			if (buff == NULL)
 			{
 				ft_putstr_fd("bash : cd: \"HOME\" is not set\n", 2);
-				return;
+				return ;
 			}
-				a = chdir(buff);
-				printf("%d et %s\n",a,buff);
+			a = chdir(buff);
+			printf("%d et %s\n", a, buff);
 		}
 		else
 			a = chdir(pipes->command[2]);
-	
 		if (a == -1)
 		{
 			ft_putstr_fd(strerror(errno), 2);
 			ft_putchar_fd('\n', 1);
-			return;
+			return ;
 		}
 		else
 		{
@@ -80,13 +78,12 @@ void ft_cd(t_pipes *pipes, char **env)
 			{
 				j = 0;
 				while (env[x][j] != '=')
-        			j++;
+					j++;
 				if (ft_strncmp("PWD=", env[x], j) == 0)
 				{
 					free(env[x]);
-					printf("%d\n",PATH_MAX);
+					printf("%d\n", PATH_MAX);
 					getcwd(late, 100);
-					
 					env[x] = ft_strjoin_cd("PWD=", late);
 				}
 				x++;
