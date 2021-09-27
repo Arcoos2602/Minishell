@@ -74,7 +74,7 @@ void	fill_tab(char **tab, char *s, int cpt_l)
 			i++;
 		}
 		if (l != 0 && (s[i] == '\0' || token(s[i]) || ft_iswhitespace(s[i])))
-			tab[j++] = ft_subs(s, start, l);
+			tab[j++] = ft_substr(s, start, l);
 		while (s[i] != '\0' && ft_iswhitespace(s[i]))
 			i++;
 		if (token(s[i]))

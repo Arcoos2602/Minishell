@@ -6,7 +6,7 @@
 /*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 14:04:46 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/27 09:58:37 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/27 11:03:59 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	ft_count(char *str, int *i, char *test)
 {
-	int cpt;
+	int	cpt;
 
 	cpt = 0;
 	while (str[*i] != '\0' && !ft_compare_c_to_s(str[*i], test))
@@ -32,17 +32,9 @@ char	*ft_dol(char *str, int *i, t_path *path)
 	char	*buff;
 	int		cpt;
 
-	cpt = ft_count(str, i,"'$ \" | > <?");
+	cpt = ft_count(str, i, "'$ \" | > <?");
 	env = ft_substr(str, *i - cpt, cpt);
 	buff = ft_getenv(path->path, env);
-/*	if (buff == NULL && cpt == 0 && str[*i] == '?')
-	{
-		buff = ft_itoa(path->exit_status);
-		++*i;
-
-		free(env);
-		return (buff);
-	}*/
 	free(env);
 	return (buff);
 }
@@ -53,12 +45,11 @@ char	*double_quotes(char *str, int *i, t_path *path)
 	int		cpt;
 	char	*dst;
 
-
 	dst = NULL;
 	while (str[*i] != '\0' && str[*i] != '"')
 	{
 		if (str[*i] == '$')
-		{ 
+		{
 			++*i;
 			buff = ft_dol(str, i, path);
 			if (buff == NULL && str[*i] == '?' && str[*i - 1] == '$')
@@ -76,7 +67,7 @@ char	*double_quotes(char *str, int *i, t_path *path)
 			cpt = ft_count(str, i, "$\"");
 			buff = ft_substr(str, *i - cpt, cpt);
 			dst = ft_strjoin(dst, buff);
-			free(buff); 
+			free(buff);
 		}
 	}
 	if (dst == NULL)
@@ -103,7 +94,6 @@ char	*parse(char *str, t_path *path)
 	while (str[i])
 	{
 		cpt = ft_count(str, &i, "'$\"");
-//		printf("cpt : %d i : %d\n", cpt, i);
 		if (cpt != 0)
 		{
 			buff = ft_substr(str, i - cpt, cpt);
@@ -114,19 +104,16 @@ char	*parse(char *str, t_path *path)
 		{
 			++i;
 			buff = double_quotes(str, &i, path);
-	//		printf("buff' = %s\n", buff);
 			dest = ft_strjoin(dest, buff);
 			i++;
 			free(buff);
 		}
-		else if(str[i] == '\'')
+		else if (str[i] == '\'')
 		{
 			++i;
 			cpt = ft_count(str, &i, "'");
 			buff = ft_substr(str, i - cpt, cpt);
-	//		printf("buff\" = %s\n", buff);
 			dest = ft_strjoin(dest, buff);
-			printf("dest=%s\n",dest);
 			i++;
 			free(buff);
 		}
@@ -142,7 +129,6 @@ char	*parse(char *str, t_path *path)
 			dest = ft_strjoin(dest, ft_dol(str, &i, path));
 		}
 	}
-		printf("dest=%s\n",dest);
 	return (dest);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 10:26:51 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/27 13:19:50 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/27 13:33:53 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_parser	*parser_new(char **lexer, int *i, t_path *paths)
 	return (parser);
 }
 
-static int	init_variable_p(char **lexer,int *nbr, int *i)
+static int	init_variable_p(char **lexer, int *nbr, int *i)
 {
 	*i = 0;
 	if (lexer == NULL)

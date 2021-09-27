@@ -88,7 +88,7 @@ int	ft_error2(char *str, int *i, char c)
 		return (1);
 	}
 	else if (str[*i] != '\0')
-		return (error_pipe(str, c, &tmp, &i));
+		return (error_pipe(str, c, &tmp, i));
 	return (display_error_token(str[*i]));
 }
 
