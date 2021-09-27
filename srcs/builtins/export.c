@@ -52,10 +52,7 @@ char	**env_add2(char **env, char *var)
 char	**env_add(char **env, char *var, t_path *path)
 {
 	int	i;
-	int	j;
-	int	x;
 
-	x = 0;
 	i = -1;
 	if (ft_test_new_env(var))
 		return (env);

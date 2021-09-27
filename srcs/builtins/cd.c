@@ -72,23 +72,22 @@ void	cd_home(char *buff, char **env, int *a)
 		ft_putstr_fd("bash : cd: \"HOME\" is not set\n", 2);
 		return ;
 	}
-	a = chdir(buff);
+	*a = chdir(buff);
+	(void)(*a);
 }
 
 void	ft_cd(t_pipes *pipes, char **env)
 {
 	int		a;
-	int		x;
-	int		j;
 	char	*buff;
-	char	late[PATH_MAX];
 
+	buff = NULL;
 	if (pipes->command[1] == NULL || pipes->command[2] == NULL)
 	{
 		if (pipes->command[1] == NULL)
 			cd_home(buff, env, &a);
 		else
-			a = chdir(pipes->command[2]);
+			a = chdir(pipes->command[1]);
 		if (a == -1)
 		{
 			ft_putstr_fd(strerror(errno), 2);
