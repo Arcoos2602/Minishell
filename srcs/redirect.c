@@ -45,6 +45,8 @@ int	init_redi(t_path *path, t_pipes *pipes, int buf[2])
 
 int	redirect_out(char *put, t_redi *redi, int *pipe_out)
 {
+	if (*pipe_out > 0)
+		close(*pipe_out);
 	if (redi->type == 1)
 	{
 		*put = 1;
@@ -70,6 +72,8 @@ int	redirect_out(char *put, t_redi *redi, int *pipe_out)
 
 int	redirect_in(t_path *path, char *put, t_redi *redi, int *pipe_in)
 {
+	if (*pipe_in > 0)
+		close(*pipe_in);
 	if (redi->type == 0)
 	{
 		*pipe_in = open(redi->put, O_RDONLY);

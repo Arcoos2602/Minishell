@@ -141,8 +141,8 @@ pid_t	father_0(t_pipes *pipes, t_path *path, int buf[2])
 	pid_t	pid_3;
 
 	ft_dup_redi(pipes, buf);
-	pid_3 = father(pipes, path);
 	ft_close(buf[1], buf[0], path->pipe_in, path->pipe_out);
+	pid_3 = father(pipes, path);
 	path->exec = 1;
 	return (pid_3);
 }
