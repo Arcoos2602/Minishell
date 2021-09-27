@@ -60,7 +60,7 @@ static	void	begin(char *line, t_path *paths)
 	if (line != NULL)
 	{
 		line = line_env(line, paths);
-		printf("{%s}", line);
+	//	printf("{%s}", line);
 		token = tokenization(line, paths);
 		free(line);
 	}
@@ -84,11 +84,12 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		paths.exec_path = ft_split(ft_getenv(paths.path, "PATH"), ':');
-		ft_signal();
+		ft_signal(0);
 		line = readline("{minishell}");
 		add_history(line);
 		if (line == NULL)
 			ft_putstr_fd("exit\n", 2);
+		ft_signal(1);
 		begin(line, &paths);
 	}
 	rl_clear_history();

@@ -17,7 +17,7 @@ int ft_gnl_rec(char **line, int index)
 {
     int ret;
     char buf;
-    
+   
     ret = read(0, &buf, 1);
     if (ret == -1)
         return (-1);

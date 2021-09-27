@@ -115,6 +115,7 @@ pid_t	father(t_pipes *pipes, t_path *path)
 	pid = fork();
 	if (pid == 0)
 	{
+		ft_signal(2);
 		if (pipes->error == 0)
 			ft_father_error(path);
 		father_2(pipes, path);

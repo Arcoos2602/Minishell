@@ -17,19 +17,29 @@ static void	handle_signal(int signum)
 {
 	if (signum == SIGINT)
 	{
+		rl_on_new_line();
 		rl_replace_line("", 0);
+		write(1,"\n",1);
+		rl_redisplay();
 		g_global = 130;
-	}
-	if (signum == SIGQUIT)
-	{
-		//rl_replace_line("", 0);
-		g_global = 131;
 	}
 }
 
-void ft_signal(void)
+void ft_signal(int n)
 {
-	
-	signal(SIGINT, handle_signal);
-	signal(SIGQUIT, handle_signal);
+	if (n == 0)
+	{
+		signal(SIGINT, handle_signal);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	if (n == 1)
+	{
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	if (n == 2)
+	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+	}
 }
