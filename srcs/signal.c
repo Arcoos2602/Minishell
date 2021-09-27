@@ -15,15 +15,16 @@
 
 static void	int_handler(int signum)
 {
+	(void)signum;
 	rl_on_new_line();
-	g_global = signum;
-	//g_global = 130;
+	write(1, "\n", 1);
+	g_global = 130;
 }
 
 static void	quit_handler(int signum)
 {
-	g_global = signum;
-	//g_global = 131;
+	(void)signum;
+	g_global = 131;
 	//exit(0);
 }
 

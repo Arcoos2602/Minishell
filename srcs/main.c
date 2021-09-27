@@ -87,7 +87,7 @@ int	main(int argc, char **argv, char **env)
 		//ft_putstr_fd("{minishell}", 2);
 		line = readline("{minishell}");
 		//get_next_line(0, &line);
-		//add_history(line);
+		add_history(line);
 		begin(line, &paths);
 	}
 	rl_clear_history();

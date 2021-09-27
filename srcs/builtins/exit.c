@@ -46,9 +46,9 @@ void	specified_exit(t_pipes *pipes, t_path *path, int *a)
 	{
 		if (is_valid(pipes->command[1]) == -1)
 			numeric_argument(pipes->command[1], path);
-		a = ft_atoi(pipes->command[1]);
+		*a = ft_atoi(pipes->command[1]);
 		ft_free(path->parser, path);
-		exit(a);
+		exit(*a);
 	}
 	else
 		numeric_argument(pipes->command[1], path);

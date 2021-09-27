@@ -24,6 +24,7 @@ int	compare(char *str, int size, int neg)
 		if (neg == 1 && ft_strncmp(str, "9223372036854775809", 19) >= 0)
 			return (-1);
 	}
+	return (1);
 }
 
 int	is_valid(char *str)

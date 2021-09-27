@@ -111,5 +111,8 @@ char			*line_env(char *str, t_path *path);
 char			*add_env_line(char *str, int *i, t_path *path);
 void			ft_signal(void);
 void			replace_quotes(char *dest, char *buf, int *i, int *cpt);
+char			**new_env_exp(char **env, char *to_add, int size);
+void			ft_print_env_alp(char **env);
+int				is_valid(char *str);
 
 #endif
