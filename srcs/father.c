@@ -6,7 +6,7 @@
 /*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:02:22 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/27 09:57:47 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/27 12:27:51 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,46 @@ int	ft_execve(char *s1, char *s2, char **command, char **env)
 	return (0);
 }
 
+void	ft_excve_2(t_pipes *pipes, t_path *path)
+{
+	DIR		*test;
+
+	test = opendir(pipes->command[0]);
+	if (test != NULL)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(pipes->command[0], 2);
+		ft_putstr_fd(": est un dossier\n", 2);
+		closedir(test);
+		ft_free(path->parser, path);
+		exit(126);
+	}
+	execve(pipes->command[0], &pipes->command[0], path->path);
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(pipes->command[0], 2);
+	ft_putstr_fd(" : ", 2);
+	ft_putstr_fd(strerror(errno), 2);
+	ft_putstr_fd("\n", 2);
+	ft_putnbr_fd(errno, 2);
+	get_next_line(1, NULL);
+	ft_free(path->parser, path);
+	if (errno == 2)
+		exit(127);
+	exit(126);
+}
+
+void	comand_not_found(t_pipes *pipes, t_path *path)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(pipes->command[0], 2);
+	ft_putstr_fd(" : command not found\n", 2);
+	ft_free(path->parser, path);
+	exit(127);
+}
+
 void	father_2(t_pipes *pipes, t_path *path)
 {
 	int		i;
-	DIR		*test;
 
 	i = 0;
 	if (pipes->builtin == 1)
@@ -50,47 +86,19 @@ void	father_2(t_pipes *pipes, t_path *path)
 		ft_free(path->parser, path);
 		exit(EXIT_SUCCESS);
 	}
-	while (pipes->command[0] != NULL && path->exec_path && path->exec_path[i] != NULL
+	while (pipes->command[0] != NULL
+		&& path->exec_path && path->exec_path[i] != NULL
 		&& ft_compare_c_to_s('/', pipes->command[0]) == 0)
 	{
-
 		if (path->exec_path[i] != NULL)
 			ft_execve(path->exec_path[i++], pipes->command[0],
 				pipes->command, path->path);
 	}
-	if (pipes->command != NULL && pipes->command[0] != NULL && ft_compare_c_to_s('/', pipes->command[0]))
-	{
-		test = opendir(pipes->command[0]);
-		if (test != NULL)
-		{
-			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd(pipes->command[0], 2);
-			ft_putstr_fd(": est un dossier\n", 2);
-			closedir(test);
-			ft_free(path->parser, path);
-			exit(126);
-		}
-		execve(pipes->command[0], &pipes->command[0], path->path);
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(pipes->command[0], 2);
-		ft_putstr_fd(" : ", 2);
-		ft_putstr_fd(strerror(errno), 2);
-		ft_putstr_fd("\n", 2);
-		ft_putnbr_fd(errno,2);
-		get_next_line(1, NULL);
-		ft_free(path->parser, path);
-		if (errno == 2)
-			exit(127);
-		exit(126);
-	}
+	if (pipes->command != NULL && pipes->command[0] != NULL
+		&& ft_compare_c_to_s('/', pipes->command[0]))
+		ft_excve_2(pipes, path);
 	if (pipes->command[0] != NULL)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(pipes->command[0], 2);
-		ft_putstr_fd(" : command not found\n", 2);
-		ft_free(path->parser, path);
-		exit(127);
-	}
+		comand_not_found(pipes, path);
 	ft_free(path->parser, path);
 	exit(EXIT_SUCCESS);
 }
@@ -104,7 +112,7 @@ void	ft_father_error(t_path *path)
 pid_t	father(t_pipes *pipes, t_path *path)
 {
 	pid_t	pid;
-	
+
 	pid = fork();
 	if (pid == 0)
 	{
@@ -116,24 +124,24 @@ pid_t	father(t_pipes *pipes, t_path *path)
 	return (pid);
 }
 
-void ft_dup_redi(t_pipes *pipes , int buf[2])
+void	ft_dup_redi(t_pipes *pipes, int buf[2])
 {
-		if (pipes->put[0] == 1)
-		{
-			dup2(buf[0], STDIN_FILENO);	
-		}
-		if (pipes->put[1] == 1)
-		{
-			dup2(buf[1],STDOUT_FILENO);	
-		}
+	if (pipes->put[0] == 1)
+	{
+		dup2(buf[0], STDIN_FILENO);
+	}
+	if (pipes->put[1] == 1)
+	{
+		dup2(buf[1], STDOUT_FILENO);
+	}
 }
 
 pid_t	father_0(t_pipes *pipes, t_path *path, int buf[2])
 {
 	pid_t	pid_3;
 
-		ft_dup_redi(pipes, buf);
-		pid_3 = father(pipes, path);
+	ft_dup_redi(pipes, buf);
+	pid_3 = father(pipes, path);
 	ft_close(buf[1], buf[0], path->pipe_in, path->pipe_out);
 	path->exec = 1;
 	return (pid_3);

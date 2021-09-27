@@ -6,7 +6,7 @@
 /*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/27 09:58:18 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/27 13:42:49 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,9 @@ void	free_paths(t_path *path)
 	i = 0;
 	if(path != NULL && path->exec_path != NULL)
 	{
-	while (path->exec_path[i] != NULL)
-		free(path->exec_path[i++]);
-	free(path->exec_path);
+		while (path->exec_path[i] != NULL)
+			free(path->exec_path[i++]);
+		free(path->exec_path);
 	}
 }
 

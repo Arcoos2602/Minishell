@@ -6,7 +6,7 @@
 /*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 14:53:59 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/27 09:58:12 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/27 12:33:14 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ char	*copy(char *c, char *buffer, int size)
 	i = size;
 	if (c == 0)
 	{
-		if (!(line2 = malloc(i + 1)))
+		line2 = malloc(i + 1);
+		if (!line2)
 			return (NULL);
 		line2[i] = '\0';
 		ft_memcpy(line2, buffer, size);
@@ -36,9 +37,9 @@ char	*copy(char *c, char *buffer, int size)
 	return (line2);
 }
 
-int		ft_line(char *c)
+int	ft_line(char *c)
 {
-	int a;
+	int	a;
 
 	a = ft_strlen(c);
 	if (c != 0)
@@ -117,13 +118,13 @@ int		get_next_line(int fd, char **line)
 			return (ft_line_copy(1, &(*line), &c, buffer));
 		else if (0 <= (check_read = read(fd, buffer, BUFFER_SIZE)))
 		{
-	  	if (check_read == 0)
-			return (0);
-		c = copy(c, buffer, check_read);
-		if ((c != 0) && (check_read <= 0 || BUFFER_SIZE > check_read))
-			return (ft_line_copy(0, &(*line), &c, buffer));
-		else if ((c != 0) && 1 == (check_read = ft_line(c)))
-			return (ft_line_copy(1, &(*line), &c, buffer));
+	  		if (check_read == 0)
+				return (0);
+			c = copy(c, buffer, check_read);
+			if ((c != 0) && (check_read <= 0 || BUFFER_SIZE > check_read))
+				return (ft_line_copy(0, &(*line), &c, buffer));
+			else if ((c != 0) && 1 == (check_read = ft_line(c)))
+				return (ft_line_copy(1, &(*line), &c, buffer));
 		}
 	}
 	free(buffer);

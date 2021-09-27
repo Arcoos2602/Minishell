@@ -6,7 +6,7 @@
 /*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 14:19:34 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/27 09:58:29 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/27 12:30:16 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	init_redi(t_path *path, t_pipes *pipes, int buf[2])
 {
 	pipes->put[0] = -1;
 	pipes->put[1] = -1;
+	buf[0] = -1;
+	buf[1] = -1;
 	if (pipes->redi == NULL)
 		return (1);
 	if (redirect_in(path, &pipes->put[0], pipes->redi, &buf[0]) == 0)
@@ -66,7 +68,7 @@ int	redirect_out(char *put, t_redi *redi, int *pipe_out)
 	return (1);
 }
 
-int	redirect_in(t_path *path , char *put, t_redi *redi, int *pipe_in)
+int	redirect_in(t_path *path, char *put, t_redi *redi, int *pipe_in)
 {
 	if (redi->type == 0)
 	{
@@ -76,7 +78,7 @@ int	redirect_in(t_path *path , char *put, t_redi *redi, int *pipe_in)
 		redi->type = -1;
 		*put = 1;
 	}
-	else if(redi->type == 10)
+	else if (redi->type == 10)
 	{
 		ft_free_redi_double(redi, path);
 		*pipe_in = open(".test", O_RDONLY);
