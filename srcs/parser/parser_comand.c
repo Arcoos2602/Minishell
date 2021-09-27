@@ -216,7 +216,7 @@ static char	**comand_malloc(char **command, char **lexer, t_path *paths)
 
 	i = 0;
 	n = -1;
-	while (lexer[n + 1] != NULL && 0 == ft_compare_c_to_s(lexer[++n][0], "|;"))
+	while (lexer[n + 1] != NULL && 0 == ft_compare_c_to_s(lexer[++n][0], "|"))
 	{
 		if (1 != (ft_compare_c_to_s(lexer[n][0], "><")))
 		{
@@ -237,7 +237,7 @@ static int	command_size(char **lexer)
 
 	i = 0;
 	n = -1;
-	while (lexer[n + 1] != NULL && 0 == ft_compare_c_to_s(lexer[++n][0], "|;"))
+	while (lexer[n + 1] != NULL && 0 == ft_compare_c_to_s(lexer[++n][0], "|"))
 	{
 		if (1 != (ft_compare_c_to_s(lexer[n][0], "><")))
 			i++;
@@ -277,7 +277,7 @@ int	nbr_command_line(char **lexer)
 	{
 		if (lexer[i++][0] == ';')
 		{
-			if (lexer[i] != NULL && ft_compare_c_to_s(lexer[i][0], ";|"))
+			if (lexer[i] != NULL && ft_compare_c_to_s(lexer[i][0], "|"))
 				return (0);
 			nbr_command_line++;
 		}
