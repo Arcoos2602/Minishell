@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thomas <thomas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/27 14:02:46 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/28 00:45:43 by thomas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,16 @@ void	parse_and_exec(char **token, t_parser *parser, t_path *paths)
 
 static	void	begin(char *line, t_path *paths)
 {
-	char	**token;
+	char		**token;
 	t_parser	*parser;
 
 	parser = NULL;
+	token = NULL;
 	if (line == NULL)
 		exit(0);
 	if (line != NULL)
 	{
 		line = line_env(line, paths);
-	//	printf("{%s}", line);
 		token = tokenization(line, paths);
 		free(line);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thomas <thomas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 12:51:37 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/27 12:55:17 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/28 00:36:10 by thomas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ static void	handle_signal(int signum)
 	{
 		rl_on_new_line();
 		rl_replace_line("", 0);
-		write(1,"\n",1);
+		write(1, "\n", 1);
 		rl_redisplay();
 		g_global = 130;
 	}
 }
 
-void ft_signal(int n)
+void	ft_signal(int n)
 {
 	if (n == 0)
 	{

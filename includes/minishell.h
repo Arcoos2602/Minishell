@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thomas <thomas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 10:02:46 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/27 13:20:00 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/28 00:46:49 by thomas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ int				redirect_in(t_path *path, char *put,
 					t_redi *redi, int *pipe_in);
 void			free_paths(t_path *path);
 pid_t			father_0(t_pipes *pipes, t_path *path, int buf[2]);
+int				ft_execve(char *s1, char *s2, char **command, char **env);
+void			ft_excve_2(t_pipes *pipes, t_path *path);
 void			child(t_pipes *pipes, t_path *path, pid_t *pid_2);
 void			ft_free_pipe(t_pipes *pipe);
 void			ft_free_paths(char **paths);
@@ -89,6 +91,7 @@ void			ft_exit(t_path *path, t_pipes *pipes);
 t_pipes			*init_pipes(char **lexer, int *i, t_path *paths);
 t_parser		*init_parser(char **lexer, t_path *paths);
 t_parser		*parser_new(char **lexer, int *i, t_path *paths);
+char			*parse(char *str, t_path *path);
 t_pipes			*pipe_new(char **lexer, int *i, t_path *paths);
 t_pipes			*init_new(t_pipes *t_new, char **lexer, int *i, t_path *path);
 char			**init_command_pipe(char **command,

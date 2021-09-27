@@ -3,27 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thomas <thomas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:03:19 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/27 12:08:48 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/28 00:34:07 by thomas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/include/libft.h"
 #include "../includes/minishell.h"
-
-void	ft_close(int pipe_1, int pipe_2, int pipe_3, int pipe_4)
-{
-	if (pipe_1 >= 0)
-		close(pipe_1);
-	if (pipe_2 >= 0)
-		close(pipe_2);
-	if (pipe_3 >= 0)
-		close(pipe_3);
-	if (pipe_4 >= 0)
-		close(pipe_4);
-}
 
 int	ft_fork(t_path *path)
 {
@@ -87,11 +75,6 @@ int	ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2)
 	return (5);
 }
 
-int	line_command(t_pipes *parser, t_path *path, pid_t *pid_2)
-{
-	return (ft_pipe(parser, path, pid_2));
-}
-
 void	init_path_shell(int *pid_2, t_path *path)
 {
 	*pid_2 = 0;
@@ -110,7 +93,7 @@ int	ft_shell(t_parser *parser, t_path *path)
 	int	status;
 
 	init_path_shell(&pid_2, path);
-	line_command(parser->pipe, path, &pid_2);
+	ft_pipe(parser, path, pid_2);
 	ft_close(-1, -1, path->pipe_out, path->pipe_in);
 	dup2(path->out_fd, 1);
 	dup2(path->in_fd, 0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thomas <thomas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 11:55:39 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/27 12:20:05 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/28 00:36:32 by thomas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,5 @@ char	*line_env(char *str, t_path *path)
 		else
 			i++;
 	}
-	//printf("|%s|", str);
 	return (str);
 }

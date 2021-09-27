@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_env2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thomas <thomas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 12:09:05 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/27 12:30:59 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/28 00:40:39 by thomas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*fill(char **buf, char *dest, int *nbr)
 	return (dest);
 }
 
-static char **exit_value(char **buf, int *i, t_path *path)
+static char	**exit_value(char **buf, int *i, t_path *path)
 {
 	buf = malloc(sizeof(char *) * 2);
 	buf[0] = ft_itoa(path->exit_status);
@@ -64,13 +64,12 @@ static char **exit_value(char **buf, int *i, t_path *path)
 	return (buf);
 }
 
-void	init_values(int *i, int *tmp, int *nbr)
+void	init_values_and_free(int *i, int *tmp, int *nbr)
 {
 	*tmp = *i;
 	++*i;
 	*nbr = 0;
 }
-
 
 char	*add_env_line(char *str, int *i, t_path *path)
 {
@@ -80,7 +79,7 @@ char	*add_env_line(char *str, int *i, t_path *path)
 	int		tmp;
 	int		nbr;
 
-	init_values(i, &tmp, &nbr);
+	init_values_and_free(i, &tmp, &nbr);
 	dest = NULL;
 	buf = NULL;
 	if (str[*i] == '?')
@@ -88,14 +87,12 @@ char	*add_env_line(char *str, int *i, t_path *path)
 	else
 		buf = ft_split(ft_dol(str, i, path), ' ');
 	if (buf == NULL || buf[0] == NULL)
-	{
 		return (str);
-	}
 	dest = ft_strndup(str, tmp);
 	while (buf[nbr] != NULL)
 		dest = fill(buf, dest, &nbr);
-	if (buf[nbr -1][0] != '\0')
-	dest = ft_strjoin(dest, "'");
+	if (buf[nbr - 1][0] != '\0')
+		dest = ft_strjoin(dest, "'");
 	fin = ft_strndup(&str[*i], ft_strlen(&str[*i]));
 	dest = ft_strjoin(dest, fin);
 	free(str);

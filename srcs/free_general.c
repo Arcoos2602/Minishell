@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_general.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thomas <thomas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:10:16 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/27 13:12:32 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/28 00:35:13 by thomas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,16 @@ void	free_paths(t_path *path)
 			free(path->exec_path[i++]);
 		free(path->exec_path);
 	}
+}
+
+void	ft_close(int pipe_1, int pipe_2, int pipe_3, int pipe_4)
+{
+	if (pipe_1 >= 0)
+		close(pipe_1);
+	if (pipe_2 >= 0)
+		close(pipe_2);
+	if (pipe_3 >= 0)
+		close(pipe_3);
+	if (pipe_4 >= 0)
+		close(pipe_4);
 }
