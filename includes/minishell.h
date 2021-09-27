@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 10:02:46 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/27 10:17:18 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/27 10:52:26 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,11 @@ typedef struct s_path
 	int			exit_status;
 }				t_path;
 
+int				elem(char *str, int *cpt, int *i);
+int				cpt(char *str);
 char			*ft_dol(char *str, int *i, t_path *path);
 char			**tokenization(char *str, t_path *paths);
 void			free_token(char	**token);
-void			cpt2(char *str, int *i, int *cpt);
 int				count_quote(char *str, int *i);
 void			fill_quote(char **tab, char *str, int *i, int *x);
 int				check_error(char *str, int *i, int *cpt);
