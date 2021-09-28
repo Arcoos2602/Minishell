@@ -19,14 +19,18 @@ char	*ft_getenv(char **paths, char *var)
 	int	j;
 
 	x = 0;
-	while (paths[x] != NULL)
+	while (paths != NULL && paths[x] != NULL && var != NULL)
 	{
 		j = 0;
-		while (paths[x][j] != '=')
+		while (paths[x][j] != '\0' && paths[x][j] != '=')
 			j++;
 		if ((int)(ft_strlen(var)) == j
 			&& ft_strncmp(var, paths[x], ft_strlen(var)) == 0)
+		{
+			if (paths[x][j] == '\0')
+						return (&paths[x][j]);
 			return (&paths[x][j + 1]);
+		}
 		x++;
 	}
 	return (NULL);
