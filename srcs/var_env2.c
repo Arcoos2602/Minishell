@@ -57,6 +57,8 @@ char	*fill(char **buf, char *dest, int *nbr)
 static char	**exit_value(char **buf, int *i, t_path *path)
 {
 	buf = malloc(sizeof(char *) * 2);
+	if (buf == NULL)
+		return (NULL);
 	buf[0] = ft_itoa(path->exit_status);
 	buf[1] = NULL;
 	++*i;

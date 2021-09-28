@@ -54,6 +54,8 @@ static void	ft_putnbr_base(char **s, unsigned long int nbr,
 		if (nb / bs == 0)
 		{
 			*s = malloc(sizeof(**s) * (taill + 2));
+			if (s == NULL)
+				return ;
 			s[0][taill + 1] = '\0';
 		}
 		s[0][taill] = base[nb % bs];

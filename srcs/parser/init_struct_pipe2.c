@@ -86,6 +86,8 @@ char	*add_newline(char *line, t_path *path)
 	char	*new_line;
 
 	new_line = malloc(ft_strlen(line) + 2);
+	if (new_line == NULL)
+		return (NULL);
 	ft_strlcpy(new_line, line, ft_strlen(line) + 1);
 	new_line[ft_strlen(line)] = '\n';
 	new_line[ft_strlen(line) + 1] = '\0';

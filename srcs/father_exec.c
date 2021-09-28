@@ -31,6 +31,8 @@ int	ft_execve(char *s1, char *s2, char **command, char **env)
 	if (s1 == 0 || s2 == 0)
 		return (0);
 	dst = malloc(ft_strlen(s1) + ft_strlen(s2) + 2);
+	if (dst == NULL)
+		return (0);
 	tail1 = -1;
 	tail2 = 0;
 	while (s1[++tail1] != '\0')

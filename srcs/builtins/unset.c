@@ -23,6 +23,8 @@ char	**new_env_del(char **env, char *to_delete, int size)
 	i = 0;
 	x = 0;
 	new = malloc(sizeof(char *) * (size + 1));
+	if (new == NULL)
+		return (NULL);
 	while (env[x] != NULL)
 	{
 		j = 0;

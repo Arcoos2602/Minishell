@@ -20,6 +20,8 @@ char	**new_env_exp(char **env, char *to_add, int size)
 
 	x = 0;
 	new = malloc(sizeof(char *) * (size + 2));
+	if (new == NULL)
+		return (NULL);
 	while (env[x] != NULL)
 	{
 		new[x] = ft_strdup(env[x]);

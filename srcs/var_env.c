@@ -22,6 +22,8 @@ char	**env_malloc(char **path, char **env)
 	while (env[++n] != NULL)
 		;
 	path = malloc((n + 1) * sizeof(char *));
+	if (path == NULL)
+		return (NULL);
 	i = 0;
 	n = -1;
 	while (env[++n] != NULL)

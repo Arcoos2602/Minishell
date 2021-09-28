@@ -56,6 +56,8 @@ int	words_command(char **lexer, int i)
 char	**malloc_tb_str(char **dst, char **in, int size)
 {
 	dst = malloc(sizeof(char *) * (size + 1));
+	if (dst == NULL)
+		return (NULL);
 	dst[size] = NULL;
 	while (size-- > 0)
 		dst[size] = ft_strdup(in[size]);
