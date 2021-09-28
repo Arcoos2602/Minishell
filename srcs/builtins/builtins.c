@@ -24,7 +24,8 @@ char	*ft_getenv(char **paths, char *var)
 		j = 0;
 		while (paths[x][j] != '=')
 			j++;
-		if (ft_strncmp(var, paths[x], ft_strlen(var)) == 0)
+		if ((int)(ft_strlen(var)) == j
+			&& ft_strncmp(var, paths[x], ft_strlen(var)) == 0)
 			return (&paths[x][j + 1]);
 		x++;
 	}

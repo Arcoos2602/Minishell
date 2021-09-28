@@ -44,7 +44,7 @@ char	**ft_finish_command(char **command, char **lexer)
 	cpt = 0;
 	while (command[i] != NULL && lexer[i] != NULL)
 	{
-		if (command[i][0] != '\0' || ft_compare_c_to_s('\"', lexer[i]))
+		if (command[i][0] != '\0' || ft_compare_s_to_s("\"'", lexer[i]))
 			dest[cpt++] = ft_strdup(command[i]);
 		i++;
 	}

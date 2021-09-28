@@ -90,6 +90,7 @@ int	main(int argc, char **argv, char **env)
 		{
 			ft_free(NULL, &paths);
 			ft_putstr_fd("exit\n", 2);
+			rl_clear_history();
 			exit(EXIT_SUCCESS);
 		}
 		ft_signal(1);
