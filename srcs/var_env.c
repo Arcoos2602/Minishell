@@ -27,7 +27,9 @@ char	**env_malloc(char **path, char **env)
 	i = 0;
 	n = -1;
 	while (env[++n] != NULL)
+	{
 		path[i++] = ft_strdup(env[n]);
+	}
 	path[i] = NULL;
 	return (path);
 }

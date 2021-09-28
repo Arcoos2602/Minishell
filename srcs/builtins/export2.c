@@ -19,17 +19,19 @@ char	**new_env_exp(char **env, char *to_add, int size)
 	int		x;
 
 	x = 0;
-	new = malloc(sizeof(char *) * (size + 2));
+	new = malloc(sizeof(char *) *  (size + 2));
 	if (new == NULL)
 		return (NULL);
 	while (env[x] != NULL)
 	{
 		new[x] = ft_strdup(env[x]);
-		free(env[x]);
 		x++;
 	}
-	new[x++] = ft_strdup(to_add);
-	new[x++] = NULL;
+	new[x] = ft_strdup(to_add);
+	new[++x] = NULL;
+	x = 0;
+	while(env[x] != NULL)
+		free(env[x++]);
 	free(env);
 	return (new);
 }
