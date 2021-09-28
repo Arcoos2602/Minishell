@@ -68,12 +68,6 @@ t_parser	*init_parser(char **lexer, t_path *paths)
 		else if (0 == add_parser(parser, parser_new(lexer, &i, paths)))
 			return (NULL);
 		nbr--;
-		if (nbr != 0)
-		{
-			while (lexer[i][0] != ';')
-				i += 1;
-			i += 1;
-		}
 	}
 	return (parser);
 }
