@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 10:02:46 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/28 18:40:06 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/28 19:11:35 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ char			**init_command_pipe(char **command,
 t_redi			*init_put(t_redi *t_new, char **lexer, int *i, t_path *paths);
 char			*parse(char *str, t_path *path);
 char			**ft_export(t_pipes *pipes, char **env, t_path *path);
-void			finish_env_line(char *str, char *end, char **buf);
+char			**finish_env_line(char *str, char *dest, char *end, char **buf);
 void			set_j(char **env, int *x, int *j);
 int				ft_count(char *str, int *i, char *test);
 void			ft_dup_redi(t_pipes *pipes, int buf[2]);
@@ -120,7 +120,7 @@ void			ft_pwd(void);
 char			**env_malloc(char **path, char **env);
 void			ft_echo(t_pipes *pipes);
 void			ft_cd(t_pipes *pipes, char **env);
-char			**ft_unset(t_pipes *pipes, char **env);
+char			**ft_unset(t_pipes *pipes, char **env, t_path *path);
 char			*ft_getenv(char **paths, char *var);
 char			*line_env(char *str, t_path *path);
 char			*add_env_line(char *str, int *i, t_path *path);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:30:52 by user42            #+#    #+#             */
-/*   Updated: 2021/09/28 18:39:43 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/28 19:08:56 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,20 +74,12 @@ char	**env_delete(char **env, char *var)
 
 int	ft_check_var_unset(char *var)
 {
-	int	i;
-
-	i = 0;
-	if (ft_compare_c_to_s(var[i], "0123456789="))
+	if (ft_compare_s_to_s(var, "$'\"=><| "))
 		return (0);
-	while (var[++i] != '\0')
-	{
-		if (ft_compare_c_to_s(var[i], "="))
-			return (0);
-	}
 	return (1);
 }
 
-char	**ft_unset(t_pipes *pipes, char **env)
+char	**ft_unset(t_pipes *pipes, char **env, t_path *path)
 {
 	int	i;
 
@@ -98,8 +90,12 @@ char	**ft_unset(t_pipes *pipes, char **env)
 			env = env_delete(env, pipes->command[i]);
 		else
 		{
-			ft_putstr_fd("ERROR\n", 2);
-			g_global = 1;
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd("unset: `", 2);
+			ft_putstr_fd(pipes->command[i], 2);
+			ft_putstr_fd("': not a valid identifier", 2);
+			ft_putstr_fd("\n", 2);
+			path->exit_status = 1;
 		}
 	}
 	return (env);

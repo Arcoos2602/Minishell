@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 11:30:04 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/28 18:35:39 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/28 19:10:10 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	check_builtins(t_pipes	*pipes, t_path *path, char **env)
 	else if (ft_strncmp(pipes->command[0], "export", 7) == 0)
 		env = ft_export(pipes, env, path);
 	else if (ft_strncmp(pipes->command[0], "unset", 6) == 0)
-		env = ft_unset(pipes, env);
+		env = ft_unset(pipes, env, path);
 	else if (ft_strncmp(pipes->command[0], "cd", 3) == 0)
 		ft_cd(pipes, env);
 	else

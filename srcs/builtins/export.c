@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:31:47 by user42            #+#    #+#             */
-/*   Updated: 2021/09/28 18:40:58 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/28 19:10:42 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft/include/libft.h"
 #include "../../includes/minishell.h"
 
-int	ft_test_new_env(char *var)
+int	ft_test_new_env(char *var, t_path *path)
 {
 	int	a;
 
@@ -28,6 +28,7 @@ int	ft_test_new_env(char *var)
 			ft_putstr_fd("': not a valid identifier", 2);
 			ft_putstr_fd("\n", 2);
 			free(var);
+			path->exit_status = 1;
 			return (1);
 		}
 	}
@@ -75,7 +76,7 @@ char	**env_add(char **env, char *var, t_path *path)
 	(void)(path);
 	i = -1;
 	buf = ft_strndup(var, ft_size_arg_add(var));
-	if (ft_test_new_env(buf))
+	if (ft_test_new_env(buf, path))
 		return (env);
 	if (ft_getenv(env, buf) == NULL && ft_compare_c_to_s('=', var))
 	{
