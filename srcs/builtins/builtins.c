@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 11:30:04 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/27 02:02:34 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/28 18:35:39 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_getenv(char **paths, char *var)
 			&& ft_strncmp(var, paths[x], ft_strlen(var)) == 0)
 		{
 			if (paths[x][j] == '\0')
-						return (&paths[x][j]);
+				return (&paths[x][j]);
 			return (&paths[x][j + 1]);
 		}
 		x++;

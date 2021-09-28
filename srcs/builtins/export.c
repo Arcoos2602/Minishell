@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:31:47 by user42            #+#    #+#             */
-/*   Updated: 2021/09/28 16:02:23 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/28 18:40:58 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	**env_add2(char **env, char *var, char *buf)
 
 int	ft_size_arg_add(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i] != '\0' && str[i] != '=')
@@ -69,10 +69,10 @@ int	ft_size_arg_add(char *str)
 
 char	**env_add(char **env, char *var, t_path *path)
 {
-	int	i;
-	char *buf;
-	(void)(path);
+	int		i;
+	char	*buf;
 
+	(void)(path);
 	i = -1;
 	buf = ft_strndup(var, ft_size_arg_add(var));
 	if (ft_test_new_env(buf))
@@ -89,7 +89,7 @@ char	**env_add(char **env, char *var, t_path *path)
 		return (env_add2(env, var, buf));
 	}
 	else
-	  free(buf);
+		free(buf);
 	return (env);
 }
 
