@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:03:19 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/28 13:40:27 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/28 18:37:56 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ int	ft_shell(t_parser *parser, t_path *path)
 	if (path->dont != 0)
 	{	
 		ft_free(path->parser, path);
-		rl_clear_history();
 		exit(path->exit_status % 255);
 	}
 	waitpid(0, &status, 0);
