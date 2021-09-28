@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 19:21:51 by user42            #+#    #+#             */
-/*   Updated: 2021/09/28 19:22:11 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/28 20:05:21 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	handle_signal(int signum)
 	}
 }
 
+
 void	ft_signal(int n)
 {
 	if (n == 0)
@@ -42,4 +43,9 @@ void	ft_signal(int n)
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 	}
+    if (n == 3)
+    {
+		signal(SIGINT, handle_signal);
+		signal(SIGQUIT, SIG_IGN);
+    }
 }

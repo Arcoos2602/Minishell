@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   other.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 14:30:09 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/28 13:57:00 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/28 20:36:11 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ int	words_command(char **lexer, int i)
 	int	nbr_words;
 
 	nbr_words = 1;
-	while (lexer[i] != NULL && lexer[i++][0] != ';')
+	while (lexer[i] != NULL)
 	{
+		i++;
 		if (lexer[i - 1][0] == '|')
 			nbr_words++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct_parser.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 10:26:51 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/28 13:30:56 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/28 20:23:27 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	init_variable_p(char **lexer, int *nbr, int *i)
 	*i = 0;
 	if (lexer == NULL)
 		return (0);
-	*nbr = nbr_command_line(lexer);
+	*nbr = 1;
 	return (1);
 }
 

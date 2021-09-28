@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:30:52 by user42            #+#    #+#             */
-/*   Updated: 2021/09/28 19:08:56 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/28 19:35:21 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	**ft_unset(t_pipes *pipes, char **env, t_path *path)
 		else
 		{
 			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd("unset: `", 2);
+			ft_putstr_fd("unset : `", 2);
 			ft_putstr_fd(pipes->command[i], 2);
 			ft_putstr_fd("': not a valid identifier", 2);
 			ft_putstr_fd("\n", 2);

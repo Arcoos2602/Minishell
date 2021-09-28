@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct_pipe3.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:43:11 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/28 13:43:27 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/28 20:38:07 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,12 @@ int	ft_free_redi_double(t_redi *redi, t_path *path)
 	int		fd;
 	char	*line;
 
+	(void)(redi);
+	(void)(path);
 	line = NULL;
 	fd = open(".test", O_APPEND | O_CREAT | O_RDWR | O_TRUNC, 0664);
+	if (fd > 0)
+		return (10);
 	ft_putstr_fd(">", 2);
 	while (get_next_line(&line) != 0
 		&& !(ft_strncmp(redi->put, line, ft_strlen(redi->put)) == 0
@@ -28,7 +32,9 @@ int	ft_free_redi_double(t_redi *redi, t_path *path)
 		ft_putstr_fd(">", 2);
 		line = add_newline(line, path);
 		ft_putstr_fd(line, fd);
+		free(line);
 	}
+	free(line);
 	if (fd > 0)
 		close(fd);
 	return (10);

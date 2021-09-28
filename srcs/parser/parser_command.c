@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_comand.c                                    :+:      :+:    :+:   */
+/*   parser_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thomas <thomas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 14:04:46 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/28 00:27:23 by thomas           ###   ########.fr       */
+/*   Updated: 2021/09/28 20:23:04 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,23 +37,4 @@ char	*ft_dol(char *str, int *i, t_path *path)
 	buff = ft_getenv(path->path, env);
 	free(env);
 	return (buff);
-}
-
-int	nbr_command_line(char **lexer)
-{
-	int	i;
-	int	nbr_command_line;
-
-	nbr_command_line = 1;
-	i = 0;
-	while (lexer[i] != NULL)
-	{
-		if (lexer[i++][0] == ';')
-		{
-			if (lexer[i] != NULL && ft_compare_c_to_s(lexer[i][0], "|"))
-				return (0);
-			nbr_command_line++;
-		}
-	}
-	return (nbr_command_line);
 }
