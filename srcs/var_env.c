@@ -52,7 +52,7 @@ void	replace_quotes(char *dest, char *buf, int *i, int *cpt)
 	dest[*i + *cpt] = '\0';
 }
 
-char	**finish_env_line(char *dest, char *str, char *end, char **buf)
+char	*finish_env_line(char *dest, char *str, char *end, char **buf)
 {
 	int	nbr;
 
