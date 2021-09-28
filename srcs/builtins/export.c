@@ -31,7 +31,7 @@ int	ft_test_new_env(char *var)
 	return (0);
 }
 
-char	**env_add2(char **env, char *var)
+char	**env_add2(char **env, char *var, char *buf)
 {
 	int	x;
 	int	j;
@@ -42,28 +42,48 @@ char	**env_add2(char **env, char *var)
 		j = 0;
 		while (env[x][j] != '=')
 			j++;
-		if (ft_strncmp(var, env[x], j) == 0)
+		if (j == (int)(ft_strlen(buf))
+			&& ft_strncmp(buf, env[x], ft_strlen(buf)) == 0)
+		{
+			free(env[x]);
 			env[x] = ft_strdup(var);
+		}
 		x++;
 	}
+	free(buf);
 	return (env);
+}
+
+int ft_size_arg_add(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i] != '\0' && str[i] != '=')
+		i++;
+	return i;
 }
 
 char	**env_add(char **env, char *var, t_path *path)
 {
 	int	i;
+	char *buf;
 
 	i = -1;
 	if (ft_test_new_env(var))
 		return (env);
-	if (ft_getenv(path->path, var) == NULL && ft_compare_c_to_s('=', var))
+	buf = ft_strndup(var, ft_size_arg_add(var));
+	if (ft_getenv(path->path, buf) == NULL && ft_compare_c_to_s('=', var))
 	{
 		while (env[++i] != NULL)
 			;
 		env = new_env_exp(env, var, i);
+		free(buf);
 	}
-	else if (ft_getenv(path->path, var) != NULL && ft_compare_c_to_s('=', var))
-		return (env_add2(env, var));
+	else if (ft_getenv(path->path, buf) != NULL && ft_compare_c_to_s('=', var))
+	{		
+		return (env_add2(env, var, buf));
+	}
 	return (env);
 }
 

@@ -61,6 +61,7 @@ void	ft_exit(t_path *path, t_pipes *pipes)
 	if (pipes->command[1] == NULL)
 	{
 		ft_free(path->parser, path);
+		rl_clear_history();
 		exit(EXIT_SUCCESS);
 	}
 	if (pipes->command[2] == NULL)
