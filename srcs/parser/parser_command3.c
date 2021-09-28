@@ -17,7 +17,8 @@ char	*quote_exit(int *i, t_path *path)
 {
 	char	*buf;
 	char	*dest;
-
+	
+	dest = NULL;
 	buf = ft_itoa(path->exit_status);
 	dest = ft_strjoin(dest, buf);
 	++*i;

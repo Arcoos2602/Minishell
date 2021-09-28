@@ -13,7 +13,7 @@
 #include "../../libft/include/libft.h"
 #include "../../includes/minishell.h"
 
-static int	nbr_redi(char **lexer)
+int	nbr_redi(char **lexer)
 {
 	int	n;
 	int	i;

@@ -36,7 +36,7 @@ void	father_2(t_pipes *pipes, t_path *path)
 		&& ft_compare_c_to_s('/', pipes->command[0]))
 		ft_excve_2(pipes, path);
 	if (pipes->command[0] != NULL)
-		comand_not_found(pipes, path);
+		command_not_found(pipes, path);
 	ft_free(path->parser, path);
 	exit(EXIT_SUCCESS);
 }

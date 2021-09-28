@@ -13,7 +13,7 @@
 #include "../libft/include/libft.h"
 #include "../includes/minishell.h"
 
-void	comand_not_found(t_pipes *pipes, t_path *path)
+void	command_not_found(t_pipes *pipes, t_path *path)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(pipes->command[0], 2);

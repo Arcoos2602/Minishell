@@ -1,7 +1,7 @@
 NAME = minishell
 HEAD = -I./includes/ -I./libft/include
 
-CFLAGS = -Wall -Werror -Wextra #-lreadline
+CFLAGS = -Wall -Werror -Wextra -lreadline
 
 SRCS =  srcs/lexer/lexer.c \
 		srcs/main.c \
@@ -18,6 +18,7 @@ SRCS =  srcs/lexer/lexer.c \
 		srcs/parser/parser_command.c \
 		srcs/parser/parser_command2.c \
 		srcs/parser/parser_command3.c \
+		srcs/parser/parser_command4.c \
 		srcs/builtins/builtins.c \
 		srcs/builtins/env.c \
 		srcs/builtins/export2.c \

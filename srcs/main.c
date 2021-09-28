@@ -56,8 +56,7 @@ static	void	begin(char *line, t_path *paths)
 
 	parser = NULL;
 	token = NULL;
-	if (line == NULL)
-		exit(0);
+		
 	if (line != NULL)
 	{
 		line = line_env(line, paths);
@@ -88,7 +87,11 @@ int	main(int argc, char **argv, char **env)
 		line = readline("{minishell}");
 		add_history(line);
 		if (line == NULL)
+		{
+			ft_free(NULL, &paths);
 			ft_putstr_fd("exit\n", 2);
+			exit(EXIT_SUCCESS);
+		}
 		ft_signal(1);
 		begin(line, &paths);
 	}

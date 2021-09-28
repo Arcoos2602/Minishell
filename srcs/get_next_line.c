@@ -23,7 +23,7 @@ int	ft_gnl_rec(char **line, int index)
 		return (-1);
 	if (ret == 1 && buf != '\n')
 	{
-		ret = t_gnl_rec(line, index + 1);
+		ret = ft_gnl_rec(line, index + 1);
 		if (ret == -1)
 			return (-1);
 		(*line)[index] = buf;

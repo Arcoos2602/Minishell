@@ -35,7 +35,7 @@ char	**ft_finish_command(char **command, char **lexer)
 	int		cpt;
 	char	**dest;
 
-	if (command == NULL)
+	if (command == NULL || lexer == NULL)
 		return (NULL);
 	dest = malloc(sizeof(char *) * (ftsizecommand(command, lexer) + 1));
 	if (dest == NULL)
