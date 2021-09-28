@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 10:26:51 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/27 13:33:53 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/28 13:30:56 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_parser	*init_parser(char **lexer, t_path *paths)
 		if (parser == NULL)
 		{
 			parser = parser_new(lexer, &i, paths);
-			if (0 == parser)
+			if (parser == NULL)
 				return (NULL);
 		}
 		else if (0 == add_parser(parser, parser_new(lexer, &i, paths)))

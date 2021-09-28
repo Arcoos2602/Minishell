@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   other.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 14:30:09 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/27 09:58:43 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/28 13:57:00 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,32 +60,4 @@ char	**malloc_tb_str(char **dst, char **in, int size)
 	while (size-- > 0)
 		dst[size] = ft_strdup(in[size]);
 	return (dst);
-}
-
-int	init_inouput(char **lexer, char *inout)
-{
-	int	i;
-	int	size;
-	int	nbr;
-
-	nbr = 0;
-	i = 0;
-	size = ft_strlen(inout) + 1;
-	while (lexer[i] != NULL && lexer[i][0] != ';' && lexer[i][0] != '|')
-	{
-		if (0 == ft_strncmp(inout, lexer[i++], size))
-		{
-			if (lexer[i][0] == '|')
-				return (nbr);
-			nbr++;
-		}
-	}
-	return (nbr);
-}
-
-int	init_inouput_back(char **lexer, char *inout)
-{
-	if (lexer[0][0] == inout[0] && lexer[-1][0] == '|')
-		return (1);
-	return (0);
 }

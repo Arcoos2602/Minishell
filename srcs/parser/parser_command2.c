@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_command2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thomas <thomas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 00:21:13 by thomas            #+#    #+#             */
-/*   Updated: 2021/09/28 00:23:51 by thomas           ###   ########.fr       */
+/*   Updated: 2021/09/28 13:28:08 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*parse_4(int *i, char *str, char *dest, t_path *path)
 		dest = ft_strjoin(dest, buff);
 		free(buff);
 	}
-	else  if (ft_compare_c_to_s(str[*i], "'\" $") || str[*i] == '\0')
+	else if (ft_compare_c_to_s(str[*i], "'\" $") || str[*i] == '\0')
 	{
 		dest = ft_strjoin(dest, "$");
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thomas <thomas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:03:19 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/28 00:34:07 by thomas           ###   ########.fr       */
+/*   Updated: 2021/09/28 13:40:27 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,8 @@ int	ft_shell(t_parser *parser, t_path *path)
 	int	status;
 
 	init_path_shell(&pid_2, path);
-	ft_pipe(parser, path, pid_2);
+	if (parser->pipe != NULL)
+		ft_pipe(parser->pipe, path, &pid_2);
 	ft_close(-1, -1, path->pipe_out, path->pipe_in);
 	dup2(path->out_fd, 1);
 	dup2(path->in_fd, 0);

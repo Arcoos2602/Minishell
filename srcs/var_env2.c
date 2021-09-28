@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_env2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thomas <thomas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 12:09:05 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/28 00:40:39 by thomas           ###   ########.fr       */
+/*   Updated: 2021/09/28 14:04:35 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ char	*add_env_line(char *str, int *i, t_path *path)
 {
 	char	**buf;
 	char	*dest;
-	char	*fin;
 	int		tmp;
 	int		nbr;
 
@@ -93,10 +92,10 @@ char	*add_env_line(char *str, int *i, t_path *path)
 		dest = fill(buf, dest, &nbr);
 	if (buf[nbr - 1][0] != '\0')
 		dest = ft_strjoin(dest, "'");
-	fin = ft_strndup(&str[*i], ft_strlen(&str[*i]));
-	dest = ft_strjoin(dest, fin);
+	buf[0] = ft_strndup(&str[*i], ft_strlen(&str[*i]));
+	dest = ft_strjoin(dest, buf[0]);
 	free(str);
+	free(buf[0]);
 	free(buf);
-	free(fin);
 	return (dest);
 }

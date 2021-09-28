@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 15:47:34 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/27 09:57:29 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/28 13:28:36 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	free_command(char **command)
 	while (command != NULL && command[i] != NULL)
 		free(command[i++]);
 	if (command != NULL)
-	free(command);
+		free(command);
 }
 
 void	free_redi(t_redi *redi)

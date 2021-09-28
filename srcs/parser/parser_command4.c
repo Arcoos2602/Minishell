@@ -3,45 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   parser_command4.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thomas <thomas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 00:26:09 by thomas            #+#    #+#             */
-/*   Updated: 2021/09/28 00:29:27 by thomas           ###   ########.fr       */
+/*   Updated: 2021/09/28 13:55:57 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft/include/libft.h"
 #include "../../includes/minishell.h"
 
-char	**ft_finish_command2(char **command, char **lexer)
+int	ftsizecommand(char **command, char **lexer)
 {
+	int	i;
+	int	cpt;
 
-}
-
-char	**ft_finish_command(char **command, char **lexer)
-{
-	int i;
-	int cpt;
-	char **dest;
-
-	i = 0;
-	if (command == NULL)
-		return (NULL);
 	cpt = 0;
+	i = 0;
 	while (command[i] != NULL && lexer[i] != NULL)
 	{
 		if (command[i][0] != '\0' || ft_compare_c_to_s('\"', lexer[i]))
 			cpt++;
 		i++;
 	}
-	dest = malloc(sizeof(char *) * (cpt + 1));
+	return (cpt);
+}
+
+char	**ft_finish_command(char **command, char **lexer)
+{
+	int		i;
+	int		cpt;
+	char	**dest;
+
+	if (command == NULL)
+		return (NULL);
+	dest = malloc(sizeof(char *) * (ftsizecommand(command, lexer) + 1));
 	if (dest == NULL)
 		return (NULL);
 	i = 0;
 	cpt = 0;
 	while (command[i] != NULL && lexer[i] != NULL)
 	{
-		if (command[i][0] != '\0'  || ft_compare_c_to_s('\"',lexer[i]))
+		if (command[i][0] != '\0' || ft_compare_c_to_s('\"', lexer[i]))
 			dest[cpt++] = ft_strdup(command[i]);
 		i++;
 	}

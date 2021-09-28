@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thomas <thomas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 10:02:46 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/28 00:46:49 by thomas           ###   ########.fr       */
+/*   Updated: 2021/09/28 13:48:30 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,16 @@ int				check_builtins(t_pipes	*pipes, t_path *path, char **env);
 void			ft_exit(t_path *path, t_pipes *pipes);
 t_pipes			*init_pipes(char **lexer, int *i, t_path *paths);
 t_parser		*init_parser(char **lexer, t_path *paths);
+char			*add_newline(char *line, t_path *path);
+char			*ft_replace(char *line, t_path *path);
+char			*ft_buff_no_null(char *line, int cpt, int i, char *buff);
+char			*ft_buff_null(char *line, int cpt, int i);
+t_redi			*init_put(t_redi *redi, char **lexer, int *i, t_path *paths);
+t_redi			*add_redi(t_redi *redi, t_redi *next);
+t_redi			*redi_new(char **lexer, t_path *paths);
+t_redi			*init_new_redi(t_redi *redi, char **lexer, t_path *paths);
+int				ft_free_redi_double(t_redi *redi, t_path *path);
+static int		nbr_redi(char **lexer);
 t_parser		*parser_new(char **lexer, int *i, t_path *paths);
 char			*parse(char *str, t_path *path);
 t_pipes			*pipe_new(char **lexer, int *i, t_path *paths);
