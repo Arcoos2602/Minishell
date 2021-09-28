@@ -98,6 +98,6 @@ char	*add_env_line(char *str, int *i, t_path *path)
 		dest = ft_strjoin(dest, "'");
 	end = ft_strndup(&str[*i], ft_strlen(&str[*i]));
 	dest = ft_strjoin(dest, end);
-	ft_free_env_line(str, end, buf);
+	finish_env_line(str, end, buf);
 	return (dest);
 }

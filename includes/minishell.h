@@ -110,7 +110,7 @@ char			**init_command_pipe(char **command,
 t_redi			*init_put(t_redi *t_new, char **lexer, int *i, t_path *paths);
 char			*parse(char *str, t_path *path);
 char			**ft_export(t_pipes *pipes, char **env, t_path *path);
-void			finish_env_line(char *str, char *end, char *buf);
+void			finish_env_line(char *str, char *end, char **buf);
 void			set_j(char **env, int *x, int *j);
 int				ft_count(char *str, int *i, char *test);
 void			ft_dup_redi(t_pipes *pipes, int buf[2]);
