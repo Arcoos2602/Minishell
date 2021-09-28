@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 15:51:24 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/27 16:05:19 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/28 18:33:17 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	**new_env_exp(char **env, char *to_add, int size)
 	int		x;
 
 	x = 0;
-	new = malloc(sizeof(char *) *  (size + 2));
+	new = malloc(sizeof(char *) * (size + 2));
 	if (new == NULL)
 		return (NULL);
 	while (env[x] != NULL)
@@ -30,7 +30,7 @@ char	**new_env_exp(char **env, char *to_add, int size)
 	new[x] = ft_strdup(to_add);
 	new[++x] = NULL;
 	x = 0;
-	while(env[x] != NULL)
+	while (env[x] != NULL)
 		free(env[x++]);
 	free(env);
 	return (new);

@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 10:02:46 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/28 13:48:30 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/28 18:40:06 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,13 @@ t_parser		*parser_new(char **lexer, int *i, t_path *paths);
 char			*parse(char *str, t_path *path);
 t_pipes			*pipe_new(char **lexer, int *i, t_path *paths);
 t_pipes			*init_new(t_pipes *t_new, char **lexer, int *i, t_path *path);
-char			**init_command_pipe(char **command, char **lexer, int *i, t_path *paths);
+char			**init_command_pipe(char **command,
+					char **lexer, int *i, t_path *paths);
 t_redi			*init_put(t_redi *t_new, char **lexer, int *i, t_path *paths);
 char			*parse(char *str, t_path *path);
 char			**ft_export(t_pipes *pipes, char **env, t_path *path);
+void			finish_env_line(char *str, char *end, char **buf);
+void			set_j(char **env, int *x, int *j);
 int				ft_count(char *str, int *i, char *test);
 void			ft_dup_redi(t_pipes *pipes, int buf[2]);
 char			*double_quotes(char *str, int *i, t_path *path);

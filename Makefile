@@ -25,6 +25,7 @@ SRCS =  srcs/lexer/lexer.c \
 		srcs/builtins/pwd.c \
 		srcs/builtins/echo.c \
 		srcs/builtins/unset.c \
+		srcs/builtins/unset2.c \
 		srcs/builtins/export.c \
 		srcs/builtins/exit.c \
 		srcs/builtins/exit2.c \

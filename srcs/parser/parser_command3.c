@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 00:24:32 by thomas            #+#    #+#             */
-/*   Updated: 2021/09/28 13:25:47 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/28 16:14:04 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*quote_exit(int *i, t_path *path)
 {
 	char	*buf;
 	char	*dest;
-	
+
 	dest = NULL;
 	buf = ft_itoa(path->exit_status);
 	dest = ft_strjoin(dest, buf);

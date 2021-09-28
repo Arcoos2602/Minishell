@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:30:52 by user42            #+#    #+#             */
-/*   Updated: 2021/09/27 15:57:29 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/28 18:39:43 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ char	**new_env_del(char **env, char *to_delete, int size)
 		return (NULL);
 	while (env[x] != NULL)
 	{
-		j = 0;
-		while (env[x][j] != '=')
-			j++;
+		set_j(env, &x, &j);
 		if (ft_strncmp(to_delete, env[x], j) != 0)
 		{
 			new[i] = ft_strdup(env[x]);
