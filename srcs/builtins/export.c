@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:31:47 by user42            #+#    #+#             */
-/*   Updated: 2021/09/27 16:03:00 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/28 16:02:23 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	**env_add2(char **env, char *var, char *buf)
 	return (env);
 }
 
-int ft_size_arg_add(char *str)
+int	ft_size_arg_add(char *str)
 {
 	int i;
 

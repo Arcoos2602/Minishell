@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thomas <thomas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 11:55:39 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/28 00:36:32 by thomas           ###   ########.fr       */
+/*   Updated: 2021/09/28 16:36:36 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,18 @@ void	replace_quotes(char *dest, char *buf, int *i, int *cpt)
 		++*i;
 	}
 	dest[*i + *cpt] = '\0';
+}
+
+void	finish_env_line(char *str, char *end, char *buf)
+{
+	int	nbr;
+
+	nbr = 0;
+	free(str);
+	free(end);
+	while (buf[nbr] != NULL)
+		free(buf[nbr++]);
+	free(buf);
 }
 
 char	*line_env(char *str, t_path *path)

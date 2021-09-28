@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 10:10:07 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/27 15:48:41 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/28 16:23:16 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	cd_home(char *buff, char **env, int *a)
 	buff = ft_getenv(env, "HOME");
 	if (buff == NULL)
 	{
-		ft_putstr_fd("bash : cd: \"HOME\" is not set\n", 2);
+		ft_putstr_fd("minishell : cd: \"HOME\" is not set\n", 2);
 		return ;
 	}
 	*a = chdir(buff);

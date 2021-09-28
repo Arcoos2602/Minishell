@@ -6,7 +6,7 @@
 /*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 15:47:20 by user42            #+#    #+#             */
-/*   Updated: 2021/09/27 10:53:23 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/28 16:23:23 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	display_error_token(char c)
 {
-	ft_putstr_fd("bash: syntax error near unexpected token '", 2);
+	ft_putstr_fd("minishell: syntax error near unexpected token '", 2);
 	if (c == '\0')
 		ft_putstr_fd("newline'\n", 2);
 	else
