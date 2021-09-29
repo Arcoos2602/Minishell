@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct_pipe3.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:43:11 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/29 14:25:34 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/29 14:36:46 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ int	ft_free_redi_double(t_redi *redi, t_path *path)
 t_redi	*init_new_redi(t_redi *redi, char **lexer, t_path *paths)
 {
 	redi->put = parse(lexer[1], paths);
-	printf("sortie\n");
-	printf("|%s|\n", redi->put);
 	if (lexer[0][0] == '<')
 	{
 		redi->type = 0;
@@ -59,12 +57,7 @@ t_redi	*init_new_redi(t_redi *redi, char **lexer, t_path *paths)
 	else
 		redi->type = 2;
 	if (redi->put == NULL && redi->type != 10)
-	{
-		redi->type = -10;
-		ft_putstr_fd("minishell : ", 2);
-		ft_putstr_fd(lexer[1], 2);
-		ft_putstr_fd(": ambiguous redirect\n", 2);
-	}
+		ambigous(redi, lexer);
 	return (redi);
 }
 

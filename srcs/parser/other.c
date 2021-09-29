@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   other.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 14:30:09 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/28 20:36:11 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/29 14:36:52 by tcordonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,14 @@ void	*p_malloc(char ***tab, int size)
 		return (NULL);
 	tab[size - 1] = NULL;
 	return (tab);
+}
+
+void	ambigous(t_redi *redi, char **lexer)
+{
+	redi->type = -10;
+	ft_putstr_fd("minishell : ", 2);
+	ft_putstr_fd(lexer[1], 2);
+	ft_putstr_fd(": ambiguous redirect\n", 2);
 }
 
 int	words_command(char **lexer, int i)
