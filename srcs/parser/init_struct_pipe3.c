@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:43:11 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/29 09:01:02 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/29 12:19:42 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	ft_free_redi_double(t_redi *redi, t_path *path)
 t_redi	*init_new_redi(t_redi *redi, char **lexer, t_path *paths)
 {
 	redi->put = parse(lexer[1], paths);
+	printf("sortie\n");
+	printf("|%s|\n", redi->put);
 	if (lexer[0][0] == '<')
 	{
 		redi->type = 0;

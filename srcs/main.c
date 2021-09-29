@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/29 11:18:28 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/29 12:30:50 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static	void	begin(char *line, t_path *paths)
 	token = NULL;
 	if (line != NULL)
 	{
-		line = line_env(line, paths);
+		//line = line_env(line, paths);
 		token = tokenization(line, paths);
 		free(line);
 	}

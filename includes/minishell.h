@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 10:02:46 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/29 09:02:36 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/29 12:46:11 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,12 @@ int				ft_free_redi_double(t_redi *redi, t_path *path);
 int				nbr_redi(char **lexer);
 t_parser		*parser_new(char **lexer, int *i, t_path *paths);
 char			*parse(char *str, t_path *path);
+char			*parse_put(char *str, t_path *path);
 t_pipes			*pipe_new(char **lexer, int *i, t_path *paths);
 t_pipes			*init_new(t_pipes *t_new, char **lexer, int *i, t_path *path);
 char			**init_command_pipe(char **command,
 					char **lexer, int *i, t_path *paths);
 t_redi			*init_put(t_redi *t_new, char **lexer, int *i, t_path *paths);
-char			*parse(char *str, t_path *path);
 char			**ft_export(t_pipes *pipes, char **env, t_path *path);
 char			*finish_env_line(char *str, char *dest, char *end, char **buf);
 void			set_j(char **env, int *x, int *j);
