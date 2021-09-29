@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_env2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 12:09:05 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/29 11:11:53 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/29 11:47:40 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	*add_env_line(char *str, int *i, t_path *path)
 		buf = exit_value(buf, i, path);
 	else if (str[*i - 1] != '\0')
 		buf = ft_split(ft_dol(str, i, path), ' ');
-	if (str[tmp - 1] == '\0' || buf == NULL || buf[0] == NULL)
+	if (str[tmp] == '\0' || buf == NULL || buf[0] == NULL)
 		return (str);
 	dest = ft_strndup(str, tmp);
 	while (buf[nbr] != NULL)

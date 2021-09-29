@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 11:55:39 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/29 11:18:17 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/29 11:44:49 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char	*line_env(char *str, t_path *path)
 	while (str[i] != '\0')
 	{		
 		if (ft_compare_c_to_s(str[i], "'\"") == 1)
-			count_quote(&i, str);
+			count_quote_size(&i, str);
 		else if (str[i] != '\0' && str[i] == '$')
 			str = add_env_line(str, &i, path);
 		else if (str[i] != '\0')
