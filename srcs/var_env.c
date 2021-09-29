@@ -6,7 +6,7 @@
 /*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 11:55:39 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/28 19:03:34 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/29 11:18:17 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,22 @@ char	*finish_env_line(char *dest, char *str, char *end, char **buf)
 	return (dest);
 }
 
+static void	count_quote_size(int *i, char *str)
+{
+	if (str[*i] == '"')
+	{	
+		while (str[*i] != '\0' && str[++*i] != '"')
+			;
+	}
+	else if (str[*i] == '\'')
+	{
+		while (str[*i] != '\0' && str[++*i] != '\'')
+			;
+	}
+	if (str[*i] != '\0')
+		++*i;
+}
+
 char	*line_env(char *str, t_path *path)
 {
 	int	i;
@@ -74,21 +90,8 @@ char	*line_env(char *str, t_path *path)
 	while (str[i] != '\0')
 	{		
 		if (ft_compare_c_to_s(str[i], "'\"") == 1)
-		{
-			if (str[i] == '"')
-			{	
-				while (str[i] != '\0' && str[++i] != '"')
-					;
-			}
-			else if (str[i] == '\'')
-			{
-				while (str[i] != '\0' && str[++i] != '\'')
-					;
-			}
-			if (str[i] != '\0')
-				i++;
-		}
-		else if (str[i] !=  0 && str[i] == '$')
+			count_quote(&i, str);
+		else if (str[i] != '\0' && str[i] == '$')
 			str = add_env_line(str, &i, path);
 		else if (str[i] != '\0')
 			i++;

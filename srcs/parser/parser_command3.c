@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parser_command3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 00:24:32 by thomas            #+#    #+#             */
-/*   Updated: 2021/09/28 16:14:04 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/29 11:06:48 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft/include/libft.h"
 #include "../../includes/minishell.h"
 
-char	*quote_exit(char *dst,  int *i, t_path *path)
+char	*quote_exit(char *dst, int *i, t_path *path)
 {
 	char	*buf;
 
@@ -38,11 +38,8 @@ char	*double_quote_2(int *i, char *str, char *dst, t_path *path)
 			return (dst);
 		}
 		buff = ft_dol(str, i, path);
-	
 		if (buff != NULL)
-		{
 			dst = ft_strjoin(dst, buff);
-		}
 		else if (str[*i] != '\0' && str[*i - 1] == '$')
 			dst = ft_strjoin(dst, "$");
 	}

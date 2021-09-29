@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_env2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 12:09:05 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/29 09:10:40 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/29 11:11:53 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,20 +84,18 @@ char	*add_env_line(char *str, int *i, t_path *path)
 	init_values_and_free(i, &tmp, &nbr);
 	dest = NULL;
 	buf = NULL;
-	if (str[*i - 1] == '\0')
-		return (str);
-	if (str[*i] == '?')
+	if (str[*i - 1] != '\0' && str[*i] == '?')
 		buf = exit_value(buf, i, path);
-	else
+	else if (str[*i - 1] != '\0')
 		buf = ft_split(ft_dol(str, i, path), ' ');
-	if (buf == NULL || buf[0] == NULL)
+	if (str[tmp - 1] == '\0' || buf == NULL || buf[0] == NULL)
 		return (str);
 	dest = ft_strndup(str, tmp);
 	while (buf[nbr] != NULL)
 		dest = fill(buf, dest, &nbr);
 	if (buf[nbr - 1] != NULL && buf[nbr - 1][0] != '\0')
 		dest = ft_strjoin(dest, "'");
-	tmp =  ft_strlen(dest);
+	tmp = ft_strlen(dest);
 	end = ft_strndup(&str[*i], ft_strlen(&str[*i]));
 	*i = tmp;
 	return (finish_env_line(dest, str, end, buf));
