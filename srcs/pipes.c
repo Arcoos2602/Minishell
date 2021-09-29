@@ -22,6 +22,7 @@ int	ft_fork(t_path *path)
 	pid = fork();
 	if (pid == 0)
 	{
+		rl_clear_history();
 		ft_close(-1, -1, path->pipe_in, pipe_fd[1]);
 		dup2(pipe_fd[0], 0);
 		path->pipe_in = pipe_fd[0];
@@ -58,8 +59,8 @@ int	ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2)
 	if (path->starting == 1 && pipes->next == NULL && pipes->builtin == 1)
 	{
 		ft_dup_redi(pipes, buf);
-		check_builtins(pipes, path, path->path);
 		ft_close(buf[1], buf[0], path->pipe_in, path->pipe_out);
+		check_builtins(pipes, path, path->path);
 		return (5);
 	}
 	pid[0] = 0;

@@ -38,12 +38,13 @@ void	*p_malloc(char ***tab, int size)
 	return (tab);
 }
 
-void	ambigous(t_redi *redi, char **lexer)
+void	ambigous(t_redi *redi, char **lexer, t_path *path)
 {
 	redi->type = -10;
 	ft_putstr_fd("minishell : ", 2);
 	ft_putstr_fd(lexer[1], 2);
 	ft_putstr_fd(": ambiguous redirect\n", 2);
+	path->exit_status = 1;
 }
 
 int	words_command(char **lexer, int i)

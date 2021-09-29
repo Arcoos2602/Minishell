@@ -47,10 +47,11 @@ int	init_redi(t_path *path, t_pipes *pipes, int buf[2])
 
 int	redirect_out(char *put, t_redi *redi, int *pipe_out)
 {
-	if (*pipe_out > 0)
-		close(*pipe_out);
+	
 	if (redi->type == 1)
 	{
+		if (*pipe_out >= 0)
+			close(*pipe_out);
 		*put = 1;
 		*pipe_out = open(redi->put,
 				O_APPEND | O_CREAT | O_RDWR | O_TRUNC, 0664);
@@ -59,13 +60,15 @@ int	redirect_out(char *put, t_redi *redi, int *pipe_out)
 	}
 	if (redi->type == 2)
 	{
+		if (*pipe_out >= 0)
+			close(*pipe_out);
 		*put = 1;
 		*pipe_out = open(redi->put,
 				O_APPEND | O_CREAT | O_RDWR, 0664);
 		if (*pipe_out == -1)
 			return (file_error(redi->put));
 	}
-	if (redi->next->type == -10)
+	if (redi->type == -10)
 		return (0);
 	if (redi->next != NULL)
 		redirect_out(put, redi->next, pipe_out);
@@ -74,10 +77,11 @@ int	redirect_out(char *put, t_redi *redi, int *pipe_out)
 
 int	redirect_in(t_path *path, char *put, t_redi *redi, int *pipe_in)
 {
-	if (*pipe_in > 0)
-		close(*pipe_in);
+
 	if (redi->type == 0)
 	{
+		if (*pipe_in >= 0)
+			close(*pipe_in);
 		*pipe_in = open(redi->put, O_RDONLY);
 		if (*pipe_in == -1)
 			return (file_error(redi->put));
@@ -86,6 +90,8 @@ int	redirect_in(t_path *path, char *put, t_redi *redi, int *pipe_in)
 	}
 	else if (redi->type == 10)
 	{
+			if (*pipe_in >= 0)
+				close(*pipe_in);
 		ft_free_redi_double(redi, path);
 		*pipe_in = open(".test", O_RDONLY);
 		unlink(".test");
@@ -94,9 +100,9 @@ int	redirect_in(t_path *path, char *put, t_redi *redi, int *pipe_in)
 		redi->type = -1;
 		*put = 1;
 	}
-	if (redi->next->type == -10)
+	if (redi->type == -10)
 		return (0);
-	if (redi->next != NULL && redi->next->type != -10)
+	if (redi->next != NULL)
 		redirect_in(path, put, redi->next, pipe_in);
 	return (1);
 }

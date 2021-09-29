@@ -33,6 +33,7 @@ char	*ft_dol(char *str, int *i, t_path *path)
 	int		cpt;
 
 	cpt = ft_count(str, i, "'$ \" | > <?");
+	printf("%d\n", *i);
 	env = ft_substr(str, *i - cpt, cpt);
 	buff = ft_getenv(path->path, env);
 	free(env);

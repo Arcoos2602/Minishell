@@ -63,6 +63,8 @@ static	void	begin(char *line, t_path *paths)
 	}
 	if (token != NULL && token[0] != NULL)
 		parse_and_exec(token, parser, paths);
+	else if (token != NULL)
+		free_token(token);
 	free_paths(paths);
 	if (g_global != 0)
 		paths->exit_status = g_global;

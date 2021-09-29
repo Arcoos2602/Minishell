@@ -114,7 +114,7 @@ char			*finish_env_line(char *str, char *dest, char *end, char **buf);
 void			set_j(char **env, int *x, int *j);
 int				ft_count(char *str, int *i, char *test);
 void			ft_dup_redi(t_pipes *pipes, int buf[2]);
-void			ambigous(t_redi *redi, char **lexer);
+void			ambigous(t_redi *redi, char **lexer, t_path*paths);
 char			*double_quotes(char *str, int *i, t_path *path);
 void			ft_env(char **path);
 void			ft_pwd(void);
@@ -130,5 +130,6 @@ void			replace_quotes(char *dest, char *buf, int *i, int *cpt);
 char			**new_env_exp(char **env, char *to_add, int size);
 void			ft_print_env_alp(char **env);
 int				is_valid(char *str);
+char		*parse_4(int *i, char *str, char *dest, t_path *path);
 
 #endif

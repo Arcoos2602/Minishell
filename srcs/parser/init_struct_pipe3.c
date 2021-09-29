@@ -57,7 +57,7 @@ t_redi	*init_new_redi(t_redi *redi, char **lexer, t_path *paths)
 	else
 		redi->type = 2;
 	if (redi->put == NULL && redi->type != 10)
-		ambigous(redi, lexer);
+		ambigous(redi, lexer, paths);
 	return (redi);
 }
 

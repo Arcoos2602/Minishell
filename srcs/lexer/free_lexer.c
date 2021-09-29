@@ -22,9 +22,11 @@ void	free_token(char	**token)
 	{
 		while (token[i] != NULL)
 		{
+			printf("|%s|\n", token[i]);
 			free(token[i]);
 			i++;
 		}
+		printf("|%p|\n", token);
 		free(token);
 	}
 	token = NULL;
