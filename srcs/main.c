@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 10:03:47 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/28 16:28:14 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/29 08:53:00 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static void	init_values(t_path *paths, char **env)
 void	parse_and_exec(char **token, t_parser *parser, t_path *paths)
 {
 	parser = init_parser(token, paths);
+	//printf("%s\n", token[0]);
 	free_token(token);
 	paths->parser = parser;
 	ft_shell(parser, paths);
@@ -60,6 +61,8 @@ static	void	begin(char *line, t_path *paths)
 	{
 		line = line_env(line, paths);
 		token = tokenization(line, paths);
+		//printf("%s\n", token[0]);
+		//printf("%s\n", token[1]);
 		free(line);
 	}
 	if (token != NULL && token[0] != NULL)
