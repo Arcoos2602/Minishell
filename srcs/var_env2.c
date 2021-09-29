@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 12:09:05 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/29 11:47:40 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/29 13:46:52 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,10 @@ char	*fill(char **buf, char *dest, int *nbr)
 	if (buf[*nbr] != NULL && buf[*nbr][0] != '\0')
 	{
 		buf[*nbr] = ft_special(buf[*nbr]);
-		dest = ft_strjoin(dest, "'");
 		dest = ft_strjoin(dest, buf[*nbr]);
 		++*nbr;
 		if (buf[*nbr] != NULL)
-			dest = ft_strjoin(dest, "' ");
+			dest = ft_strjoin(dest, " ");
 	}
 	else
 		++*nbr;
@@ -93,8 +92,6 @@ char	*add_env_line(char *str, int *i, t_path *path)
 	dest = ft_strndup(str, tmp);
 	while (buf[nbr] != NULL)
 		dest = fill(buf, dest, &nbr);
-	if (buf[nbr - 1] != NULL && buf[nbr - 1][0] != '\0')
-		dest = ft_strjoin(dest, "'");
 	tmp = ft_strlen(dest);
 	end = ft_strndup(&str[*i], ft_strlen(&str[*i]));
 	*i = tmp;

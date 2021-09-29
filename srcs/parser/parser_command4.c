@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_command4.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 00:26:09 by thomas            #+#    #+#             */
-/*   Updated: 2021/09/28 13:55:57 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/29 13:53:06 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,30 +77,36 @@ static char	**comand_malloc(char **command, char **lexer, t_path *paths)
 	return (ft_finish_command(command, lexer));
 }
 
-static int	command_size(char **lexer)
+static int	command_size(char **lexer, t_path *paths)
 {
-	int	i;
-	int	n;
+	int		i;
+	int		n;
+	char	*buf;
+	char	*dest;
 
 	i = 0;
 	n = -1;
 	while (lexer[n + 1] != NULL && 0 == ft_compare_c_to_s(lexer[++n][0], "|"))
 	{
+		buf = ft_strdup(lexer[n]);
+		dest = line_env(buf, paths);
+		printf("%s ", dest);
 		if (1 != (ft_compare_c_to_s(lexer[n][0], "><")))
 			i++;
 		else
 			n++;
 	}
+	printf("\n");
 	return (i);
 }
 
 char	**init_command_pipe(char **command, char **lexer, int *i, t_path *paths)
 {
-	int	size;
+	int		size;
 
 	if (lexer[0] != NULL)
 	{
-		size = command_size(&lexer[*i]);
+		size = command_size(&lexer[*i], paths);
 		command = malloc(sizeof(char *) * (size + 1));
 		if (command == NULL)
 			return (NULL);
