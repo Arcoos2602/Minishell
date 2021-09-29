@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:43:11 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/29 08:55:28 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/29 09:01:02 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,9 @@ int	ft_free_redi_double(t_redi *redi, t_path *path)
 	line = NULL;
 	fd = open(".test", O_APPEND | O_CREAT | O_RDWR | O_TRUNC, 0664);
 	if (fd < 0)
-	{
 		return (10);
-	}
 	ft_putstr_fd(">", 2);
-	while (get_next_line(&line) != 0
+	while (get_next_line(&line, 0) != 0
 		&& !(ft_strncmp(redi->put, line, ft_strlen(redi->put)) == 0
 			&& ft_strlen(redi->put) == ft_strlen(line)))
 	{

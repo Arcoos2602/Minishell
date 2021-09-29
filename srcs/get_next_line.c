@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thomas <thomas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 14:49:55 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/28 00:31:26 by thomas           ###   ########.fr       */
+/*   Updated: 2021/09/29 09:03:17 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/include/libft.h"
 #include "../includes/minishell.h"
 
-int	ft_gnl_rec(char **line, int index)
+int	get_next_line(char **line, int i)
 {
 	int		ret;
 	char	buf;
@@ -23,22 +23,17 @@ int	ft_gnl_rec(char **line, int index)
 		return (-1);
 	if (ret == 1 && buf != '\n')
 	{
-		ret = ft_gnl_rec(line, index + 1);
+		ret = get_next_line(line, i + 1);
 		if (ret == -1)
 			return (-1);
-		(*line)[index] = buf;
+		(*line)[i] = buf;
 	}
 	else
 	{
-		(*line) = (char *)malloc(sizeof(char) * (index + 1));
+		(*line) = (char *)malloc(sizeof(char) * (i + 1));
 		if (!(*line))
 			return (-1);
-		(*line)[index] = '\0';
+		(*line)[i] = '\0';
 	}
 	return (ret);
-}
-
-int	get_next_line(char **line)
-{
-	return (ft_gnl_rec(line, 0));
 }

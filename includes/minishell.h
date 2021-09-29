@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 10:02:46 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/28 19:11:35 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/29 09:02:36 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int				init_redi(t_path *path, t_pipes *pipes, int buf[2]);
 int				init_fd(t_pipes *pipes, int buf[2],
 					int pipe_fd[2], t_path *path);
 int				exit_ft_parser(pid_t pid, t_parser *parser, t_path *path);
-int				get_next_line(char **line);
+int				get_next_line(char **line, int i);
 int				check_builtins(t_pipes	*pipes, t_path *path, char **env);
 void			ft_exit(t_path *path, t_pipes *pipes);
 t_pipes			*init_pipes(char **lexer, int *i, t_path *paths);
