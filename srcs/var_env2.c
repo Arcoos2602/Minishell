@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_env2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 12:09:05 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/28 19:03:08 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/29 09:10:40 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static char	**exit_value(char **buf, int *i, t_path *path)
 	buf[0] = ft_itoa(path->exit_status);
 	buf[1] = NULL;
 	++*i;
+// /	printf("%d\n",i);
 	return (buf);
 }
 
