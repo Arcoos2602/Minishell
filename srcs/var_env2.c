@@ -62,7 +62,7 @@ static char	**exit_value(char **buf, int *i, t_path *path)
 	buf[0] = ft_itoa(path->exit_status);
 	buf[1] = NULL;
 	++*i;
-// /	printf("%d\n",i);
+	printf("%d\n",*i);
 	return (buf);
 }
 
@@ -97,6 +97,8 @@ char	*add_env_line(char *str, int *i, t_path *path)
 		dest = fill(buf, dest, &nbr);
 	if (buf[nbr - 1] != NULL && buf[nbr - 1][0] != '\0')
 		dest = ft_strjoin(dest, "'");
+	tmp =  ft_strlen(dest);
 	end = ft_strndup(&str[*i], ft_strlen(&str[*i]));
+	*i = tmp;
 	return (finish_env_line(dest, str, end, buf));
 }

@@ -23,7 +23,7 @@ void	ft_putnbr_fd(int nb, int fd)
 		nbr *= -1;
 	}
 	if (nbr >= 10)
-		_fd(nbr / 10, fd);
+		ft_putnbr_fd(nbr / 10, fd);
 	nbr = nbr % 10 + 48;
 	write(fd, &nbr, 1);
 }

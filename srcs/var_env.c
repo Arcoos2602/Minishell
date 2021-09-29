@@ -85,10 +85,12 @@ char	*line_env(char *str, t_path *path)
 				while (str[i] != '\0' && str[++i] != '\'')
 					;
 			}
+			if (str[i] != '\0')
+				i++;
 		}
-		else if (str[i] == '$')
+		else if (str[i] !=  0 && str[i] == '$')
 			str = add_env_line(str, &i, path);
-		else
+		else if (str[i] != '\0')
 			i++;
 	}
 	return (str);

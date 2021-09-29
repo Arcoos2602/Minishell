@@ -13,17 +13,15 @@
 #include "../../libft/include/libft.h"
 #include "../../includes/minishell.h"
 
-char	*quote_exit(int *i, t_path *path)
+char	*quote_exit(char *dst,  int *i, t_path *path)
 {
 	char	*buf;
-	char	*dest;
 
-	dest = NULL;
 	buf = ft_itoa(path->exit_status);
-	dest = ft_strjoin(dest, buf);
+	dst = ft_strjoin(dst, buf);
 	++*i;
 	free(buf);
-	return (dest);
+	return (dst);
 }
 
 char	*double_quote_2(int *i, char *str, char *dst, t_path *path)
@@ -34,11 +32,17 @@ char	*double_quote_2(int *i, char *str, char *dst, t_path *path)
 	if (str[*i] == '$')
 	{
 		++*i;
+		if (str[*i] == '?' && str[*i - 1] == '$')
+		{
+			dst = quote_exit(dst, i, path);
+			return (dst);
+		}
 		buff = ft_dol(str, i, path);
-		if (buff == NULL && str[*i] == '?' && str[*i - 1] == '$')
-			dst = quote_exit(i, path);
-		else if (buff != NULL)
+	
+		if (buff != NULL)
+		{
 			dst = ft_strjoin(dst, buff);
+		}
 		else if (str[*i] != '\0' && str[*i - 1] == '$')
 			dst = ft_strjoin(dst, "$");
 	}
