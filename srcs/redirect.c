@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 19:23:02 by user42            #+#    #+#             */
-/*   Updated: 2021/09/29 08:54:05 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/29 14:27:20 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	init_redi(t_path *path, t_pipes *pipes, int buf[2])
 	buf[1] = -1;
 	if (pipes->redi == NULL)
 		return (1);
+	if (pipes->redi->type == -10)
+		return (0);
 	if (redirect_in(path, &pipes->put[0], pipes->redi, &buf[0]) == 0)
 		return (0);
 	if (redirect_out(&pipes->put[1], pipes->redi, &buf[1]) == 0)
@@ -63,10 +65,10 @@ int	redirect_out(char *put, t_redi *redi, int *pipe_out)
 		if (*pipe_out == -1)
 			return (file_error(redi->put));
 	}
+	if (redi->next->type == -10)
+		return (0);
 	if (redi->next != NULL)
-	{
 		redirect_out(put, redi->next, pipe_out);
-	}
 	return (1);
 }
 
@@ -92,7 +94,9 @@ int	redirect_in(t_path *path, char *put, t_redi *redi, int *pipe_in)
 		redi->type = -1;
 		*put = 1;
 	}
-	if (redi->next != NULL)
+	if (redi->next->type == -10)
+		return (0);
+	if (redi->next != NULL && redi->next->type != -10)
 		redirect_in(path, put, redi->next, pipe_in);
 	return (1);
 }

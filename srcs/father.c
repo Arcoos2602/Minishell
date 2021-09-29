@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   father.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thomas <thomas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:02:22 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/28 00:43:53 by thomas           ###   ########.fr       */
+/*   Updated: 2021/09/29 14:25:13 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	father_2(t_pipes *pipes, t_path *path)
 void	ft_father_error(t_path *path)
 {
 	ft_free(path->parser, path);
+	rl_clear_history();
 	exit(EXIT_FAILURE);
 }
 
