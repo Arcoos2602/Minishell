@@ -13,7 +13,7 @@
 #include "../libft/include/libft.h"
 #include "../includes/minishell.h"
 
-int	ft_fork(t_path *path)
+int	ft_fork(t_path *path, int buf[2])
 {
 	pid_t	pid;
 	int		pipe_fd[2];
@@ -32,7 +32,7 @@ int	ft_fork(t_path *path)
 	}
 	else
 	{
-		ft_close(-1, -1, path->pipe_out, pipe_fd[0]);
+		ft_close(buf[0], buf[1], path->pipe_out, pipe_fd[0]);
 		dup2(pipe_fd[1], 1);
 		path->pipe_out = pipe_fd[1];
 		path->father = 1;
@@ -65,7 +65,7 @@ int	ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2)
 	}
 	pid[0] = 0;
 	if (test_fork(path))
-		pid[0] = ft_fork(path);
+		pid[0] = ft_fork(path, buf);
 	if (pid[0] == 0)
 	{
 		if (pipes->next != NULL)
