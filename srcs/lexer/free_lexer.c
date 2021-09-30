@@ -6,7 +6,7 @@
 /*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:47:59 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/27 09:59:42 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/30 03:52:13 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,9 @@ void	free_token(char	**token)
 	{
 		while (token[i] != NULL)
 		{
-			printf("|%s|\n", token[i]);
 			free(token[i]);
 			i++;
 		}
-		printf("|%p|\n", token);
 		free(token);
 	}
 	token = NULL;
