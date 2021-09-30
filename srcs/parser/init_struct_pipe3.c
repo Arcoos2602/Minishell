@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:43:11 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/30 08:22:37 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/30 08:51:14 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,10 @@ int	ft_free_redi_double(t_redi *redi, t_path *path)
 	return (10);
 }
 
-char	*dup_rediput(char *lexer)
+int dup_rediput_size(char *lexer)
 {
-	int	i;
+	int i;
 	int	cpt;
-	char *dest;
 
 	cpt = ft_strlen(lexer);
 	i = -1;
@@ -64,12 +63,16 @@ char	*dup_rediput(char *lexer)
 			cpt--;
 		}
 	}
-		dest = malloc(cpt + 1);
-		dest[cpt] = '\0';
-		if	(dest == NULL || cpt == 0)
-			return (dest);
-		i = 0;
-		cpt = 0;
+	return (cpt);
+}
+
+void copy_rediput(char *dest, char *lexer)
+{
+	int i;
+	int cpt;
+
+	i = 0;
+	cpt = 0;
 	while (lexer[i] != '\0')
 	{
 		if (lexer[i] == '\'')
@@ -89,6 +92,20 @@ char	*dup_rediput(char *lexer)
 		else if (lexer[i] != '\0')
 			dest[cpt++] = lexer[i++];
 	}
+}
+
+char	*dup_rediput(char *lexer)
+{
+	int	cpt;
+	char *dest;
+
+		cpt = dup_rediput_size(lexer);
+		dest = malloc(cpt + 1);
+		dest[cpt] = '\0';
+		if	(dest == NULL || cpt == 0)
+			return (dest);
+		copy_rediput(dest, lexer);
+
 	return (dest);
 }
 
