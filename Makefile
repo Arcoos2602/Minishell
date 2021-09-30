@@ -19,6 +19,8 @@ SRCS =  srcs/lexer/lexer.c \
 		srcs/parser/parser_command2.c \
 		srcs/parser/parser_command3.c \
 		srcs/parser/parser_command4.c \
+		srcs/parser/parser_command5.c \
+		srcs/parser/parser_command6.c \
 		srcs/builtins/builtins.c \
 		srcs/builtins/env.c \
 		srcs/builtins/export2.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 10:02:46 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/29 14:37:12 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/09/30 05:22:01 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,13 @@ void			fill_quote(char **tab, char *str, int *i, int *x);
 int				check_error(char *str, int *i, int *cpt);
 int				token(char c);
 int				ft_free_redi_double(t_redi *redi, t_path *path);
+char			**comand_malloc_2(char **command, t_path *paths, int size);
+char			**split_command(char **command, int *size);
+char			**comand_malloc(char **command, char **lexer);
+char			**command_trad(char **command, t_path *paths, int size);
+char			**command_split_2(char **dest, char **command, int *i, int *d);
+char			*command_trad_2(char *command, t_path *paths);
+int				count_tab(char **command);
 int				quote(char *str);
 int				init_inouput_back(char **lexer, char *inout);
 int				ft_shell(t_parser *parser, t_path *path);
