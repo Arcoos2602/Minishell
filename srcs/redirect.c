@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 19:23:02 by user42            #+#    #+#             */
-/*   Updated: 2021/09/30 06:25:08 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/30 06:49:27 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	init_redi(t_path *path, t_pipes *pipes, int buf[2])
 	return (1);
 }
 
-int	redirect_out(char *put, t_redi *redi, int *pipe_out)
+int	redirect_out(int *put, t_redi *redi, int *pipe_out)
 {
 	if (redi->type == 1)
 	{
@@ -74,7 +74,7 @@ int	redirect_out(char *put, t_redi *redi, int *pipe_out)
 	return (1);
 }
 
-int	redirect_in(t_path *path, char *put, t_redi *redi, int *pipe_in)
+int	redirect_in(t_path *path, int *put, t_redi *redi, int *pipe_in)
 {
 	if (redi->type == 0)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_command6.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 05:14:21 by user42            #+#    #+#             */
-/*   Updated: 2021/09/30 06:13:19 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/30 07:08:00 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static char	*command_trad_2_1(char *dest, char *command, int *size, int *i)
 		++*size;
 	if (command[*i + *size] != '\0')
 		++*size;
-	++*size;
 	buf = ft_strndup(&command[*i], *size);
 	dest = ft_strjoin(dest, buf);
 	free(buf);
@@ -60,7 +59,6 @@ static char	*command_trad_2_2(char *dest, char *command, int *size, int *i)
 		++*size;
 	if (command[*i + *size] != '\0')
 		++*size;
-	++*size;
 	buf = ft_strndup(&command[*i], *size);
 	dest = ft_strjoin(dest, buf);
 	free(buf);

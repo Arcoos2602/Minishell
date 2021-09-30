@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 10:02:46 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/30 05:27:13 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/30 06:50:18 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ int				display_error_token(char c);
 int				ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2);
 void			ft_free_redi(t_redi *redi);
 void			ft_free(t_parser *parser, t_path *path);
-int				redirect_out(char *put, t_redi *redi, int *pipe_out);
-int				redirect_in(t_path *path, char *put,
+int				redirect_out(int *put, t_redi *redi, int *pipe_out);
+int				redirect_in(t_path *path, int *put,
 					t_redi *redi, int *pipe_in);
 void			free_paths(t_path *path);
 pid_t			father_0(t_pipes *pipes, t_path *path, int buf[2]);
@@ -138,4 +138,6 @@ char			**new_env_exp(char **env, char *to_add, int size);
 void			ft_print_env_alp(char **env);
 int				is_valid(char *str);
 char			*parse_4(int *i, char *str, char *dest, t_path *path);
+int				ft_open_here_doc(t_redi *redi, t_path *path, int *pipe_in, int *put);
+int				file_error(char *str);
 #endif

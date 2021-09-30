@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thomas <thomas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 09:39:46 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/28 00:46:28 by thomas           ###   ########.fr       */
+/*   Updated: 2021/09/30 06:47:25 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct s_redi
 typedef struct s_pipes
 {
 	int				builtin;
-	char			put[2];
+	int				put[2];
 	char			**command;
 	int				error;
 	int				exe;
