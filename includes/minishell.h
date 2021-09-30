@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 10:02:46 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/30 09:06:07 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/30 10:21:37 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ char			*ft_dol(char *str, int *i, t_path *path);
 char			**tokenization(char *str, t_path *paths);
 void			free_token(char	**token);
 int				count_quote(char *str, int *i);
-void			fill_quote(char **tab, char *str, int *i, int *x);
 int				check_error(char *str, int *i, int *cpt);
 int				token(char c);
 int				ft_free_redi_double(t_redi *redi, t_path *path);
@@ -69,9 +68,7 @@ char			**command_split_2(char **dest, char **command, int *i, int *d);
 char			*command_trad_2(char *command, t_path *paths);
 int				count_tab(char **command);
 int				quote(char *str);
-int				init_inouput_back(char **lexer, char *inout);
 int				ft_shell(t_parser *parser, t_path *path);
-void			display_total(t_parser *parser);
 int				display_error_token(char c);
 int				ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2);
 void			ft_free_redi(t_redi *redi);
@@ -92,7 +89,6 @@ int				exit_ft_pipe(pid_t pid, t_pipes *pipes, t_path *path);
 int				init_redi(t_path *path, t_pipes *pipes, int buf[2]);
 int				init_fd(t_pipes *pipes, int buf[2],
 					int pipe_fd[2], t_path *path);
-int				exit_ft_parser(pid_t pid, t_parser *parser, t_path *path);
 int				get_next_line(char **line, int i);
 int				check_builtins(t_pipes	*pipes, t_path *path, char **env);
 void			ft_exit(t_path *path, t_pipes *pipes);
@@ -117,7 +113,6 @@ char			**init_command_pipe(char **command,
 					char **lexer, int *i, t_path *paths);
 t_redi			*init_put(t_redi *t_new, char **lexer, int *i, t_path *paths);
 char			**ft_export(t_pipes *pipes, char **env, t_path *path);
-char			*finish_env_line(char *str, char *dest, char *end, char **buf);
 void			set_j(char **env, int *x, int *j);
 int				ft_count(char *str, int *i, char *test);
 void			ft_dup_redi(t_pipes *pipes, int buf[2]);
@@ -130,10 +125,7 @@ void			ft_echo(t_pipes *pipes);
 void			ft_cd(t_pipes *pipes, char **env);
 char			**ft_unset(t_pipes *pipes, char **env, t_path *path);
 char			*ft_getenv(char **paths, char *var);
-char			*line_env(char *str, t_path *path);
-char			*add_env_line(char *str, int *i, t_path *path);
 void			ft_signal(int n);
-void			replace_quotes(char *dest, char *buf, int *i, int *cpt);
 char			**new_env_exp(char **env, char *to_add, int size);
 void			ft_print_env_alp(char **env);
 int				is_valid(char *str);
