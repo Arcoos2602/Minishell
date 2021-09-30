@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_command5.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 05:14:07 by user42            #+#    #+#             */
-/*   Updated: 2021/09/30 05:14:45 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/30 05:37:54 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,23 +54,33 @@ int	count_tab(char **command)
 	return (cpt);
 }
 
+static void	loop_split_2(char *command, int *x)
+{
+	if (command[*x] == '\'')
+		while (command[*x] != '\0' && command[++*x] != '\'')
+			;
+	if (command[*x] == '"')
+		while (command[*x] != '\0' && command[++*x] != '"')
+			;
+}
+
+static void	init_split_2(int *x, int *dep, int *cpt)
+{
+	*x = -1;
+	*dep = 0;
+	*cpt = 1;
+}
+
 char	**command_split_2(char **dest, char **command, int *i, int *d)
 {
 	int	x;
 	int	cpt;
 	int	dep;
 
-	x = -1;
-	dep = 0;
-	cpt = 1;
+	init_split_2(&x, &dep, &cpt);
 	while (command[*i] != NULL && command[*i][++x] != '\0')
 	{
-		if (command[*i][x] == '\'')
-			while (command[*i][x] != '\0' && command[*i][++x] != '\'')
-				;
-		if (command[*i][x] == '"')
-			while (command[*i][x] != '\0' && command[*i][++x] != '"')
-				;
+		loop_split_2(command[*i], &x);
 		if (ft_iswhitespace(command[*i][x]) && command[*i][++x] != '\0')
 		{
 			dest[*d] = ft_strndup(&command[*i][dep], x - dep - 1);

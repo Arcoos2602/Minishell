@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 10:02:46 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/30 05:22:01 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/30 05:27:13 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,5 @@ void			replace_quotes(char *dest, char *buf, int *i, int *cpt);
 char			**new_env_exp(char **env, char *to_add, int size);
 void			ft_print_env_alp(char **env);
 int				is_valid(char *str);
-char		*parse_4(int *i, char *str, char *dest, t_path *path);
-
+char			*parse_4(int *i, char *str, char *dest, t_path *path);
 #endif

@@ -6,7 +6,7 @@
 /*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 19:23:02 by user42            #+#    #+#             */
-/*   Updated: 2021/09/30 02:10:21 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/09/30 06:25:08 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,8 @@ int	redirect_in(t_path *path, char *put, t_redi *redi, int *pipe_in)
 	}
 	else if (redi->type == 10)
 	{
-		ft_free_redi_double(redi, path);
-		*pipe_in = open(".test", O_RDONLY);
-		unlink(".test");
-		if (*pipe_in == -1)
-			return (file_error(redi->put));
-		redi->type = -1;
-		*put = 1;
+		if (0 == ft_open_here_doc(redi, path, pipe_in, put))
+			return (0);
 	}
 	if (redi->type == -10)
 		return (0);
