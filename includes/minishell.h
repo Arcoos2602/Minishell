@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 10:02:46 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/30 06:50:18 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/30 09:06:07 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ char			**new_env_exp(char **env, char *to_add, int size);
 void			ft_print_env_alp(char **env);
 int				is_valid(char *str);
 char			*parse_4(int *i, char *str, char *dest, t_path *path);
-int				ft_open_here_doc(t_redi *redi, t_path *path, int *pipe_in, int *put);
+int				ft_open_here_doc(t_redi *re, t_path *pat, int *pipe_in, int *p);
 int				file_error(char *str);
+char			*dup_rediput(char *lexer);
 #endif
