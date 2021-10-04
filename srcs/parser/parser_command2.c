@@ -60,7 +60,7 @@ char	*parse_4(int *i, char *str, char *dest, t_path *path)
 		dest = ft_strjoin(dest, buff);
 		free(buff);
 	}
-	else if (ft_compare_c_to_s(str[*i], "'\" $") || str[*i] == '\0')
+	else if (!ft_compare_c_to_s(str[*i], ENV) || str[*i] == '\0')
 	{
 		dest = ft_strjoin(dest, "$");
 	}
