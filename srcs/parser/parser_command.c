@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 14:04:46 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/30 05:34:59 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/10/03 16:27:16 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,26 @@ int	ft_count(char *str, int *i, char *test)
 	return (cpt);
 }
 
+int ft_count_dol(char *str, int *i, char *test)
+{
+	int	cpt;
+
+	cpt = 0;
+	while (str[*i] != '\0' && ft_compare_c_to_s(str[*i], test))
+	{
+		cpt++;
+		++*i;
+	}
+	return (cpt);
+}
+
 char	*ft_dol(char *str, int *i, t_path *path)
 {
 	char	*env;
 	char	*buff;
 	int		cpt;
 
-	cpt = ft_count(str, i, "'$ \" | > <?");
+	cpt = ft_count_dol(str, i, ENV);
 	env = ft_substr(str, *i - cpt, cpt);
 	buff = ft_getenv(path->path, env);
 	free(env);

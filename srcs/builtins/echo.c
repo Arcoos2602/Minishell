@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 10:24:14 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/28 20:48:09 by user42           ###   ########.fr       */
+/*   Updated: 2021/10/02 16:29:36 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	ft_echo(t_pipes *pipes)
 	while (pipes->command[i] != NULL && finish == 0
 		&& pipes->command[i][j] == '-' && pipes->command[i][j + 1] == 'n')
 	{
+		j++;
 		while (pipes->command[i][j] && pipes->command[i][j] == 'n')
 			j++;
 		if (pipes->command[i][j] == '\0')

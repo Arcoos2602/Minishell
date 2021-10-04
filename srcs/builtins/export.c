@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:31:47 by user42            #+#    #+#             */
-/*   Updated: 2021/09/28 19:10:42 by gbabeau          ###   ########.fr       */
+/*   Updated: 2021/10/03 16:23:28 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_test_new_env(char *var, t_path *path)
 	a = 0;
 	while (var[a] != '\0' && var[a] != '=')
 	{
-		if (ft_compare_c_to_s(var[a++], "\"'?$|<>"))
+		if (!ft_compare_c_to_s(var[a++], ENV))
 		{
 			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd("export: `", 2);

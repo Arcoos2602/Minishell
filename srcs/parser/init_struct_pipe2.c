@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct_pipe2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcordonn <tcordonn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:41:57 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/28 13:48:03 by tcordonn         ###   ########.fr       */
+/*   Updated: 2021/10/03 16:28:40 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*ft_replace(char *line, t_path *path)
 	if (line == NULL || line[i] == '\0')
 		return (line);
 	i++;
-	cpt = ft_count(line, &i, "'$ \" | > <\n");
+	cpt = ft_count_dol(line, &i, ENV);
 	env = ft_substr(line, i - cpt, cpt);
 	buff = ft_getenv(path->path, env);
 	if (buff != NULL)

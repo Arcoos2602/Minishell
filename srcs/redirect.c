@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 19:23:02 by user42            #+#    #+#             */
-/*   Updated: 2021/09/30 06:49:27 by user42           ###   ########.fr       */
+/*   Updated: 2021/10/02 16:40:11 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	redirect_out(int *put, t_redi *redi, int *pipe_out)
 		return (0);
 	if (redi->next != NULL)
 	{
-		if (*pipe_out >= 0)
+		if (*pipe_out >= 0 && (redi->type == 1 || redi->type == -10))
 			close(*pipe_out);
 		redirect_out(put, redi->next, pipe_out);
 	}
@@ -93,7 +93,7 @@ int	redirect_in(t_path *path, int *put, t_redi *redi, int *pipe_in)
 		return (0);
 	if (redi->next != NULL)
 	{
-		if (*pipe_in >= 0)
+		if (*pipe_in >= 0 && (redi->type == 0 || redi->type == 10))
 			close(*pipe_in);
 		redirect_in(path, put, redi->next, pipe_in);
 	}

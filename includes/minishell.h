@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 10:02:46 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/09/30 10:21:37 by user42           ###   ########.fr       */
+/*   Updated: 2021/10/03 16:29:18 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # include "parser.h"
 # include <readline/readline.h>
 # include <readline/history.h>
+
+#define ENV "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_012345678910"
 
 extern int			g_global;
 
@@ -133,4 +135,5 @@ char			*parse_4(int *i, char *str, char *dest, t_path *path);
 int				ft_open_here_doc(t_redi *re, t_path *pat, int *pipe_in, int *p);
 int				file_error(char *str);
 char			*dup_rediput(char *lexer);
+int 			ft_count_dol(char *str, int *i, char *test);
 #endif

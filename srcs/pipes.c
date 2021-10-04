@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:03:19 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/09/29 14:19:12 by user42           ###   ########.fr       */
+/*   Updated: 2021/10/02 17:28:05 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ int	ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2)
 	int		buf[2];
 	pid_t	pid[2];
 
-	pipes->error = init_redi(path, pipes, buf);
+	pipes->put[0] = -1;
+	pipes->put[1] = -1;
+	buf[0] = -1;
+	buf[1] = -1;
 	if (path->starting == 1 && pipes->next == NULL && pipes->builtin == 1)
 	{
 		ft_dup_redi(pipes, buf);
@@ -71,7 +74,10 @@ int	ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2)
 		if (pipes->next != NULL)
 			ft_pipe(pipes->next, path, pid_2);
 		if (path->exec == 0)
+		{
+			pipes->error = init_redi(path, pipes, buf);
 			pid[1] = father_0(pipes, path, buf);
+		}
 	}
 	return (5);
 }
