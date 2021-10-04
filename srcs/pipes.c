@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:03:19 by tcordonn          #+#    #+#             */
-/*   Updated: 2021/10/02 17:28:05 by user42           ###   ########.fr       */
+/*   Updated: 2021/10/04 15:38:22 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,23 +50,24 @@ int	test_fork(t_path *path)
 	return (1);
 }
 
+int	ft_builtins(t_pipes *pipes, t_path *path, int buf[2])
+{
+	pipes->error = init_redi(path, pipes, buf);
+	ft_dup_redi(pipes, buf);
+	ft_close(buf[1], buf[0], path->pipe_in, path->pipe_out);
+	check_builtins(pipes, path, path->path);
+	return (5);
+}
+
 int	ft_pipe(t_pipes *pipes, t_path *path, int buf_fd[2])
 {
 	int		buf[2];
 	pid_t	pid[2];
 
-	pipes->put[0] = -1;
-	pipes->put[1] = -1;
-	buf[0] = -1;
-	buf[1] = -1;
-	
-	
+	init_ft_pipe(pipes, buf);
 	if (path->starting == 1 && pipes->next == NULL && pipes->builtin == 1)
 	{
-		ft_dup_redi(pipes, buf);
-		ft_close(buf[1], buf[0], path->pipe_in, path->pipe_out);
-		check_builtins(pipes, path, path->path);
-		return (5);
+		return (ft_builtins(pipes, path, buf));
 	}
 	pid[0] = 0;
 	if (test_fork(path))
@@ -74,29 +75,14 @@ int	ft_pipe(t_pipes *pipes, t_path *path, int buf_fd[2])
 	if (pid[0] == 0)
 	{
 		if (pipes->next != NULL)
-		{
-		//	ft_close(buf_fd[0], buf_fd[1], -1, -1);
 			ft_pipe(pipes->next, path, buf_fd);
-		}
 		if (path->exec == 0)
-		{	pipes->error = init_redi(path, pipes, buf);
+		{	
+			pipes->error = init_redi(path, pipes, buf);
 			pid[1] = father_0(pipes, path, buf);
 		}
 	}
 	return (5);
-}
-
-void	init_path_shell(t_path *path)
-{
-	path->first[0] = 0;
-	path->pipe_in = -1;
-	path->pipe_out = -1;
-	path->starting = 1;
-	path->dont = 0;
-	path->exec = 0;
-	path->father = 1;
-	path->buffer_fd[0] = -1;
-	path->buffer_fd[1] = -1;
 }
 
 int	ft_shell(t_parser *parser, t_path *path)
@@ -104,8 +90,6 @@ int	ft_shell(t_parser *parser, t_path *path)
 	int	buffer_fd[2];
 	int	status;
 
-	buffer_fd[0] = -1;
-	buffer_fd[1] = -1;
 	init_path_shell(path);
 	if (parser->pipe != NULL)
 		ft_pipe(parser->pipe, path, buffer_fd);

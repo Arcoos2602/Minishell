@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 14:04:46 by gbabeau           #+#    #+#             */
-/*   Updated: 2021/10/03 16:27:16 by user42           ###   ########.fr       */
+/*   Updated: 2021/10/04 15:19:44 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_count(char *str, int *i, char *test)
 	return (cpt);
 }
 
-int ft_count_dol(char *str, int *i, char *test)
+int	ft_count_dol(char *str, int *i, char *test)
 {
 	int	cpt;
 

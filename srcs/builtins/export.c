@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gbabeau <gbabeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:31:47 by user42            #+#    #+#             */
-/*   Updated: 2021/10/03 16:23:28 by user42           ###   ########.fr       */
+/*   Updated: 2021/10/04 15:27:32 by gbabeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,33 +16,27 @@
 int	ft_test_new_env(char *var, t_path *path, char *dst)
 {
 	int	a;
+	int	b;
 
+	b = 0;
 	a = 0;
-	while (var[a] != '\0' && var[a] != '=' && (var[a] != '+' || var[a +1] != '='))
+	while (var[a] != '\0' && var[a] != '='
+		&& (var[a] != '+' || var[a + 1] != '='))
 	{
 		if (!ft_compare_c_to_s(var[a++], ENV))
-		{
-			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd("export: `", 2);
-			ft_putstr_fd(dst, 2);
-			ft_putstr_fd("': not a valid identifier", 2);
-			ft_putstr_fd("\n", 2);
-			free(var);
-			path->exit_status = 1;
-			return (1);
-		}
+			b = 1;
 	}
-	if (a == 0)
+	if (a == 0 || b == 1)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd("export: `", 2);
-			ft_putstr_fd(dst, 2);
-			ft_putstr_fd("': not a valid identifier", 2);
-			ft_putstr_fd("\n", 2);
-			free(var);
-			path->exit_status = 1;
-			return (1);
+		ft_putstr_fd("export: `", 2);
+		ft_putstr_fd(dst, 2);
+		ft_putstr_fd("': not a valid identifier", 2);
+		ft_putstr_fd("\n", 2);
+		free(var);
+		path->exit_status = 1;
+		return (1);
 	}
 	return (0);
 }
@@ -67,9 +61,7 @@ char	**env_add2(char **env, char *var, char *buf)
 				env[x] = ft_strdup(var);
 			}
 			else
-			{
 				env[x] = ft_strjoin(env[x], &var[ft_strlen(buf) + 2]);
-			}
 		}
 		x++;
 	}
@@ -82,7 +74,8 @@ int	ft_size_arg_add(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] != '\0' && str[i] != '=' &&  (str[i] != '+' || str[i + 1] != '=') )
+	while (str[i] != '\0' && str[i] != '='
+		&& (str[i] != '+' || str[i + 1] != '='))
 		i++;
 	return (i);
 }
