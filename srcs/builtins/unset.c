@@ -74,8 +74,15 @@ char	**env_delete(char **env, char *var)
 
 int	ft_check_var_unset(char *var)
 {
-	if (ft_compare_s_to_s(var, "$'\"=><| "))
-		return (0);
+	int i;
+
+	i = 0;
+	while (var[i] != '\0')
+	{
+		if (!ft_compare_c_to_s(var[i], ENV))
+			return (0);
+		i++;
+	}
 	return (1);
 }
 
