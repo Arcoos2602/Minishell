@@ -51,6 +51,7 @@ typedef struct s_path
 	int			out_fd;
 	t_parser	*parser;
 	int			exit_status;
+	int			buffer_fd[2];
 }				t_path;
 
 int				elem(char *str, int *cpt, int *i);

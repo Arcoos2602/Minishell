@@ -50,7 +50,7 @@ int	test_fork(t_path *path)
 	return (1);
 }
 
-int	ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2)
+int	ft_pipe(t_pipes *pipes, t_path *path, int buf_fd[2])
 {
 	int		buf[2];
 	pid_t	pid[2];
@@ -59,6 +59,8 @@ int	ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2)
 	pipes->put[1] = -1;
 	buf[0] = -1;
 	buf[1] = -1;
+	
+	
 	if (path->starting == 1 && pipes->next == NULL && pipes->builtin == 1)
 	{
 		ft_dup_redi(pipes, buf);
@@ -72,19 +74,20 @@ int	ft_pipe(t_pipes *pipes, t_path *path, pid_t *pid_2)
 	if (pid[0] == 0)
 	{
 		if (pipes->next != NULL)
-			ft_pipe(pipes->next, path, pid_2);
-		if (path->exec == 0)
 		{
-			pipes->error = init_redi(path, pipes, buf);
+		//	ft_close(buf_fd[0], buf_fd[1], -1, -1);
+			ft_pipe(pipes->next, path, buf_fd);
+		}
+		if (path->exec == 0)
+		{	pipes->error = init_redi(path, pipes, buf);
 			pid[1] = father_0(pipes, path, buf);
 		}
 	}
 	return (5);
 }
 
-void	init_path_shell(int *pid_2, t_path *path)
+void	init_path_shell(t_path *path)
 {
-	*pid_2 = 0;
 	path->first[0] = 0;
 	path->pipe_in = -1;
 	path->pipe_out = -1;
@@ -92,16 +95,20 @@ void	init_path_shell(int *pid_2, t_path *path)
 	path->dont = 0;
 	path->exec = 0;
 	path->father = 1;
+	path->buffer_fd[0] = -1;
+	path->buffer_fd[1] = -1;
 }
 
 int	ft_shell(t_parser *parser, t_path *path)
 {
-	int	pid_2;
+	int	buffer_fd[2];
 	int	status;
 
-	init_path_shell(&pid_2, path);
+	buffer_fd[0] = -1;
+	buffer_fd[1] = -1;
+	init_path_shell(path);
 	if (parser->pipe != NULL)
-		ft_pipe(parser->pipe, path, &pid_2);
+		ft_pipe(parser->pipe, path, buffer_fd);
 	ft_close(-1, -1, path->pipe_out, path->pipe_in);
 	dup2(path->out_fd, 1);
 	dup2(path->in_fd, 0);
