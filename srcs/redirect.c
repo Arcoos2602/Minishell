@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 19:23:02 by user42            #+#    #+#             */
-/*   Updated: 2021/10/02 16:40:11 by user42           ###   ########.fr       */
+/*   Updated: 2021/10/04 09:35:58 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,6 @@ void	ft_free_redi(t_redi *redi)
 
 int	init_redi(t_path *path, t_pipes *pipes, int buf[2])
 {
-	pipes->put[0] = -1;
-	pipes->put[1] = -1;
-	buf[0] = -1;
-	buf[1] = -1;
 	if (pipes->redi == NULL)
 		return (1);
 	if (pipes->redi->type == -10)
