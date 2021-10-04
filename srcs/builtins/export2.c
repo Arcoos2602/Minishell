@@ -27,7 +27,13 @@ char	**new_env_exp(char **env, char *to_add, int size)
 		new[x] = ft_strdup(env[x]);
 		x++;
 	}
-	new[x] = ft_strdup(to_add);
+	if (to_add[ft_size_arg_add(to_add)] != '+')
+		new[x] = ft_strdup(to_add);
+	else
+	{
+		new[x] = ft_strndup(to_add, ft_size_arg_add(to_add));
+		new[x] = ft_strjoin(new[x], &to_add[ft_size_arg_add(to_add) + 1]);
+	}
 	new[++x] = NULL;
 	x = 0;
 	while (env[x] != NULL)

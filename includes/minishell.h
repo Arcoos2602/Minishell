@@ -136,4 +136,5 @@ int				ft_open_here_doc(t_redi *re, t_path *pat, int *pipe_in, int *p);
 int				file_error(char *str);
 char			*dup_rediput(char *lexer);
 int 			ft_count_dol(char *str, int *i, char *test);
+int				ft_size_arg_add(char *str);
 #endif

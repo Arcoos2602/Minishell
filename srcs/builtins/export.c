@@ -13,24 +13,36 @@
 #include "../../libft/include/libft.h"
 #include "../../includes/minishell.h"
 
-int	ft_test_new_env(char *var, t_path *path)
+int	ft_test_new_env(char *var, t_path *path, char *dst)
 {
 	int	a;
 
 	a = 0;
-	while (var[a] != '\0' && var[a] != '=')
+	while (var[a] != '\0' && var[a] != '=' && (var[a] != '+' || var[a +1] != '='))
 	{
 		if (!ft_compare_c_to_s(var[a++], ENV))
 		{
 			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd("export: `", 2);
-			ft_putstr_fd(var, 2);
+			ft_putstr_fd(dst, 2);
 			ft_putstr_fd("': not a valid identifier", 2);
 			ft_putstr_fd("\n", 2);
 			free(var);
 			path->exit_status = 1;
 			return (1);
 		}
+	}
+	if (a == 0)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd("export: `", 2);
+			ft_putstr_fd(dst, 2);
+			ft_putstr_fd("': not a valid identifier", 2);
+			ft_putstr_fd("\n", 2);
+			free(var);
+			path->exit_status = 1;
+			return (1);
 	}
 	return (0);
 }
@@ -49,8 +61,15 @@ char	**env_add2(char **env, char *var, char *buf)
 		if (j == (int)(ft_strlen(buf))
 			&& ft_strncmp(buf, env[x], ft_strlen(buf)) == 0)
 		{
-			free(env[x]);
-			env[x] = ft_strdup(var);
+			if (var[ft_strlen(buf)] != '+')
+			{
+				free(env[x]);
+				env[x] = ft_strdup(var);
+			}
+			else
+			{
+				env[x] = ft_strjoin(env[x], &var[ft_strlen(buf) + 2]);
+			}
 		}
 		x++;
 	}
@@ -63,7 +82,7 @@ int	ft_size_arg_add(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] != '\0' && str[i] != '=')
+	while (str[i] != '\0' && str[i] != '=' &&  (str[i] != '+' || str[i + 1] != '=') )
 		i++;
 	return (i);
 }
@@ -76,7 +95,7 @@ char	**env_add(char **env, char *var, t_path *path)
 	(void)(path);
 	i = -1;
 	buf = ft_strndup(var, ft_size_arg_add(var));
-	if (ft_test_new_env(buf, path))
+	if (ft_test_new_env(buf, path, var))
 		return (env);
 	if (ft_getenv(env, buf) == NULL && ft_compare_c_to_s('=', var))
 	{
