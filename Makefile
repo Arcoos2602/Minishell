@@ -42,6 +42,7 @@ SRCS =  srcs/lexer/lexer.c \
 		srcs/redirect.c \
 		srcs/redirect_2.c \
 		srcs/get_next_line.c \
+		srcs/init_shell.c \
 
 OBJS = $(SRCS:.c=.o)
 
