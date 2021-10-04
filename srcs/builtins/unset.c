@@ -74,7 +74,7 @@ char	**env_delete(char **env, char *var)
 
 int	ft_check_var_unset(char *var)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (var[i] != '\0')
